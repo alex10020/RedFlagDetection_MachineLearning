@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "red-flag-detector"
+version = "0.1.0"
+description = "Scores dating-app messages for insults, put-downs and threats"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "scikit-learn",
+    "joblib",
+    "gradio",
+]
+
+[project.optional-dependencies]
+deep = ["torch", "transformers", "datasets"]
+dev = ["pytest", "jupyter", "ipykernel", "nbconvert", "nbformat"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
