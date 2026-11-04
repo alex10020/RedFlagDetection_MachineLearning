@@ -22,7 +22,7 @@ Always answering "not toxic" reaches 89.8% accuracy on the D2 test and an F1 of 
 
 ## What this means for the next models
 
-A CNN sees word order over 3 to 5 words, and DistilBERT sees the whole sentence. Both could separate "you're such an idiot lol i love it" from a real insult, so we now have a specific test for the research question. Neither will learn threats it rarely sees: D2 has 478 threat comments among 159,571.
+A CNN sees word order over 3 to 5 words, and DistilBERT sees the whole sentence. Both could separate "you're such an idiot lol i love it" from a real insult, so we now have a specific test for the research question. Threats may stay hard for both, because D2 has only 478 threat comments among 159,571.
 
 ## Limits of these numbers
 
