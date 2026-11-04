@@ -2,16 +2,10 @@ name: red-flag-detector
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python=3.13
   - pip
-  - numpy
-  - pandas
-  - matplotlib
-  - scikit-learn
-  - joblib
   - jupyter
   - ipykernel
-  - pytest
   - pip:
-      - gradio
+      - -r requirements.txt
       - -e .
