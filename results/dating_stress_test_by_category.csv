@@ -1,0 +1,13 @@
+label,scope,category,messages,flagged,flag_rate
+0,core,friendly_flirt,10,1,0.1
+0,core,healthy_conflict,10,0,0.0
+0,core,identity_mention,10,0,0.0
+0,core,neutral_logistics,10,0,0.0
+0,core,playful_banter,10,8,0.8
+0,core,polite_rejection,10,0,0.0
+1,core,explicit_insult,10,10,1.0
+1,core,put_down,10,1,0.1
+1,core,threat,10,2,0.2
+1,stretch,gaslighting,10,3,0.3
+1,stretch,guilt_manipulation,10,3,0.3
+1,stretch,sexual_pressure,10,1,0.1

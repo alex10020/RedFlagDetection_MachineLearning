@@ -1,0 +1,4 @@
+,precision,recall,f1,F1 95% interval
+D2 test (online comments),0.81,0.767,0.788,
+"Dating test, core",0.591,0.433,0.5,0.31 to 0.65
+"Dating test, core and stretch",0.69,0.333,0.449,0.32 to 0.57
