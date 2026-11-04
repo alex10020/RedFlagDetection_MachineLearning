@@ -1,50 +1,50 @@
-id,text,label,category,scope,score,flagged
-S065,"you're kind of dangerously charming, you know",0,friendly_flirt,core,0.882,1
-S051,"that never happened, you're imagining things again",1,gaslighting,stretch,0.129,0
-S053,"i never said that, you always twist my words",1,gaslighting,stretch,0.195,0
-S055,you remember it wrong like you always do,1,gaslighting,stretch,0.13,0
-S057,"you know you sound insane right now, right?",1,gaslighting,stretch,0.488,0
-S058,"nobody else has a problem with me, so it must be you",1,gaslighting,stretch,0.245,0
-S059,"i didn't do anything, you just get paranoid",1,gaslighting,stretch,0.285,0
-S060,if you weren't so emotional you'd see i'm right,1,gaslighting,stretch,0.532,0
-S041,after everything i've done for you this is how you treat me,1,guilt_manipulation,stretch,0.014,0
-S042,if you go out with your friends tonight don't bother coming back,1,guilt_manipulation,stretch,0.277,0
-S043,i guess i just don't matter to you at all,1,guilt_manipulation,stretch,0.234,0
-S045,nobody else would put up with you like i do,1,guilt_manipulation,stretch,0.736,0
-S046,give me your phone password if you have nothing to hide,1,guilt_manipulation,stretch,0.243,0
-S047,why were you online and not answering me? who were you talking to,1,guilt_manipulation,stretch,0.063,0
-S048,"you don't need your friends, you have me",1,guilt_manipulation,stretch,0.42,0
-S081,you're such an idiot lol i love it,0,playful_banter,core,1.0,1
-S082,shut up that's hilarious,0,playful_banter,core,0.998,1
-S083,holy shit that is the cutest dog ever,0,playful_banter,core,1.0,1
-S084,"you absolute nerd, of course you own a label maker",0,playful_banter,core,0.944,1
-S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,core,0.999,1
-S086,"you little liar, you said you couldn't cook!",0,playful_banter,core,0.978,1
-S088,"that movie was fucking great, thanks for picking it",0,playful_banter,core,1.0,1
-S090,"ok loser, rematch at bowling on saturday",0,playful_banter,core,0.781,1
-S011,you'd be pretty if you lost some weight,1,put_down,core,0.12,0
-S012,you're not really my type but i guess i'll settle tonight,1,put_down,core,0.104,0
-S013,cute that you think anyone would take your job seriously,1,put_down,core,0.309,0
-S014,i usually date people way smarter than you but ok,1,put_down,core,0.036,0
-S015,not bad for someone your age i suppose,1,put_down,core,0.083,0
-S016,you talk a lot for someone with so little to say,1,put_down,core,0.042,0
-S017,you should be grateful someone like me even replied,1,put_down,core,0.123,0
-S018,that outfit is brave for someone with your body,1,put_down,core,0.344,0
-S020,honestly you're lucky i lowered my standards this month,1,put_down,core,0.42,0
-S031,"come on, send a pic, everyone does it",1,sexual_pressure,stretch,0.635,0
-S032,if you liked me you would come over tonight and stay,1,sexual_pressure,stretch,0.707,0
-S033,you owe me after i paid for dinner,1,sexual_pressure,stretch,0.495,0
-S034,stop being a tease and just say yes already,1,sexual_pressure,stretch,0.508,0
-S036,"you came on a date, what did you think was going to happen",1,sexual_pressure,stretch,0.055,0
-S037,"don't be so frigid, it's just one photo",1,sexual_pressure,stretch,0.052,0
-S038,you've been leading me on so now you have to make it up to me,1,sexual_pressure,stretch,0.474,0
-S039,"no one will know, just do what i asked",1,sexual_pressure,stretch,0.016,0
-S040,"i asked three times already, stop saying no",1,sexual_pressure,stretch,0.063,0
-S022,"i know where you work, so think carefully about your next text",1,threat,core,0.037,0
-S023,block me and i'll show up at your place,1,threat,core,0.699,0
-S024,keep talking like that and see what happens to you,1,threat,core,0.139,0
-S025,i'll make sure everyone sees those photos if you leave,1,threat,core,0.087,0
-S027,"i can find you whenever i want, remember that",1,threat,core,0.258,0
-S028,say no to me again and i'll ruin your life,1,threat,core,0.421,0
-S029,watch your back after what you did to me,1,threat,core,0.088,0
-S030,i will make you pay for embarrassing me,1,threat,core,0.459,0
+id,text,label,category,topic,score,flagged
+S065,"you're kind of dangerously charming, you know",0,friendly_flirt,harmless,0.882,1
+S051,"that never happened, you're imagining things again",1,gaslighting,gaslighting,0.129,0
+S053,"i never said that, you always twist my words",1,gaslighting,gaslighting,0.195,0
+S055,you remember it wrong like you always do,1,gaslighting,gaslighting,0.13,0
+S057,"you know you sound insane right now, right?",1,gaslighting,gaslighting,0.488,0
+S058,"nobody else has a problem with me, so it must be you",1,gaslighting,gaslighting,0.245,0
+S059,"i didn't do anything, you just get paranoid",1,gaslighting,gaslighting,0.285,0
+S060,if you weren't so emotional you'd see i'm right,1,gaslighting,gaslighting,0.532,0
+S041,after everything i've done for you this is how you treat me,1,guilt_manipulation,other_harm,0.014,0
+S042,if you go out with your friends tonight don't bother coming back,1,guilt_manipulation,other_harm,0.277,0
+S043,i guess i just don't matter to you at all,1,guilt_manipulation,other_harm,0.234,0
+S045,nobody else would put up with you like i do,1,guilt_manipulation,other_harm,0.736,0
+S046,give me your phone password if you have nothing to hide,1,guilt_manipulation,other_harm,0.243,0
+S047,why were you online and not answering me? who were you talking to,1,guilt_manipulation,other_harm,0.063,0
+S048,"you don't need your friends, you have me",1,guilt_manipulation,other_harm,0.42,0
+S081,you're such an idiot lol i love it,0,playful_banter,harmless,1.0,1
+S082,shut up that's hilarious,0,playful_banter,harmless,0.998,1
+S083,holy shit that is the cutest dog ever,0,playful_banter,harmless,1.0,1
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.944,1
+S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,harmless,0.999,1
+S086,"you little liar, you said you couldn't cook!",0,playful_banter,harmless,0.978,1
+S088,"that movie was fucking great, thanks for picking it",0,playful_banter,harmless,1.0,1
+S090,"ok loser, rematch at bowling on saturday",0,playful_banter,harmless,0.781,1
+S011,you'd be pretty if you lost some weight,1,put_down,toxic,0.12,0
+S012,you're not really my type but i guess i'll settle tonight,1,put_down,toxic,0.104,0
+S013,cute that you think anyone would take your job seriously,1,put_down,toxic,0.309,0
+S014,i usually date people way smarter than you but ok,1,put_down,toxic,0.036,0
+S015,not bad for someone your age i suppose,1,put_down,toxic,0.083,0
+S016,you talk a lot for someone with so little to say,1,put_down,toxic,0.042,0
+S017,you should be grateful someone like me even replied,1,put_down,toxic,0.123,0
+S018,that outfit is brave for someone with your body,1,put_down,toxic,0.344,0
+S020,honestly you're lucky i lowered my standards this month,1,put_down,toxic,0.42,0
+S031,"come on, send a pic, everyone does it",1,sexual_pressure,other_harm,0.635,0
+S032,if you liked me you would come over tonight and stay,1,sexual_pressure,other_harm,0.707,0
+S033,you owe me after i paid for dinner,1,sexual_pressure,other_harm,0.495,0
+S034,stop being a tease and just say yes already,1,sexual_pressure,other_harm,0.508,0
+S036,"you came on a date, what did you think was going to happen",1,sexual_pressure,other_harm,0.055,0
+S037,"don't be so frigid, it's just one photo",1,sexual_pressure,other_harm,0.052,0
+S038,you've been leading me on so now you have to make it up to me,1,sexual_pressure,other_harm,0.474,0
+S039,"no one will know, just do what i asked",1,sexual_pressure,other_harm,0.016,0
+S040,"i asked three times already, stop saying no",1,sexual_pressure,other_harm,0.063,0
+S022,"i know where you work, so think carefully about your next text",1,threat,toxic,0.037,0
+S023,block me and i'll show up at your place,1,threat,toxic,0.699,0
+S024,keep talking like that and see what happens to you,1,threat,toxic,0.139,0
+S025,i'll make sure everyone sees those photos if you leave,1,threat,toxic,0.087,0
+S027,"i can find you whenever i want, remember that",1,threat,toxic,0.258,0
+S028,say no to me again and i'll ruin your life,1,threat,toxic,0.421,0
+S029,watch your back after what you did to me,1,threat,toxic,0.088,0
+S030,i will make you pay for embarrassing me,1,threat,toxic,0.459,0

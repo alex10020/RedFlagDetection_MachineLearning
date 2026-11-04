@@ -44,7 +44,7 @@ def category_report(stress: pd.DataFrame, scores, threshold: float) -> pd.DataFr
     flagged = np.asarray(scores) >= threshold
     table = (
         stress.assign(flagged=flagged)
-        .groupby(["label", "scope", "category"], as_index=False)
+        .groupby(["label", "topic", "category"], as_index=False)
         .agg(messages=("flagged", "size"), flagged=("flagged", "sum"))
     )
     table["flag_rate"] = table["flagged"] / table["messages"]

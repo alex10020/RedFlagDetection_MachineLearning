@@ -48,7 +48,7 @@ STYLE = """
 """
 
 NOTE = (
-    "Support tool only. Baseline v0 reacts to rude words and misses most put-downs and threats, "
+    "Support tool only. Baseline v0 reacts to rude words and misses most put-downs, threats and gaslighting, "
     "so a message with no flag can still be harmful. Scores are model outputs, not calibrated chances. "
     "If you feel unsafe, trust that feeling and talk to someone you trust or a local support service."
 )
@@ -104,7 +104,8 @@ def build_app(model_path: Path = DEFAULT_MODEL) -> gr.Blocks:
     with gr.Blocks(title="Red Flag Detector", analytics_enabled=False) as app:
         gr.Markdown(
             "# Red Flag Detector\nPaste a dating chat, one message per line as `Name: message`. "
-            "WhatsApp exports work too. We do not save your chat."
+            "WhatsApp exports work too. We do not save your chat. "
+            "This version scores toxic language. A separate gaslighting score comes next."
         )
         with gr.Row():
             with gr.Column(scale=2):

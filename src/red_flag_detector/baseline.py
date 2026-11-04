@@ -71,14 +71,17 @@ def run(data_path: Path, stress_path: Path, results_dir: Path, model_path: Path)
     stress = load_stress_test(stress_path)
     stress_scores = model.predict_proba(stress["text"])[:, 1]
     stress_flags = (stress_scores >= threshold).astype(int)
-    core = (stress["scope"] == "core").to_numpy()
     harmless = (stress["label"] == 0).to_numpy()
-    summary = {
-        "all": binary_metrics(stress["label"], stress_scores, threshold),
-        "core": binary_metrics(stress["label"][core], stress_scores[core], threshold),
+    groups = {
+        "all": np.ones(len(stress), dtype=bool),
+        "toxic_vs_harmless": ((stress["topic"] == "toxic") | harmless).to_numpy(),
+        "gaslighting_vs_harmless": ((stress["topic"] == "gaslighting") | harmless).to_numpy(),
     }
-    summary["all"]["f1_95ci"] = bootstrap_interval(stress["label"], stress_flags)
-    summary["core"]["f1_95ci"] = bootstrap_interval(stress["label"][core], stress_flags[core])
+    summary = {}
+    for name, rows in groups.items():
+        summary[name] = binary_metrics(stress["label"][rows], stress_scores[rows], threshold)
+        summary[name]["messages"] = int(rows.sum())
+        summary[name]["f1_95ci"] = bootstrap_interval(stress["label"][rows], stress_flags[rows])
     summary["false_positive_rate"] = float(stress_flags[harmless].mean())
 
     results_dir.mkdir(parents=True, exist_ok=True)

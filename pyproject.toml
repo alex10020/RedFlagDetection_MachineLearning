@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "red-flag-detector"
 version = "0.1.0"
-description = "Scores dating-app messages for insults, put-downs and threats"
+description = "Scores dating-app messages for toxic language and gaslighting"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
