@@ -1,0 +1,121 @@
+id,text,label,category,scope,label_status
+S001,you're honestly the dumbest person i've ever matched with,1,explicit_insult,core,draft_ai
+S002,"wow you are pathetic, no wonder you're still single",1,explicit_insult,core,draft_ai
+S003,you're an idiot and your bio proves it,1,explicit_insult,core,draft_ai
+S004,"nobody asked you, you ugly loser",1,explicit_insult,core,draft_ai
+S005,what a waste of a match. you're worthless,1,explicit_insult,core,draft_ai
+S006,"shut up, you stupid clown",1,explicit_insult,core,draft_ai
+S007,"you look even worse than your pics, disgusting",1,explicit_insult,core,draft_ai
+S008,"god you're such a boring, brainless moron",1,explicit_insult,core,draft_ai
+S009,you're trash. delete your profile,1,explicit_insult,core,draft_ai
+S010,you absolute failure of a human being,1,explicit_insult,core,draft_ai
+S011,you'd be pretty if you lost some weight,1,put_down,core,draft_ai
+S012,you're not really my type but i guess i'll settle tonight,1,put_down,core,draft_ai
+S013,cute that you think anyone would take your job seriously,1,put_down,core,draft_ai
+S014,i usually date people way smarter than you but ok,1,put_down,core,draft_ai
+S015,not bad for someone your age i suppose,1,put_down,core,draft_ai
+S016,you talk a lot for someone with so little to say,1,put_down,core,draft_ai
+S017,you should be grateful someone like me even replied,1,put_down,core,draft_ai
+S018,that outfit is brave for someone with your body,1,put_down,core,draft_ai
+S019,your degree must have been easy if they let you in,1,put_down,core,draft_ai
+S020,honestly you're lucky i lowered my standards this month,1,put_down,core,draft_ai
+S021,you'll regret ignoring me,1,threat,core,draft_ai
+S022,"i know where you work, so think carefully about your next text",1,threat,core,draft_ai
+S023,block me and i'll show up at your place,1,threat,core,draft_ai
+S024,keep talking like that and see what happens to you,1,threat,core,draft_ai
+S025,i'll make sure everyone sees those photos if you leave,1,threat,core,draft_ai
+S026,you better answer me or you're going to get hurt,1,threat,core,draft_ai
+S027,"i can find you whenever i want, remember that",1,threat,core,draft_ai
+S028,say no to me again and i'll ruin your life,1,threat,core,draft_ai
+S029,watch your back after what you did to me,1,threat,core,draft_ai
+S030,i will make you pay for embarrassing me,1,threat,core,draft_ai
+S031,"come on, send a pic, everyone does it",1,sexual_pressure,stretch,draft_ai
+S032,if you liked me you would come over tonight and stay,1,sexual_pressure,stretch,draft_ai
+S033,you owe me after i paid for dinner,1,sexual_pressure,stretch,draft_ai
+S034,stop being a tease and just say yes already,1,sexual_pressure,stretch,draft_ai
+S035,i won't keep talking to you unless you send something hot,1,sexual_pressure,stretch,draft_ai
+S036,"you came on a date, what did you think was going to happen",1,sexual_pressure,stretch,draft_ai
+S037,"don't be so frigid, it's just one photo",1,sexual_pressure,stretch,draft_ai
+S038,you've been leading me on so now you have to make it up to me,1,sexual_pressure,stretch,draft_ai
+S039,"no one will know, just do what i asked",1,sexual_pressure,stretch,draft_ai
+S040,"i asked three times already, stop saying no",1,sexual_pressure,stretch,draft_ai
+S041,after everything i've done for you this is how you treat me,1,guilt_manipulation,stretch,draft_ai
+S042,if you go out with your friends tonight don't bother coming back,1,guilt_manipulation,stretch,draft_ai
+S043,i guess i just don't matter to you at all,1,guilt_manipulation,stretch,draft_ai
+S044,"you're the reason i'm like this, you know that",1,guilt_manipulation,stretch,draft_ai
+S045,nobody else would put up with you like i do,1,guilt_manipulation,stretch,draft_ai
+S046,give me your phone password if you have nothing to hide,1,guilt_manipulation,stretch,draft_ai
+S047,why were you online and not answering me? who were you talking to,1,guilt_manipulation,stretch,draft_ai
+S048,"you don't need your friends, you have me",1,guilt_manipulation,stretch,draft_ai
+S049,if you loved me you would quit that job,1,guilt_manipulation,stretch,draft_ai
+S050,"i can't believe you'd do this to me after i opened up, you're so selfish",1,guilt_manipulation,stretch,draft_ai
+S051,"that never happened, you're imagining things again",1,gaslighting,stretch,draft_ai
+S052,"you're way too sensitive, it was obviously a joke",1,gaslighting,stretch,draft_ai
+S053,"i never said that, you always twist my words",1,gaslighting,stretch,draft_ai
+S054,"you're crazy, everyone agrees with me on this",1,gaslighting,stretch,draft_ai
+S055,you remember it wrong like you always do,1,gaslighting,stretch,draft_ai
+S056,"you're making a big deal out of nothing, as usual",1,gaslighting,stretch,draft_ai
+S057,"you know you sound insane right now, right?",1,gaslighting,stretch,draft_ai
+S058,"nobody else has a problem with me, so it must be you",1,gaslighting,stretch,draft_ai
+S059,"i didn't do anything, you just get paranoid",1,gaslighting,stretch,draft_ai
+S060,if you weren't so emotional you'd see i'm right,1,gaslighting,stretch,draft_ai
+S061,"you have the best smile, i couldn't not swipe right",0,friendly_flirt,core,draft_ai
+S062,so when do i get to beat you at mini golf?,0,friendly_flirt,core,draft_ai
+S063,that photo with your dog just won me over,0,friendly_flirt,core,draft_ai
+S064,"i had a really good time last night, want to do it again?",0,friendly_flirt,core,draft_ai
+S065,"you're kind of dangerously charming, you know",0,friendly_flirt,core,draft_ai
+S066,coffee this weekend? i know a place with great pastries,0,friendly_flirt,core,draft_ai
+S067,you're cute when you get excited about space documentaries,0,friendly_flirt,core,draft_ai
+S068,okay your taste in music is unfairly good,0,friendly_flirt,core,draft_ai
+S069,i've been smiling at my phone all day because of you,0,friendly_flirt,core,draft_ai
+S070,"tell me your best first date story, i'll judge it fairly",0,friendly_flirt,core,draft_ai
+S071,"i'm running ten minutes late, the metro is stuck",0,neutral_logistics,core,draft_ai
+S072,does 7:30 work or is that too early for you?,0,neutral_logistics,core,draft_ai
+S073,the restaurant is on the corner next to the pharmacy,0,neutral_logistics,core,draft_ai
+S074,can you send me the address again?,0,neutral_logistics,core,draft_ai
+S075,i finish work at six on thursdays,0,neutral_logistics,core,draft_ai
+S076,should i book a table or just walk in?,0,neutral_logistics,core,draft_ai
+S077,"my phone died, sorry, just saw your message",0,neutral_logistics,core,draft_ai
+S078,"i'm near the entrance, wearing a green jacket",0,neutral_logistics,core,draft_ai
+S079,are you okay with sushi or would you rather have pizza?,0,neutral_logistics,core,draft_ai
+S080,i'll grab the tickets online tonight,0,neutral_logistics,core,draft_ai
+S081,you're such an idiot lol i love it,0,playful_banter,core,draft_ai
+S082,shut up that's hilarious,0,playful_banter,core,draft_ai
+S083,holy shit that is the cutest dog ever,0,playful_banter,core,draft_ai
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,core,draft_ai
+S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,core,draft_ai
+S086,"you little liar, you said you couldn't cook!",0,playful_banter,core,draft_ai
+S087,"i can't believe you like pineapple on pizza, you monster",0,playful_banter,core,draft_ai
+S088,"that movie was fucking great, thanks for picking it",0,playful_banter,core,draft_ai
+S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,core,draft_ai
+S090,"ok loser, rematch at bowling on saturday",0,playful_banter,core,draft_ai
+S091,thanks for the date but i don't feel a connection,0,polite_rejection,core,draft_ai
+S092,"i'm not interested, but i wish you the best",0,polite_rejection,core,draft_ai
+S093,"please don't text me anymore, i've made up my mind",0,polite_rejection,core,draft_ai
+S094,"i don't send photos, that's a boundary for me",0,polite_rejection,core,draft_ai
+S095,i'd rather not go home with you tonight,0,polite_rejection,core,draft_ai
+S096,"no thank you, i'm going to head home now",0,polite_rejection,core,draft_ai
+S097,i've met someone else so i'm going to stop chatting here,0,polite_rejection,core,draft_ai
+S098,"i'm not comfortable with that, let's slow down",0,polite_rejection,core,draft_ai
+S099,i don't think we want the same things,0,polite_rejection,core,draft_ai
+S100,"i need some space this week, i'll reach out if that changes",0,polite_rejection,core,draft_ai
+S101,"i'm gay and pretty new to this city, any tips?",0,identity_mention,core,draft_ai
+S102,as a black woman i really loved that book you mentioned,0,identity_mention,core,draft_ai
+S103,"my muslim family does a huge dinner for eid, you'd love the food",0,identity_mention,core,draft_ai
+S104,i'm trans and i like to mention it early on,0,identity_mention,core,draft_ai
+S105,i'm jewish so friday nights are usually with my family,0,identity_mention,core,draft_ai
+S106,"i'm bisexual, hope that's not a surprise to you",0,identity_mention,core,draft_ai
+S107,i grew up in mexico and moved here for university,0,identity_mention,core,draft_ai
+S108,i use a wheelchair so let's choose somewhere accessible,0,identity_mention,core,draft_ai
+S109,"i'm a single mom of two, they're my whole world",0,identity_mention,core,draft_ai
+S110,i'm a lesbian and my last relationship lasted four years,0,identity_mention,core,draft_ai
+S111,"i was hurt when you cancelled last minute, can we talk about it?",0,healthy_conflict,core,draft_ai
+S112,"i disagree, but i see where you're coming from",0,healthy_conflict,core,draft_ai
+S113,"that joke didn't land well with me, please don't say it again",0,healthy_conflict,core,draft_ai
+S114,i felt ignored at the party and i wanted to tell you,0,healthy_conflict,core,draft_ai
+S115,"i'm annoyed right now, let's talk when we've both calmed down",0,healthy_conflict,core,draft_ai
+S116,i think we both messed up on this one,0,healthy_conflict,core,draft_ai
+S117,i really hate it when plans change without warning,0,healthy_conflict,core,draft_ai
+S118,you were late again and that bothers me,0,healthy_conflict,core,draft_ai
+S119,i don't agree with your politics but i respect you for explaining them,0,healthy_conflict,core,draft_ai
+S120,"sorry i snapped earlier, that wasn't fair to you",0,healthy_conflict,core,draft_ai
