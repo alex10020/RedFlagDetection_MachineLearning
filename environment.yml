@@ -1,0 +1,11 @@
+name: red-flag-detector
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - jupyter
+  - ipykernel
+  - pip:
+      - -r requirements.txt
+      - -e .
