@@ -1,6 +1,7 @@
 """Load every dataset into one shape: a `text` column and a binary `label`."""
 
 import re
+from collections.abc import Iterable
 from pathlib import Path
 
 import pandas as pd
@@ -9,7 +10,8 @@ from sklearn.model_selection import train_test_split
 from .validation import validate_binary_labels, validate_required_columns
 
 JIGSAW_TYPES = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
-STRESS_COLUMNS = ["id", "text", "label", "category", "scope", "label_status"]
+STRESS_COLUMNS = ["id", "text", "label", "category", "topic", "label_status"]
+GASLIGHTING_COLUMNS = ["id", "turn", "speaker role", "utterance", "category"]
 
 
 def clean_text(text: str) -> str:
@@ -46,6 +48,36 @@ def load_toxic_conversations(split: str = "train", sample: int | None = None, se
     if sample is not None and sample < len(data):
         data, _ = train_test_split(data, train_size=sample, stratify=data["label"], random_state=seed)
     return data.reset_index(drop=True)
+
+
+def load_gaslighting(paths: Iterable[str | Path]) -> pd.DataFrame:
+    """Load D3 assistant messages, labelled 1 for gaslighting and 0 for safe.
+
+    Pass the JSON files of one official split, both classes together. We keep
+    assistant turns only, because the label describes the assistant's behaviour
+    and user turns come from the same scenarios in both classes. We also drop
+    `internal thought`: it states the speaker's intent, so it would leak the label.
+    Keep the official splits, because safe and gaslighting chats share scenarios.
+    """
+    frames = []
+    for path in paths:
+        path = Path(path)
+        if not path.exists():
+            raise FileNotFoundError(f"Dataset not found: {path}. See data/README.md")
+        frames.append(pd.read_json(path))
+    raw = pd.concat(frames, ignore_index=True)
+    validate_required_columns(raw, GASLIGHTING_COLUMNS)
+    unexpected = set(raw["category"].unique()) - {"gaslighting", "safe"}
+    if unexpected:
+        raise ValueError(f"Unexpected D3 categories: {sorted(unexpected)}")
+    assistant = raw[raw["speaker role"] == "assistant"]
+    return pd.DataFrame(
+        {
+            "text": assistant["utterance"].map(clean_text),
+            "label": assistant["category"].eq("gaslighting").astype(int),
+            "chat_id": assistant["id"],
+        }
+    ).reset_index(drop=True)
 
 
 def load_stress_test(path: str | Path) -> pd.DataFrame:

@@ -5,6 +5,7 @@ from red_flag_detector.data import (
     JIGSAW_TYPES,
     clean_text,
     deduplicate,
+    load_gaslighting,
     load_jigsaw,
     make_splits,
 )
@@ -48,3 +49,28 @@ def test_splits_keep_class_share_and_do_not_overlap():
     for part in (train, val, test):
         assert part["label"].mean() == pytest.approx(0.2)
     assert validate_no_text_overlap(train, val, test)
+
+
+def _d3_row(chat, role, text, category):
+    return {"id": chat, "turn": 0, "speaker": "x", "speaker role": role, "internal thought": "secret", "utterance": text, "category": category}
+
+
+def test_gaslighting_keeps_assistant_turns_and_drops_thoughts(tmp_path):
+    path = tmp_path / "d3.json"
+    rows = [
+        _d3_row(1, "user", "i feel low", "gaslighting"),
+        _d3_row(1, "assistant", "you imagined it", "gaslighting"),
+        _d3_row(1, "assistant", "you did well", "safe"),
+    ]
+    pd.DataFrame(rows).to_json(path, orient="records")
+    data = load_gaslighting([path])
+    assert data["text"].tolist() == ["you imagined it", "you did well"]
+    assert data["label"].tolist() == [1, 0]
+    assert "internal thought" not in data.columns
+
+
+def test_gaslighting_rejects_unknown_category(tmp_path):
+    path = tmp_path / "d3.json"
+    pd.DataFrame([_d3_row(1, "assistant", "hi", "other")]).to_json(path, orient="records")
+    with pytest.raises(ValueError, match="other"):
+        load_gaslighting([path])

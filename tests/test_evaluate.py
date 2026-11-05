@@ -20,7 +20,7 @@ def test_bootstrap_interval_contains_the_metric():
 
 
 def test_category_report_counts_flags():
-    stress = pd.DataFrame({"label": [1, 1, 0], "scope": ["core"] * 3, "category": ["threat", "threat", "flirt"]})
+    stress = pd.DataFrame({"label": [1, 1, 0], "topic": ["toxic", "toxic", "harmless"], "category": ["threat", "threat", "flirt"]})
     table = category_report(stress, [0.9, 0.1, 0.9], threshold=0.5).set_index("category")
     assert table.loc["threat", "flag_rate"] == pytest.approx(0.5)
     assert table.loc["flirt", "flagged"] == 1
