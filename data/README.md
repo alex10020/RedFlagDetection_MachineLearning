@@ -4,7 +4,7 @@ Raw datasets stay out of Git because of their size. Put them in `data/raw/`. All
 
 | ID | Dataset | Use | How to get it |
 |---|---|---|---|
-| D1 | [SetFit/toxic_conversations](https://huggingface.co/datasets/SetFit/toxic_conversations) | Main training set | `load_toxic_conversations()` downloads it |
+| D1 | [SetFit/toxic_conversations](https://huggingface.co/datasets/SetFit/toxic_conversations) | Main training set | `load_toxic_conversations("train")` or `("test")` downloads the JSON lines file (train 617 MB, test 18 MB) into the Hugging Face cache on first use. `read_toxic_conversations(path)` reads a copy you already have |
 | D2 | [Jigsaw Toxic Comment Classification](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge) | Second test, adds toxicity types. Trains the first baseline for now | Download `train.csv` to `data/raw/jigsaw_train.csv`. SHA-256 of our copy: `bd408461...c429d` |
 | D3 | [Maxwe11y/gaslighting](https://huggingface.co/datasets/Maxwe11y/gaslighting) | Main gaslighting training set. Keep its official train, validation and test splits | Download the JSON files to `data/raw/gaslighting/`, then use `load_gaslighting()` |
 | Ours | `dating_stress_test.csv` | Dating test, in this repo | Already here |
