@@ -8,6 +8,7 @@ from .data import (
     load_stress_test,
     load_toxic_conversations,
     make_splits,
+    read_toxic_conversations,
 )
 
 __all__ = [
@@ -18,5 +19,6 @@ __all__ = [
     "load_stress_test",
     "load_toxic_conversations",
     "make_splits",
+    "read_toxic_conversations",
 ]
 __version__ = "0.1.0"

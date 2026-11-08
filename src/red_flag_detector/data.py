@@ -37,17 +37,32 @@ def load_jigsaw(path: str | Path) -> pd.DataFrame:
     return data
 
 
-def load_toxic_conversations(split: str = "train", sample: int | None = None, seed: int = 42) -> pd.DataFrame:
-    """Load D1 from Hugging Face, with an optional stratified sample."""
-    from datasets import load_dataset
-
-    raw = load_dataset("SetFit/toxic_conversations", split=split).to_pandas()
+def read_toxic_conversations(path: str | Path, sample: int | None = None, seed: int = 42) -> pd.DataFrame:
+    """Read one D1 JSON lines file, with an optional stratified sample."""
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(f"Dataset not found: {path}. See data/README.md")
+    raw = pd.read_json(path, lines=True)
     validate_required_columns(raw, ["text", "label"])
     data = pd.DataFrame({"text": raw["text"].map(clean_text), "label": raw["label"].astype(int)})
     validate_binary_labels(data["label"])
     if sample is not None and sample < len(data):
         data, _ = train_test_split(data, train_size=sample, stratify=data["label"], random_state=seed)
     return data.reset_index(drop=True)
+
+
+def load_toxic_conversations(split: str = "train", sample: int | None = None, seed: int = 42) -> pd.DataFrame:
+    """Download D1 from Hugging Face (cached after the first time) and read it.
+
+    We fetch the raw JSON lines file instead of using the `datasets` library,
+    because `datasets` needs pyarrow, which some locked-down Windows machines block.
+    """
+    if split not in {"train", "test"}:
+        raise ValueError(f"D1 has only 'train' and 'test' splits, not {split!r}")
+    from huggingface_hub import hf_hub_download
+
+    path = hf_hub_download("SetFit/toxic_conversations", f"{split}.jsonl", repo_type="dataset")
+    return read_toxic_conversations(path, sample=sample, seed=seed)
 
 
 def load_gaslighting(paths: Iterable[str | Path]) -> pd.DataFrame:

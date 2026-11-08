@@ -8,6 +8,7 @@ from red_flag_detector.data import (
     load_gaslighting,
     load_jigsaw,
     make_splits,
+    read_toxic_conversations,
 )
 from red_flag_detector.validation import validate_no_text_overlap
 
@@ -36,6 +37,23 @@ def test_jigsaw_counts_any_type_as_toxic(tmp_path):
 def test_missing_file_points_to_instructions(tmp_path):
     with pytest.raises(FileNotFoundError, match="data/README.md"):
         load_jigsaw(tmp_path / "nope.csv")
+
+
+def test_toxic_conversations_reads_jsonl_and_samples_by_class(tmp_path):
+    path = tmp_path / "train.jsonl"
+    rows = [{"text": f"  msg\n{i} ", "label": int(i % 5 == 0), "label_text": "x"} for i in range(100)]
+    pd.DataFrame(rows).to_json(path, orient="records", lines=True)
+    full = read_toxic_conversations(path)
+    assert list(full.columns) == ["text", "label"]
+    assert full["text"][0] == "msg 0"
+    sample = read_toxic_conversations(path, sample=50)
+    assert len(sample) == 50
+    assert sample["label"].mean() == pytest.approx(0.2)
+
+
+def test_toxic_conversations_missing_file_points_to_instructions(tmp_path):
+    with pytest.raises(FileNotFoundError, match="data/README.md"):
+        read_toxic_conversations(tmp_path / "nope.jsonl")
 
 
 def test_deduplicate_ignores_case_and_drops_conflicts():

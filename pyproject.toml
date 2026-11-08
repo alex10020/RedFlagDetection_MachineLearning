@@ -15,10 +15,11 @@ dependencies = [
     "scikit-learn",
     "joblib",
     "gradio",
+    "huggingface_hub",
 ]
 
 [project.optional-dependencies]
-deep = ["torch", "transformers", "datasets"]
+deep = ["torch", "transformers"]
 dev = ["pytest", "jupyter", "ipykernel", "nbconvert", "nbformat"]
 
 [tool.setuptools.packages.find]
