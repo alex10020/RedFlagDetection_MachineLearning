@@ -1,0 +1,74 @@
+model,source,error,draft_cause,messages
+cnn_d1,dating,false negative,gaslighting is not toxic language,10
+cnn_d1,dating,false negative,guilt or control is not in D1's labels,10
+cnn_d1,dating,false negative,insult missed,1
+cnn_d1,dating,false negative,put-down in polite words,10
+cnn_d1,dating,false negative,sexual pressure is not in D1's labels,10
+cnn_d1,dating,false negative,threat without insult words,10
+cnn_d1,dating,false positive,friendly teasing with insult words,5
+cnn_d1,validation,false negative,needs reading,5
+cnn_d1,validation,false negative,toxic without rude words,10
+cnn_d1,validation,false positive,identity word,2
+cnn_d1,validation,false positive,needs reading,1
+cnn_d1,validation,false positive,"rude or insulting words, labelled not toxic",12
+cnn_d3,dating,false positive,harmless chat in a style the training data lacks,59
+cnn_d3,validation,false negative,gaslighting turn without a question,11
+cnn_d3,validation,false negative,needs reading,4
+cnn_d3,validation,false positive,needs reading,6
+cnn_d3,validation,false positive,question in a safe chat,8
+cnn_d3,validation,false positive,turn reads like the user,1
+d1_baseline_100k,dating,false negative,gaslighting is not toxic language,8
+d1_baseline_100k,dating,false negative,guilt or control is not in D1's labels,10
+d1_baseline_100k,dating,false negative,insult missed,1
+d1_baseline_100k,dating,false negative,put-down in polite words,10
+d1_baseline_100k,dating,false negative,sexual pressure is not in D1's labels,10
+d1_baseline_100k,dating,false negative,threat without insult words,10
+d1_baseline_100k,dating,false positive,friendly teasing with insult words,6
+d1_baseline_100k,dating,false positive,identity word,2
+d1_baseline_100k,validation,false negative,needs reading,2
+d1_baseline_100k,validation,false negative,toxic without rude words,13
+d1_baseline_100k,validation,false positive,identity word,5
+d1_baseline_100k,validation,false positive,needs reading,1
+d1_baseline_100k,validation,false positive,"rude or insulting words, labelled not toxic",9
+d3_baseline,dating,false positive,harmless chat in a style the training data lacks,45
+d3_baseline,validation,false negative,gaslighting turn without a question,8
+d3_baseline,validation,false negative,needs reading,5
+d3_baseline,validation,false negative,turn reads like the user,2
+d3_baseline,validation,false positive,needs reading,4
+d3_baseline,validation,false positive,question in a safe chat,11
+distilbert_finetuned_d1,dating,false negative,gaslighting is not toxic language,8
+distilbert_finetuned_d1,dating,false negative,guilt or control is not in D1's labels,9
+distilbert_finetuned_d1,dating,false negative,put-down in polite words,10
+distilbert_finetuned_d1,dating,false negative,sexual pressure is not in D1's labels,10
+distilbert_finetuned_d1,dating,false negative,threat without insult words,10
+distilbert_finetuned_d1,dating,false positive,friendly teasing with insult words,9
+distilbert_finetuned_d1,dating,false positive,identity word,1
+distilbert_finetuned_d1,validation,false negative,needs reading,2
+distilbert_finetuned_d1,validation,false negative,toxic without rude words,13
+distilbert_finetuned_d1,validation,false positive,needs reading,1
+distilbert_finetuned_d1,validation,false positive,"rude or insulting words, labelled not toxic",14
+distilbert_finetuned_d3,dating,false negative,"gaslighting stated plainly, not as a probing question",3
+distilbert_finetuned_d3,dating,false positive,harmless chat in a style the training data lacks,55
+distilbert_finetuned_d3,validation,false negative,gaslighting turn without a question,9
+distilbert_finetuned_d3,validation,false negative,needs reading,6
+distilbert_finetuned_d3,validation,false positive,needs reading,2
+distilbert_finetuned_d3,validation,false positive,question in a safe chat,12
+distilbert_finetuned_d3,validation,false positive,turn reads like the user,1
+distilbert_frozen_d1,dating,false negative,gaslighting is not toxic language,10
+distilbert_frozen_d1,dating,false negative,guilt or control is not in D1's labels,9
+distilbert_frozen_d1,dating,false negative,put-down in polite words,9
+distilbert_frozen_d1,dating,false negative,sexual pressure is not in D1's labels,9
+distilbert_frozen_d1,dating,false negative,threat without insult words,8
+distilbert_frozen_d1,dating,false positive,friendly teasing with insult words,9
+distilbert_frozen_d1,validation,false negative,needs reading,7
+distilbert_frozen_d1,validation,false negative,toxic without rude words,8
+distilbert_frozen_d1,validation,false positive,identity word,1
+distilbert_frozen_d1,validation,false positive,needs reading,9
+distilbert_frozen_d1,validation,false positive,"rude or insulting words, labelled not toxic",5
+distilbert_frozen_d3,dating,false negative,"gaslighting stated plainly, not as a probing question",6
+distilbert_frozen_d3,dating,false positive,harmless chat in a style the training data lacks,39
+distilbert_frozen_d3,validation,false negative,gaslighting turn without a question,14
+distilbert_frozen_d3,validation,false negative,needs reading,1
+distilbert_frozen_d3,validation,false positive,needs reading,6
+distilbert_frozen_d3,validation,false positive,question in a safe chat,8
+distilbert_frozen_d3,validation,false positive,turn reads like the user,1
