@@ -3,6 +3,7 @@
 Run with:
     python -m red_flag_detector.baseline --dataset d1                 # shared 100,000-message D1 sample
     python -m red_flag_detector.baseline --dataset d1 --d1-train-size all
+    python -m red_flag_detector.baseline --dataset d3                 # gaslighting
     python -m red_flag_detector.baseline --dataset d2 --data data/raw/jigsaw_train.csv
 """
 
@@ -19,7 +20,16 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from .data import D1_TRAIN_SIZE, D1_VAL_SIZE, deduplicate, load_d1_train_val, load_jigsaw, load_stress_test, make_splits
+from .data import (
+    D1_TRAIN_SIZE,
+    D1_VAL_SIZE,
+    deduplicate,
+    load_d1_train_val,
+    load_d3_splits,
+    load_jigsaw,
+    load_stress_test,
+    make_splits,
+)
 from .evaluate import best_f1_threshold, binary_metrics, bootstrap_interval, category_report
 from .validation import validate_no_text_overlap
 
@@ -168,9 +178,46 @@ def run_d1(train_size: int | None, stress_path: Path, results_dir: Path, model_p
     return report
 
 
+def run_d3(data_dir: Path, stress_path: Path, results_dir: Path, model_path: Path) -> dict:
+    """Train the gaslighting baseline on D3's official train split and tune it on its validation split.
+
+    The official D3 test split is not scored here: we run it once, at the end, for all models.
+    The main dating number is gaslighting vs harmless.
+    """
+    train, val, _ = load_d3_splits(data_dir)
+    validate_no_text_overlap(train, val)
+
+    best, trials = select_model(train, val)
+    model, threshold = best["model"], best["threshold"]
+
+    stress = load_stress_test(stress_path)
+    stress_scores = model.predict_proba(stress["text"])[:, 1]
+
+    results_dir.mkdir(parents=True, exist_ok=True)
+    model_path.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump({"model": model, "threshold": threshold, "trained_on": "D3 gaslighting train split"}, model_path, compress=3)
+    save_stress_outputs(stress, stress_scores, threshold, results_dir / "dating_by_category.csv", results_dir / "dating_errors.csv")
+
+    report = {
+        "dataset": "D3 Maxwe11y/gaslighting official splits, assistant turns, train deduplicated",
+        "splits": _split_info({"train": train, "val": val}),
+        "c_trials": trials,
+        "chosen_c": best["c"],
+        "threshold": threshold,
+        "train_seconds": best["train_seconds"],
+        "model_mb": round(model_path.stat().st_size / 1e6, 2),
+        "validation": best["metrics"],
+        "validation_at_threshold_0.5": binary_metrics(val["label"], model.predict_proba(val["text"])[:, 1], 0.5),
+        "dating_dev_set": stress_summary(stress, stress_scores, threshold),
+    }
+    (results_dir / "metrics.json").write_text(json.dumps(report, indent=2))
+    return report
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dataset", choices=["d1", "d2"], default="d1")
+    parser.add_argument("--dataset", choices=["d1", "d2", "d3"], default="d1")
+    parser.add_argument("--d3-dir", type=Path, default=Path("data/raw/gaslighting"), help="D3 only")
     parser.add_argument("--data", type=Path, default=Path("data/raw/jigsaw_train.csv"), help="D2 only")
     parser.add_argument("--d1-train-size", default=str(D1_TRAIN_SIZE), help="number of D1 training messages, or 'all'")
     parser.add_argument("--stress", type=Path, default=Path("data/dating_stress_test.csv"))
@@ -178,7 +225,11 @@ def main() -> None:
     parser.add_argument("--model", type=Path, help="defaults to models/baseline_v0.joblib (D2) or models/baseline_d1_<size>.joblib")
     args = parser.parse_args()
 
-    if args.dataset == "d2":
+    if args.dataset == "d3":
+        report = run_d3(
+            args.d3_dir, args.stress, args.results or Path("results/d3_baseline"), args.model or Path("models/baseline_d3.joblib")
+        )
+    elif args.dataset == "d2":
         report = run_d2(args.data, args.stress, args.results or Path("results"), args.model or Path("models/baseline_v0.joblib"))
     else:
         train_size = None if args.d1_train_size == "all" else int(args.d1_train_size)

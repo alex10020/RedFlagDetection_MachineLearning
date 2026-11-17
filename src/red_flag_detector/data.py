@@ -130,6 +130,25 @@ def load_gaslighting(paths: Iterable[str | Path]) -> pd.DataFrame:
     ).reset_index(drop=True)
 
 
+def load_d3_splits(root: str | Path = "data/raw/gaslighting") -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Return D3's official train, validation and test sets, both classes in each.
+
+    Train is deduplicated, and train texts that repeat in validation or test are
+    dropped, so no message is scored on data it was trained on. Validation and
+    test stay exactly as published.
+    """
+    root = Path(root)
+    splits = [
+        load_gaslighting([root / f"{prefix}_{split}.json" for prefix in ("gaslighting", "anti_gaslighting")])
+        for split in ("train", "validation", "test")
+    ]
+    train, val, test = splits
+    held_out = set(pd.concat([val["text"], test["text"]]).str.lower())
+    train = deduplicate(train)
+    train = train[~train["text"].str.lower().isin(held_out)].reset_index(drop=True)
+    return train, val, test
+
+
 def load_stress_test(path: str | Path) -> pd.DataFrame:
     """Load our own dating-style test set."""
     data = _read_csv(path)

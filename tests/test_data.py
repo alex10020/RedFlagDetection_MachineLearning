@@ -9,6 +9,7 @@ from red_flag_detector.data import (
     load_jigsaw,
     make_splits,
     read_toxic_conversations,
+    load_d3_splits,
     split_d1,
 )
 from red_flag_detector.validation import validate_no_text_overlap
@@ -102,6 +103,24 @@ def test_gaslighting_keeps_assistant_turns_and_drops_thoughts(tmp_path):
     assert data["text"].tolist() == ["you imagined it", "you did well"]
     assert data["label"].tolist() == [1, 0]
     assert "internal thought" not in data.columns
+
+
+def test_d3_splits_drop_train_copies_of_held_out_texts(tmp_path):
+    texts = {
+        "train": [("you imagined it", "gaslighting"), ("You did well", "safe"), ("fresh start", "safe")],
+        "validation": [("you did well", "safe")],
+        "test": [("never said that", "gaslighting")],
+    }
+    for split, rows in texts.items():
+        for prefix, category in (("gaslighting", "gaslighting"), ("anti_gaslighting", "safe")):
+            chosen = [_d3_row(i, "assistant", text, cat) for i, (text, cat) in enumerate(rows) if cat == category]
+            pd.DataFrame(chosen, columns=list(_d3_row(0, "", "", "").keys())).to_json(
+                tmp_path / f"{prefix}_{split}.json", orient="records"
+            )
+    train, val, test = load_d3_splits(tmp_path)
+    assert sorted(train["text"]) == ["fresh start", "you imagined it"]
+    assert val["text"].tolist() == ["you did well"]
+    assert test["label"].tolist() == [1]
 
 
 def test_gaslighting_rejects_unknown_category(tmp_path):
