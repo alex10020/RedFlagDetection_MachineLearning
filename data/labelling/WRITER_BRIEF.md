@@ -24,7 +24,7 @@ Half harmful, half not, like the first 120. Each writer writes about half of eve
 | `guilt_manipulation` | other_harm | 1 | Guilt-tripping or control: demanding replies, policing who they see | 7 |
 | `sexual_pressure` | other_harm | 1 | Pushing for sexual content or meeting after a no or a hesitation | 6 |
 | `friendly_flirt` | harmless | 0 | Warm interest, compliments | 6 |
-| `neutral_logistics` | harmless | 0 | Plans, times, places | 6 |
+| `neutral_logistics` | harmless | 0 | Plans, times, places | 7 |
 | `playful_banter` | harmless | 0 | Teasing with insult-like words between people who clearly like each other | 7 |
 | `identity_mention` | harmless | 0 | Mentions religion, ethnicity, sexuality or gender in a neutral or positive way | 7 |
 | `healthy_conflict` | harmless | 0 | Disagreeing or setting a boundary respectfully | 7 |
@@ -33,14 +33,9 @@ Half harmful, half not, like the first 120. Each writer writes about half of eve
 
 ## Format
 
-Add the rows to `data/dating_stress_test.csv` in one pull request, with ids `S121` to `S200`:
+Fill the `text` column of `data/labelling/new_messages_to_write.csv`. It has one row per message, grouped by category, with the label already set. Leave the other columns as they are.
 
-```
-id,text,label,category,topic,label_status
-S121,"<your message, in quotes if it has a comma>",0,polite_rejection,harmless,draft_team
-```
-
-Use `draft_team` as `label_status`, so we can tell your messages from the AI-drafted first 120. Put quotes around any text that contains a comma.
+When the sheet is full, the rows go into `data/dating_stress_test.csv` with ids `S121` to `S200` in shuffled order, so an id does not give away its category to the labellers, and with `label_status` set to `draft_team`, so we can tell your messages from the AI-drafted first 120.
 
 ## After you finish
 
