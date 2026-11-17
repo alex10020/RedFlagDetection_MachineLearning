@@ -5,22 +5,23 @@ Raw datasets stay out of Git because of their size. Put them in `data/raw/`. All
 | ID | Dataset | Use | How to get it |
 |---|---|---|---|
 | D1 | [SetFit/toxic_conversations](https://huggingface.co/datasets/SetFit/toxic_conversations) | Main training set | `load_toxic_conversations("train")` or `("test")` downloads the JSON lines file (train 617 MB, test 18 MB) into the Hugging Face cache on first use. `read_toxic_conversations(path)` reads a copy you already have |
-| D2 | [Jigsaw Toxic Comment Classification](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge) | Second test, adds toxicity types. Trains the first baseline for now | Download `train.csv` to `data/raw/jigsaw_train.csv`. SHA-256 of our copy: `bd408461...c429d` |
-| D3 | [Maxwe11y/gaslighting](https://huggingface.co/datasets/Maxwe11y/gaslighting) | Main gaslighting training set. Keep its official train, validation and test splits | Download the JSON files to `data/raw/gaslighting/`, then use `load_gaslighting()` |
+| D2 | [Jigsaw Toxic Comment Classification](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge) | Extra test set, with toxicity types. `train.csv` trained the first stand-in baseline (v0) | Log in to Kaggle. Put `test.csv` and `test_labels.csv` in `data/raw/` and load them with `load_jigsaw_test()`, which drops Kaggle's unscored rows. For v0, `train.csv` goes to `data/raw/jigsaw_train.csv` (SHA-256 of our copy: `bd408461...c429d`) |
+| D3 | [Maxwe11y/gaslighting](https://huggingface.co/datasets/Maxwe11y/gaslighting) | Main gaslighting training set. Keep its official train, validation and test splits | Download the six JSON files to `data/raw/gaslighting/` (the main README has a one-line command), then use `load_d3_splits()` |
+| GloVe | [stanfordnlp/glove](https://huggingface.co/stanfordnlp/glove) | Word vectors for the CNN | Download `glove.6B.zip` (862 MB) and put `glove.6B.100d.txt` in `data/raw/`. Not needed to run the app |
 | Ours | `dating_stress_test.csv` | Dating test, in this repo | Already here |
 
 ## Dating Stress Test
 
-`dating_stress_test.csv` holds 120 short fictional messages in 12 categories, 10 per category.
+`dating_stress_test.csv` holds short fictional messages in 12 categories. Messages S001 to S120 (10 per category) are the development set: we have read the models' mistakes on them. Messages S121 to S200 are the final test, written by the team without model output. `load_stress_test()` returns only the development set unless you pass `part="final"`.
 
 | Column | Meaning |
 |---|---|
 | `label` | 1 harmful, 0 not harmful |
 | `category` | The situation the message tests |
 | `topic` | `toxic` (insults, put-downs, threats), `gaslighting`, `other_harm` (guilt or control, sexual pressure) or `harmless` |
-| `label_status` | `draft_ai` until two team members label it independently |
+| `label_status` | `draft_ai` (Claude's draft) or `draft_team` (team-written) until two team members label it independently; then `reviewed` |
 
-Claude drafted version 0.1. The team still has to review each label, measure agreement between the two labellers, write the remaining 80 messages, and declare the AI draft in the report.
+Claude drafted S001 to S120. The team writes S121 to S200 following [labelling/WRITER_BRIEF.md](labelling/WRITER_BRIEF.md). Two team members then label all messages independently with `python -m red_flag_detector.labelling`, which reports Cohen's kappa. The report declares the AI draft.
 
 ## D3 rules
 

@@ -6,7 +6,7 @@ Red Flag Detector looks for two things in dating-app chats: toxic language and g
 
 IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp Kurtbolat, Raya Metchkarova, Milan Josifovikj, Aysel Zeynalova, Sacha Benayoun.
 
-![Prototype v0](results/prototype_v0.png)
+![Prototype v1: each message gets a toxic and a gaslighting score](results/prototype_v1.jpg)
 
 ## Status
 
@@ -18,7 +18,7 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 | Error analysis | Mistakes exported per model; the team is reading them |
 | Dating test | 120 messages (development set). 80 new messages and two-person labelling in progress |
 | Final test runs | Sunday 22 November, once |
-| Prototype | v0 gives the toxic score. Gaslighting score in progress |
+| Prototype | v1 gives a toxic and a gaslighting score from the CNN models. v2 (next step): a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
 | Report and slides (due 24 November) | In progress |
 
 ## Results so far
@@ -52,13 +52,13 @@ conda env create -f environment.yml
 conda activate red-flag-detector
 ```
 
-The CNN and DistilBERT need PyTorch and transformers:
+PyTorch comes with the base install because the app runs the CNN. Training DistilBERT also needs transformers:
 
 ```bash
 pip install -e ".[deep]"
 ```
 
-For an NVIDIA GPU, install the CUDA build of PyTorch first (see pytorch.org). We trained on an RTX 2070 with `torch` 2.14.1+cu126 and `transformers` 5.23.0.
+pip installs the CPU build of PyTorch, which is enough for the app. For training on an NVIDIA GPU, install the CUDA build from pytorch.org first. We trained on an RTX 2070 with `torch` 2.14.1+cu126 and `transformers` 5.23.0.
 
 ## Run the prototype
 
@@ -66,7 +66,9 @@ For an NVIDIA GPU, install the CUDA build of PyTorch first (see pytorch.org). We
 python -m red_flag_detector.app
 ```
 
-Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. The app uses a model saved in the repo, so you do not need any data to run it.
+Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. Each message gets two scores, toxic language and gaslighting, from our CNN models in `models/`, so you do not need any data to run it. Highlighted words are the ones that raised a flagged score most.
+
+The gaslighting score is experimental. Like every model we trained on D3, it flags most ordinary dating messages (see Results), and the app says so. Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
 
 ## Get the data
 
