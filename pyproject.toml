@@ -16,10 +16,11 @@ dependencies = [
     "joblib",
     "gradio",
     "huggingface_hub",
+    "torch",
 ]
 
 [project.optional-dependencies]
-deep = ["torch", "transformers"]
+deep = ["transformers"]
 dev = ["pytest", "jupyter", "ipykernel", "nbconvert", "nbformat"]
 
 [tool.setuptools.packages.find]

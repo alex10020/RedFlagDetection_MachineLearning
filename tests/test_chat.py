@@ -1,3 +1,4 @@
+import pytest
 import numpy as np
 
 from red_flag_detector.app import render_report
@@ -50,3 +51,25 @@ def test_report_escapes_chat_text():
 
 def test_empty_chat_shows_prompt():
     assert "Paste a chat" in render_report(score_chat("  \n ", fake_scorer, threshold=0.7))
+
+
+def test_report_shows_both_scores_and_counts_flags_per_topic():
+    calm = lambda texts: np.array([0.1 for _ in texts])
+    reports = {
+        "toxic": score_chat("Sam: you are awful\nMaya: fine", fake_scorer, threshold=0.7),
+        "gaslighting": score_chat("Sam: you are awful\nMaya: fine", calm, threshold=0.7),
+    }
+    page = render_report(reports)
+    assert "Toxic:" in page and "Gaslighting" in page
+    assert "1 toxic flags · 0 gaslighting flags · 1 messages" in page
+    assert "<mark>awful</mark>" in page
+
+
+def test_cnn_models_in_repo_load_and_score():
+    pytest.importorskip("torch")
+    from red_flag_detector.app import CNN_MODELS, load_scorer
+
+    for path in CNN_MODELS.values():
+        scorer, threshold = load_scorer(path)
+        scores = scorer(["hey how was your day", "you are pathetic"])
+        assert scores.shape == (2,) and 0 < threshold < 1

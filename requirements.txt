@@ -1,4 +1,5 @@
-# Versions used for the results in results/. The saved baseline needs this scikit-learn version.
+# Versions used for the results in results/. The saved models need these scikit-learn and torch versions.
+# pip installs the CPU build of torch; for an NVIDIA GPU, install the CUDA build from pytorch.org first.
 gradio==6.31.0
 huggingface_hub==2.4.0
 joblib==1.6.0
@@ -6,4 +7,6 @@ matplotlib==3.11.2
 numpy==2.5.4
 pandas==3.1.1
 scikit-learn==1.9.1
+torch==2.14.1
+transformers==5.23.0
 pytest==9.2.0
