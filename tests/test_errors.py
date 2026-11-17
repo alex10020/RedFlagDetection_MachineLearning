@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from red_flag_detector.errors import draft_cause, pick_errors
+from red_flag_detector.errors import draft_cause, pick_errors, shortlist
 
 
 def test_pick_errors_keeps_most_confident_mistakes_on_each_side():
@@ -10,6 +10,18 @@ def test_pick_errors_keeps_most_confident_mistakes_on_each_side():
     errors = pick_errors(data, scores, threshold=0.5, per_side=1)
     assert errors["text"].tolist() == ["a", "e"]
     assert errors["error"].tolist() == ["false positive", "false negative"]
+
+
+def test_shortlist_takes_surest_mistake_from_largest_causes():
+    errors = pd.DataFrame({
+        "model": ["m"] * 4, "source": ["dating"] * 4,
+        "error": ["false positive", "false positive", "false negative", "false negative"],
+        "draft_cause": ["banter", "banter", "threat", "threat"], "score": [0.6, 0.9, 0.4, 0.05],
+        "label": [0, 0, 1, 1], "category": [""] * 4, "team_cause": [""] * 4, "text": list("abcd"),
+    })
+    picks = shortlist(errors, per_model=2)
+    assert sorted(picks["text"]) == ["b", "d"]
+    assert picks["mistakes_with_this_cause"].tolist() == [2, 2]
 
 
 def test_draft_cause_uses_dating_category_first():

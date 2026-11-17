@@ -15,6 +15,8 @@ GASLIGHTING_COLUMNS = ["id", "turn", "speaker role", "utterance", "category"]
 # Shared D1 sample sizes: the CNN and DistilBERT train on the same 100,000 messages.
 D1_TRAIN_SIZE = 100_000
 D1_VAL_SIZE = 20_000
+# Dating messages S001-S120 are the development set; S121 onwards are the final, unseen test.
+DEV_LAST_ID = 120
 
 
 def clean_text(text: str) -> str:
@@ -38,6 +40,25 @@ def load_jigsaw(path: str | Path) -> pd.DataFrame:
     data.insert(1, "label", raw[JIGSAW_TYPES].max(axis=1).astype(int))
     validate_binary_labels(data["label"])
     return data
+
+
+def load_jigsaw_test(test_path: str | Path, labels_path: str | Path) -> pd.DataFrame:
+    """Load D2's official test set: Kaggle's test.csv joined with test_labels.csv.
+
+    Kaggle marks the rows it never scored with -1 in every type column; we drop
+    them, which leaves the 63,978 labelled comments.
+    """
+    texts = _read_csv(test_path)
+    labels = _read_csv(labels_path)
+    validate_required_columns(texts, ["id", "comment_text"])
+    validate_required_columns(labels, ["id", *JIGSAW_TYPES])
+    raw = texts.merge(labels, on="id", how="inner", validate="one_to_one")
+    raw = raw[(raw[JIGSAW_TYPES] != -1).all(axis=1)]
+    data = raw[JIGSAW_TYPES].copy()
+    data.insert(0, "text", raw["comment_text"].map(clean_text))
+    data.insert(1, "label", raw[JIGSAW_TYPES].max(axis=1).astype(int))
+    validate_binary_labels(data["label"])
+    return data.reset_index(drop=True)
 
 
 def read_toxic_conversations(path: str | Path, sample: int | None = None, seed: int = 42) -> pd.DataFrame:
@@ -149,13 +170,26 @@ def load_d3_splits(root: str | Path = "data/raw/gaslighting") -> tuple[pd.DataFr
     return train, val, test
 
 
-def load_stress_test(path: str | Path) -> pd.DataFrame:
-    """Load our own dating-style test set."""
+def load_stress_test(path: str | Path, part: str = "dev") -> pd.DataFrame:
+    """Load our own dating-style test set.
+
+    `part="dev"` (the default) returns messages S001 to S120, whose model errors we
+    have already seen. `part="final"` returns S121 onwards, which we score once, at
+    the end. `part="all"` returns both, for labelling only. The default keeps every
+    training script away from the final messages.
+    """
+    if part not in {"dev", "final", "all"}:
+        raise ValueError(f"part must be 'dev', 'final' or 'all', not {part!r}")
     data = _read_csv(path)
     validate_required_columns(data, STRESS_COLUMNS)
     validate_binary_labels(data["label"])
     data["text"] = data["text"].map(clean_text)
-    return data
+    number = data["id"].str.extract(r"(\d+)", expand=False).astype(int)
+    if part == "dev":
+        data = data[number <= DEV_LAST_ID]
+    elif part == "final":
+        data = data[number > DEV_LAST_ID]
+    return data.reset_index(drop=True)
 
 
 def deduplicate(data: pd.DataFrame) -> pd.DataFrame:

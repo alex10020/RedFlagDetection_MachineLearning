@@ -1,0 +1,41 @@
+model,source,error,label,score,category,draft_cause,text,mistakes_with_this_cause
+d1_baseline_100k,validation,false negative,1,0.038,,toxic without rude words,I blame the Russians.,13
+d1_baseline_100k,dating,false negative,1,0.066,sexual_pressure,sexual pressure is not in D1's labels,"no one will know, just do what i asked",10
+d1_baseline_100k,dating,false negative,1,0.102,put_down,put-down in polite words,not bad for someone your age i suppose,10
+d1_baseline_100k,dating,false negative,1,0.082,threat,threat without insult words,"i know where you work, so think carefully about your next text",10
+d1_baseline_100k,dating,false negative,1,0.126,guilt_manipulation,guilt or control is not in D1's labels,after everything i've done for you this is how you treat me,10
+cnn_d1,validation,false positive,0,1.0,,"rude or insulting words, labelled not toxic","Overpaid, childish, Morons",12
+cnn_d1,dating,false negative,1,0.059,gaslighting,gaslighting is not toxic language,"that never happened, you're imagining things again",10
+cnn_d1,dating,false negative,1,0.054,put_down,put-down in polite words,honestly you're lucky i lowered my standards this month,10
+cnn_d1,dating,false negative,1,0.053,guilt_manipulation,guilt or control is not in D1's labels,after everything i've done for you this is how you treat me,10
+cnn_d1,validation,false negative,1,0.017,,toxic without rude words,I am not worried one moment for Fox News when considering that about 99.9% of what news items are covered and opinions offer by Fox is way past any intellectual ability to be reasonably discerned by libbers.,10
+distilbert_frozen_d1,dating,false negative,1,0.166,gaslighting,gaslighting is not toxic language,you remember it wrong like you always do,10
+distilbert_frozen_d1,dating,false negative,1,0.149,guilt_manipulation,guilt or control is not in D1's labels,i guess i just don't matter to you at all,9
+distilbert_frozen_d1,dating,false negative,1,0.125,put_down,put-down in polite words,your degree must have been easy if they let you in,9
+distilbert_frozen_d1,dating,false negative,1,0.079,sexual_pressure,sexual pressure is not in D1's labels,if you liked me you would come over tonight and stay,9
+distilbert_frozen_d1,dating,false positive,0,0.965,playful_banter,friendly teasing with insult words,"you little liar, you said you couldn't cook!",9
+distilbert_finetuned_d1,validation,false positive,0,0.998,,"rude or insulting words, labelled not toxic","Overpaid, childish, Morons",14
+distilbert_finetuned_d1,validation,false negative,1,0.001,,toxic without rude words,"Let's hit it, Jake",13
+distilbert_finetuned_d1,dating,false negative,1,0.001,put_down,put-down in polite words,you're not really my type but i guess i'll settle tonight,10
+distilbert_finetuned_d1,dating,false negative,1,0.001,sexual_pressure,sexual pressure is not in D1's labels,if you liked me you would come over tonight and stay,10
+distilbert_finetuned_d1,dating,false negative,1,0.001,threat,threat without insult words,you'll regret ignoring me,10
+d3_baseline,dating,false positive,0,1.0,friendly_flirt,harmless chat in a style the training data lacks,that photo with your dog just won me over,45
+d3_baseline,validation,false positive,0,0.999,,question in a safe chat,"""How do you think your overall mindset could impact your performance in badminton?""",11
+d3_baseline,validation,false negative,1,0.005,,gaslighting turn without a question,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve.",8
+d3_baseline,validation,false negative,1,0.094,,needs reading,It's normal to have fluctuating emotions when experiencing something new. What did you find most striking about the Louvre?,5
+d3_baseline,validation,false positive,0,0.983,,needs reading,Maybe your neighbor just likes to dress up for fun.,4
+cnn_d3,dating,false positive,0,1.0,friendly_flirt,harmless chat in a style the training data lacks,so when do i get to beat you at mini golf?,59
+cnn_d3,validation,false negative,1,0.002,,gaslighting turn without a question,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve.",11
+cnn_d3,validation,false positive,0,0.991,,question in a safe chat,How has playing soccer influenced your life over the years?,8
+cnn_d3,validation,false positive,0,0.999,,needs reading,"Emma, creating content is a process. Your authenticity shines through, and that's what resonates with your viewers. Emma: I never considered that maybe my interviews aren't as inspiring as I thought. Maybe I'm not cut out for this after all.",6
+cnn_d3,validation,false negative,1,0.009,,needs reading,"""With so few friends, how can you truly bring peace and tranquility with your flute?""",4
+distilbert_frozen_d3,dating,false positive,0,0.998,identity_mention,harmless chat in a style the training data lacks,"i'm gay and pretty new to this city, any tips?",39
+distilbert_frozen_d3,validation,false negative,1,0.011,,gaslighting turn without a question,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve.",14
+distilbert_frozen_d3,validation,false positive,0,0.993,,question in a safe chat,What is it about koalas that makes them your favorite animal?,8
+distilbert_frozen_d3,dating,false negative,1,0.045,gaslighting,"gaslighting stated plainly, not as a probing question",you remember it wrong like you always do,6
+distilbert_frozen_d3,validation,false positive,0,0.998,,needs reading,"Emma, it's normal to have moments of self-doubt, but remember, you have a unique perspective and voice that your audience values. Emma: Well, I feel like my content may not be engaging enough for my audience. I worry that my interviews aren't inspiring enough.",6
+distilbert_finetuned_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,so when do i get to beat you at mini golf?,55
+distilbert_finetuned_d3,validation,false positive,0,0.997,,question in a safe chat,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?,12
+distilbert_finetuned_d3,validation,false negative,1,0.001,,gaslighting turn without a question,You can't be relied upon to follow through with anything you say.,9
+distilbert_finetuned_d3,validation,false negative,1,0.008,,needs reading,"""With so few friends, how can you truly bring peace and tranquility with your flute?""",6
+distilbert_finetuned_d3,dating,false negative,1,0.005,gaslighting,"gaslighting stated plainly, not as a probing question","you're making a big deal out of nothing, as usual",3
