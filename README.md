@@ -16,7 +16,7 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 | EDA on D1, D3 and the dating messages | Done (`notebooks/03_eda_d1_d3.ipynb`) |
 | TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics |
 | Error analysis | Mistakes exported per model; the team is reading them |
-| Dating test | 120 messages (development set). 80 new messages and two-person labelling in progress |
+| Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
 | Final test runs | Sunday 22 November, once |
 | Prototype | v1 gives a toxic and a gaslighting score from the CNN models. v2 (next step): a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
 | Report and slides (due 24 November) | In progress |
@@ -105,16 +105,16 @@ Fine-tuned DistilBERT weights are 265 MB each, so Git ignores them. Run the fine
 - Dating messages S001 to S120 are a development set, because we have read the models' mistakes on them. S121 to S200 are the final test: `load_stress_test()` leaves them out unless you pass `part="final"`.
 - Each official test set runs once, at the end.
 
-## Label the dating messages
+## The dating messages
 
-Two people label every message without seeing each other's answers, and we report Cohen's kappa. The steps are at the top of [labelling.py](src/red_flag_detector/labelling.py), and the brief for new messages is in [data/labelling/WRITER_BRIEF.md](data/labelling/WRITER_BRIEF.md).
+Claude drafted messages S001 to S120, which we use as a development set. A team member wrote S121 to S200 following [data/labelling/WRITER_BRIEF.md](data/labelling/WRITER_BRIEF.md), and the group reviewed them together and agreed with every label. We did not have two people label independently, so we report no inter-annotator agreement.
 
 New here? Read [PROJECT_GUIDE.md](PROJECT_GUIDE.md) for decisions, rules and the work split.
 
 ## Project layout
 
 ```
-├── data/                   dating messages, labelling brief, download instructions
+├── data/                   dating messages, writer brief, download instructions
 ├── models/                 saved models (fine-tuned DistilBERT excluded)
 ├── notebooks/              01 EDA on D2, 02 first baseline, 03 EDA on D1 and D3
 ├── results/                metrics, figures and mistakes per model
@@ -126,7 +126,7 @@ New here? Read [PROJECT_GUIDE.md](PROJECT_GUIDE.md) for decisions, rules and the
 │   ├── transformer.py      DistilBERT, frozen and fine-tuned
 │   ├── evaluate.py         metrics, threshold, intervals
 │   ├── errors.py           mistakes per model for error analysis
-│   ├── labelling.py        two-person labelling and Cohen's kappa
+│   ├── labelling.py        optional two-person labelling and Cohen's kappa (not used)
 │   ├── chat.py             chat parsing and word effects
 │   ├── plots.py            chart style
 │   └── app.py              Gradio prototype

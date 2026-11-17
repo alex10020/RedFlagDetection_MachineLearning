@@ -119,83 +119,83 @@ S117,i really hate it when plans change without warning,0,healthy_conflict,harml
 S118,you were late again and that bothers me,0,healthy_conflict,harmless,draft_ai
 S119,i don't agree with your politics but i respect you for explaining them,0,healthy_conflict,harmless,draft_ai
 S120,"sorry i snapped earlier, that wasn't fair to you",0,healthy_conflict,harmless,draft_ai
-S121,I would not even let you clean my shoes,1,put_down,toxic,draft_team
-S122,I think we have different priorities and that’s okay,0,healthy_conflict,harmless,draft_team
-S123,You cant go out without me,1,guilt_manipulation,other_harm,draft_team
-S124,You look like you fell from a skycraper,1,put_down,toxic,draft_team
-S125,Are you free to meet today?,0,neutral_logistics,harmless,draft_team
-S126,You will never find someone else you tolerates you,1,guilt_manipulation,other_harm,draft_team
-S127,You cant even give me one example of when I did that.,1,gaslighting,gaslighting,draft_team
-S128,I am this close to slapping you right now,1,threat,toxic,draft_team
-S129,there is no proof.,1,gaslighting,gaslighting,draft_team
-S130,I appreciate it but I don’t see you in that way,0,polite_rejection,harmless,draft_team
-S131,Big words for someone that has not proved themselves,0,playful_banter,harmless,draft_team
-S132,You are such a distraction,0,playful_banter,harmless,draft_team
-S133,Are you okay with Saturday at 9 pm,0,neutral_logistics,harmless,draft_team
-S134,I really don’t enjoy it but I guess I see why you do,0,healthy_conflict,harmless,draft_team
-S135,I am american so I love burgers,0,identity_mention,harmless,draft_team
-S136,I understand and will try to keep that in mind,0,healthy_conflict,harmless,draft_team
-S137,If you even look at her I will pull your hair out,1,threat,toxic,draft_team
-S138,"you idiot, of course I love you",0,playful_banter,harmless,draft_team
-S139,Im not religious is that a problem?,0,identity_mention,harmless,draft_team
-S140,Have fun not seeing me again,1,threat,toxic,draft_team
-S141,So they just be recruiting anyone these days,1,put_down,toxic,draft_team
-S142,I am gay is that a problem,0,identity_mention,harmless,draft_team
-S143,Even plastic surgery cant save you,1,put_down,toxic,draft_team
-S144,I love your style,0,friendly_flirt,harmless,draft_team
-S145,You are so sweet,0,friendly_flirt,harmless,draft_team
-S146,If you believe others over me then whats the point of us,1,gaslighting,gaslighting,draft_team
-S147,I really appreciate you as a person but we want different things in life,0,polite_rejection,harmless,draft_team
-S148,You are such an asshole,1,explicit_insult,toxic,draft_team
-S149,This was the last time you do this,1,threat,toxic,draft_team
-S150,You are so fun to hang out with,0,friendly_flirt,harmless,draft_team
-S151,Im sorry but I don’t think we can see eye to eye,0,healthy_conflict,harmless,draft_team
-S152,You know you can trust me come on,1,sexual_pressure,other_harm,draft_team
-S153,It made me smile just thinking about you,0,friendly_flirt,harmless,draft_team
-S154,Come to the park tomorrow after work,0,neutral_logistics,harmless,draft_team
-S155,I am christian and very proud,0,identity_mention,harmless,draft_team
-S156,You only live once just do it,1,sexual_pressure,other_harm,draft_team
-S157,Do you not love me? Just come over.,1,sexual_pressure,other_harm,draft_team
-S158,If you don’t answer I am gonna come to your house,1,threat,toxic,draft_team
-S159,You were drunk you don’t even remember,1,gaslighting,gaslighting,draft_team
-S160,Maybe we can work out another day,0,polite_rejection,harmless,draft_team
-S161,I wont tell anyone its only for me,1,sexual_pressure,other_harm,draft_team
-S162,Im a man so obviously I go gym,0,identity_mention,harmless,draft_team
-S163,Im not gonna share anything its just for us,1,sexual_pressure,other_harm,draft_team
-S164,"You are bullshit, goodbye.",1,explicit_insult,toxic,draft_team
-S165,I bet you cant outdrink me,0,playful_banter,harmless,draft_team
-S166,You stupid idiot what do you not understand?,1,explicit_insult,toxic,draft_team
-S167,You look pretty,0,friendly_flirt,harmless,draft_team
-S168,Thank you so much but I have a boyfriend,0,polite_rejection,harmless,draft_team
-S169,You are trouble arent you?,0,playful_banter,harmless,draft_team
-S170,Why cant you reply you are on ur phone 24/7,1,guilt_manipulation,other_harm,draft_team
-S171,I like your laugh,0,friendly_flirt,harmless,draft_team
-S172,Im a girl so I need my hairband,0,identity_mention,harmless,draft_team
-S173,Thank you for the invite but I have other plans,0,polite_rejection,harmless,draft_team
-S174,Good luck trying to text me after I block you,1,threat,toxic,draft_team
-S175,You pick where you want us to go,0,neutral_logistics,harmless,draft_team
-S176,Do you wanna come to the club with your friends?,0,neutral_logistics,harmless,draft_team
-S177,Even a dog could outsmart you,1,put_down,toxic,draft_team
-S178,If you call me again I will ignore you forever,1,threat,toxic,draft_team
-S179,I am muslim and cant eat pork,0,identity_mention,harmless,draft_team
-S180,"The problem is me, not you",0,healthy_conflict,harmless,draft_team
-S181,You are an egotistical fuck,1,explicit_insult,toxic,draft_team
-S182,You were not there you don’t know the full story,1,gaslighting,gaslighting,draft_team
-S183,"Just send one picture it would make me happy, you don’t wanna make me happy?",1,sexual_pressure,other_harm,draft_team
-S184,Im going out today I will let you know,0,neutral_logistics,harmless,draft_team
-S185,You cant be friends with them.,1,guilt_manipulation,other_harm,draft_team
-S186,"I know my truth, believe whatever you want",1,gaslighting,gaslighting,draft_team
-S187,I hear you and understand but personally don’t agree,0,healthy_conflict,harmless,draft_team
-S188,You are spit under my shoe,1,put_down,toxic,draft_team
-S189,Block him if you love me,1,guilt_manipulation,other_harm,draft_team
-S190,I bet you arent better than me at cooking,0,playful_banter,harmless,draft_team
-S191,Fuck you I do not wanna see you again,1,explicit_insult,toxic,draft_team
-S192,I would love to but I am unavailable,0,polite_rejection,harmless,draft_team
-S193,I think we are seeing each other too much and I need privacy,0,healthy_conflict,harmless,draft_team
-S194,Do you have plans for the weekend?,0,neutral_logistics,harmless,draft_team
-S195,Why do you follow girls when you have me,1,guilt_manipulation,other_harm,draft_team
-S196,You can listen to music at home why are you going clubbing,1,guilt_manipulation,other_harm,draft_team
-S197,Youre a fool youre making it difficult to be serious,0,playful_banter,harmless,draft_team
-S198,Youre being overly sensitive its not a big deal,1,gaslighting,gaslighting,draft_team
-S199,You look like you snuck onto earth,1,put_down,toxic,draft_team
-S200,Can you shut the hell up already.,1,explicit_insult,toxic,draft_team
+S121,I would not even let you clean my shoes,1,put_down,toxic,team_reviewed
+S122,I think we have different priorities and that’s okay,0,healthy_conflict,harmless,team_reviewed
+S123,You cant go out without me,1,guilt_manipulation,other_harm,team_reviewed
+S124,You look like you fell from a skycraper,1,put_down,toxic,team_reviewed
+S125,Are you free to meet today?,0,neutral_logistics,harmless,team_reviewed
+S126,You will never find someone else you tolerates you,1,guilt_manipulation,other_harm,team_reviewed
+S127,You cant even give me one example of when I did that.,1,gaslighting,gaslighting,team_reviewed
+S128,I am this close to slapping you right now,1,threat,toxic,team_reviewed
+S129,there is no proof.,1,gaslighting,gaslighting,team_reviewed
+S130,I appreciate it but I don’t see you in that way,0,polite_rejection,harmless,team_reviewed
+S131,Big words for someone that has not proved themselves,0,playful_banter,harmless,team_reviewed
+S132,You are such a distraction,0,playful_banter,harmless,team_reviewed
+S133,Are you okay with Saturday at 9 pm,0,neutral_logistics,harmless,team_reviewed
+S134,I really don’t enjoy it but I guess I see why you do,0,healthy_conflict,harmless,team_reviewed
+S135,I am american so I love burgers,0,identity_mention,harmless,team_reviewed
+S136,I understand and will try to keep that in mind,0,healthy_conflict,harmless,team_reviewed
+S137,If you even look at her I will pull your hair out,1,threat,toxic,team_reviewed
+S138,"you idiot, of course I love you",0,playful_banter,harmless,team_reviewed
+S139,Im not religious is that a problem?,0,identity_mention,harmless,team_reviewed
+S140,Have fun not seeing me again,1,threat,toxic,team_reviewed
+S141,So they just be recruiting anyone these days,1,put_down,toxic,team_reviewed
+S142,I am gay is that a problem,0,identity_mention,harmless,team_reviewed
+S143,Even plastic surgery cant save you,1,put_down,toxic,team_reviewed
+S144,I love your style,0,friendly_flirt,harmless,team_reviewed
+S145,You are so sweet,0,friendly_flirt,harmless,team_reviewed
+S146,If you believe others over me then whats the point of us,1,gaslighting,gaslighting,team_reviewed
+S147,I really appreciate you as a person but we want different things in life,0,polite_rejection,harmless,team_reviewed
+S148,You are such an asshole,1,explicit_insult,toxic,team_reviewed
+S149,This was the last time you do this,1,threat,toxic,team_reviewed
+S150,You are so fun to hang out with,0,friendly_flirt,harmless,team_reviewed
+S151,Im sorry but I don’t think we can see eye to eye,0,healthy_conflict,harmless,team_reviewed
+S152,You know you can trust me come on,1,sexual_pressure,other_harm,team_reviewed
+S153,It made me smile just thinking about you,0,friendly_flirt,harmless,team_reviewed
+S154,Come to the park tomorrow after work,0,neutral_logistics,harmless,team_reviewed
+S155,I am christian and very proud,0,identity_mention,harmless,team_reviewed
+S156,You only live once just do it,1,sexual_pressure,other_harm,team_reviewed
+S157,Do you not love me? Just come over.,1,sexual_pressure,other_harm,team_reviewed
+S158,If you don’t answer I am gonna come to your house,1,threat,toxic,team_reviewed
+S159,You were drunk you don’t even remember,1,gaslighting,gaslighting,team_reviewed
+S160,Maybe we can work out another day,0,polite_rejection,harmless,team_reviewed
+S161,I wont tell anyone its only for me,1,sexual_pressure,other_harm,team_reviewed
+S162,Im a man so obviously I go gym,0,identity_mention,harmless,team_reviewed
+S163,Im not gonna share anything its just for us,1,sexual_pressure,other_harm,team_reviewed
+S164,"You are bullshit, goodbye.",1,explicit_insult,toxic,team_reviewed
+S165,I bet you cant outdrink me,0,playful_banter,harmless,team_reviewed
+S166,You stupid idiot what do you not understand?,1,explicit_insult,toxic,team_reviewed
+S167,You look pretty,0,friendly_flirt,harmless,team_reviewed
+S168,Thank you so much but I have a boyfriend,0,polite_rejection,harmless,team_reviewed
+S169,You are trouble arent you?,0,playful_banter,harmless,team_reviewed
+S170,Why cant you reply you are on ur phone 24/7,1,guilt_manipulation,other_harm,team_reviewed
+S171,I like your laugh,0,friendly_flirt,harmless,team_reviewed
+S172,Im a girl so I need my hairband,0,identity_mention,harmless,team_reviewed
+S173,Thank you for the invite but I have other plans,0,polite_rejection,harmless,team_reviewed
+S174,Good luck trying to text me after I block you,1,threat,toxic,team_reviewed
+S175,You pick where you want us to go,0,neutral_logistics,harmless,team_reviewed
+S176,Do you wanna come to the club with your friends?,0,neutral_logistics,harmless,team_reviewed
+S177,Even a dog could outsmart you,1,put_down,toxic,team_reviewed
+S178,If you call me again I will ignore you forever,1,threat,toxic,team_reviewed
+S179,I am muslim and cant eat pork,0,identity_mention,harmless,team_reviewed
+S180,"The problem is me, not you",0,healthy_conflict,harmless,team_reviewed
+S181,You are an egotistical fuck,1,explicit_insult,toxic,team_reviewed
+S182,You were not there you don’t know the full story,1,gaslighting,gaslighting,team_reviewed
+S183,"Just send one picture it would make me happy, you don’t wanna make me happy?",1,sexual_pressure,other_harm,team_reviewed
+S184,Im going out today I will let you know,0,neutral_logistics,harmless,team_reviewed
+S185,You cant be friends with them.,1,guilt_manipulation,other_harm,team_reviewed
+S186,"I know my truth, believe whatever you want",1,gaslighting,gaslighting,team_reviewed
+S187,I hear you and understand but personally don’t agree,0,healthy_conflict,harmless,team_reviewed
+S188,You are spit under my shoe,1,put_down,toxic,team_reviewed
+S189,Block him if you love me,1,guilt_manipulation,other_harm,team_reviewed
+S190,I bet you arent better than me at cooking,0,playful_banter,harmless,team_reviewed
+S191,Fuck you I do not wanna see you again,1,explicit_insult,toxic,team_reviewed
+S192,I would love to but I am unavailable,0,polite_rejection,harmless,team_reviewed
+S193,I think we are seeing each other too much and I need privacy,0,healthy_conflict,harmless,team_reviewed
+S194,Do you have plans for the weekend?,0,neutral_logistics,harmless,team_reviewed
+S195,Why do you follow girls when you have me,1,guilt_manipulation,other_harm,team_reviewed
+S196,You can listen to music at home why are you going clubbing,1,guilt_manipulation,other_harm,team_reviewed
+S197,Youre a fool youre making it difficult to be serious,0,playful_banter,harmless,team_reviewed
+S198,Youre being overly sensitive its not a big deal,1,gaslighting,gaslighting,team_reviewed
+S199,You look like you snuck onto earth,1,put_down,toxic,team_reviewed
+S200,Can you shut the hell up already.,1,explicit_insult,toxic,team_reviewed

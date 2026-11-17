@@ -19,9 +19,9 @@ Raw datasets stay out of Git because of their size. Put them in `data/raw/`. All
 | `label` | 1 harmful, 0 not harmful |
 | `category` | The situation the message tests |
 | `topic` | `toxic` (insults, put-downs, threats), `gaslighting`, `other_harm` (guilt or control, sexual pressure) or `harmless` |
-| `label_status` | `draft_ai` (Claude's draft) or `draft_team` (team-written) until two team members label it independently; then `reviewed` |
+| `label_status` | `draft_ai` (S001-S120, drafted by Claude) or `team_reviewed` (S121-S200, written by a team member and reviewed by the group) |
 
-Claude drafted S001 to S120. The team writes S121 to S200 following [labelling/WRITER_BRIEF.md](labelling/WRITER_BRIEF.md). Two team members then label all messages independently with `python -m red_flag_detector.labelling`, which reports Cohen's kappa. The report declares the AI draft.
+Claude drafted S001 to S120. A team member wrote S121 to S200 following [labelling/WRITER_BRIEF.md](labelling/WRITER_BRIEF.md), and the group reviewed them together and agreed with every label. No second person labelled them independently, so we report no inter-annotator agreement. Some messages, such as threats to block or end contact, could reasonably be labelled either way. The report declares the AI draft.
 
 ## D3 rules
 

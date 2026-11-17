@@ -9,7 +9,7 @@ These 80 messages become our final dating test. The first 120 are a development 
 3. Write messages that sound like a real dating-app chat. Vary length: some 3 words, some 25. Typos, slang, emoji and lowercase are fine.
 4. No real chats, real names of people you know, phone numbers or other personal data. Invented first names are fine.
 5. Harmful messages can be offensive where the category needs it. Do not use slurs: we do not need them to test the models, and they would end up in our repo.
-6. Label each message as you write it. Two other people will label all 200 messages blind afterwards, so your label is a draft.
+6. Label each message as you write it. The group then reviews the messages and labels together.
 
 ## How many per category
 
@@ -33,16 +33,4 @@ Half harmful, half not, like the first 120. Each writer writes about half of eve
 
 ## Format
 
-Fill the `text` column of `data/labelling/new_messages_to_write.csv`. It has one row per message, grouped by category, with the label already set. Leave the other columns as they are.
-
-When the sheet is full, the rows go into `data/dating_stress_test.csv` with ids `S121` to `S200` in shuffled order, so an id does not give away its category to the labellers, and with `label_status` set to `draft_team`, so we can tell your messages from the AI-drafted first 120.
-
-## After you finish
-
-The two labellers, who are not the writers, run:
-
-```bash
-python -m red_flag_detector.labelling sheets
-```
-
-and follow the steps at the top of `src/red_flag_detector/labelling.py`.
+Fill the `text` column of a prepared sheet with one row per message, grouped by category, with the label already set. The rows then go into `data/dating_stress_test.csv` with ids `S121` to `S200` in shuffled order and `label_status` set to `team_reviewed` once the group has checked them.
