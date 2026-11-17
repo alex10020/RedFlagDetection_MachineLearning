@@ -1,0 +1,55 @@
+id,text,label,category,topic,score,flagged
+S068,okay your taste in music is unfairly good,0,friendly_flirt,harmless,0.545,1
+S070,"tell me your best first date story, i'll judge it fairly",0,friendly_flirt,harmless,0.737,1
+S069,i've been smiling at my phone all day because of you,0,friendly_flirt,harmless,0.998,1
+S067,you're cute when you get excited about space documentaries,0,friendly_flirt,harmless,0.413,1
+S066,coffee this weekend? i know a place with great pastries,0,friendly_flirt,harmless,0.545,1
+S065,"you're kind of dangerously charming, you know",0,friendly_flirt,harmless,0.996,1
+S064,"i had a really good time last night, want to do it again?",0,friendly_flirt,harmless,0.864,1
+S062,so when do i get to beat you at mini golf?,0,friendly_flirt,harmless,0.896,1
+S063,that photo with your dog just won me over,0,friendly_flirt,harmless,1.0,1
+S041,after everything i've done for you this is how you treat me,1,guilt_manipulation,other_harm,0.172,0
+S118,you were late again and that bothers me,0,healthy_conflict,harmless,0.531,1
+S119,i don't agree with your politics but i respect you for explaining them,0,healthy_conflict,harmless,0.88,1
+S113,"that joke didn't land well with me, please don't say it again",0,healthy_conflict,harmless,0.875,1
+S114,i felt ignored at the party and i wanted to tell you,0,healthy_conflict,harmless,0.693,1
+S116,i think we both messed up on this one,0,healthy_conflict,harmless,0.476,1
+S117,i really hate it when plans change without warning,0,healthy_conflict,harmless,0.605,1
+S109,"i'm a single mom of two, they're my whole world",0,identity_mention,harmless,0.975,1
+S110,i'm a lesbian and my last relationship lasted four years,0,identity_mention,harmless,0.745,1
+S102,as a black woman i really loved that book you mentioned,0,identity_mention,harmless,0.978,1
+S103,"my muslim family does a huge dinner for eid, you'd love the food",0,identity_mention,harmless,0.994,1
+S105,i'm jewish so friday nights are usually with my family,0,identity_mention,harmless,0.992,1
+S080,i'll grab the tickets online tonight,0,neutral_logistics,harmless,0.504,1
+S079,are you okay with sushi or would you rather have pizza?,0,neutral_logistics,harmless,0.976,1
+S075,i finish work at six on thursdays,0,neutral_logistics,harmless,0.455,1
+S076,should i book a table or just walk in?,0,neutral_logistics,harmless,0.884,1
+S074,can you send me the address again?,0,neutral_logistics,harmless,0.924,1
+S073,the restaurant is on the corner next to the pharmacy,0,neutral_logistics,harmless,0.766,1
+S072,does 7:30 work or is that too early for you?,0,neutral_logistics,harmless,0.894,1
+S077,"my phone died, sorry, just saw your message",0,neutral_logistics,harmless,0.891,1
+S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,harmless,0.813,1
+S090,"ok loser, rematch at bowling on saturday",0,playful_banter,harmless,0.419,1
+S088,"that movie was fucking great, thanks for picking it",0,playful_banter,harmless,0.624,1
+S081,you're such an idiot lol i love it,0,playful_banter,harmless,0.607,1
+S086,"you little liar, you said you couldn't cook!",0,playful_banter,harmless,0.894,1
+S082,shut up that's hilarious,0,playful_banter,harmless,0.989,1
+S087,"i can't believe you like pineapple on pizza, you monster",0,playful_banter,harmless,0.497,1
+S083,holy shit that is the cutest dog ever,0,playful_banter,harmless,0.987,1
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.95,1
+S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,harmless,1.0,1
+S093,"please don't text me anymore, i've made up my mind",0,polite_rejection,harmless,0.987,1
+S094,"i don't send photos, that's a boundary for me",0,polite_rejection,harmless,0.879,1
+S095,i'd rather not go home with you tonight,0,polite_rejection,harmless,0.812,1
+S096,"no thank you, i'm going to head home now",0,polite_rejection,harmless,1.0,1
+S097,i've met someone else so i'm going to stop chatting here,0,polite_rejection,harmless,0.877,1
+S100,"i need some space this week, i'll reach out if that changes",0,polite_rejection,harmless,0.755,1
+S092,"i'm not interested, but i wish you the best",0,polite_rejection,harmless,0.773,1
+S018,that outfit is brave for someone with your body,1,put_down,toxic,0.238,0
+S014,i usually date people way smarter than you but ok,1,put_down,toxic,0.077,0
+S035,i won't keep talking to you unless you send something hot,1,sexual_pressure,other_harm,0.214,0
+S040,"i asked three times already, stop saying no",1,sexual_pressure,other_harm,0.098,0
+S029,watch your back after what you did to me,1,threat,toxic,0.356,0
+S027,"i can find you whenever i want, remember that",1,threat,toxic,0.025,0
+S024,keep talking like that and see what happens to you,1,threat,toxic,0.038,0
+S030,i will make you pay for embarrassing me,1,threat,toxic,0.401,0

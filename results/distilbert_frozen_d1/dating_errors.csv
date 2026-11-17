@@ -1,0 +1,55 @@
+id,text,label,category,topic,score,flagged
+S056,"you're making a big deal out of nothing, as usual",1,gaslighting,gaslighting,0.277,0
+S051,"that never happened, you're imagining things again",1,gaslighting,gaslighting,0.272,0
+S060,if you weren't so emotional you'd see i'm right,1,gaslighting,gaslighting,0.331,0
+S059,"i didn't do anything, you just get paranoid",1,gaslighting,gaslighting,0.66,0
+S058,"nobody else has a problem with me, so it must be you",1,gaslighting,gaslighting,0.191,0
+S057,"you know you sound insane right now, right?",1,gaslighting,gaslighting,0.724,0
+S052,"you're way too sensitive, it was obviously a joke",1,gaslighting,gaslighting,0.564,0
+S055,you remember it wrong like you always do,1,gaslighting,gaslighting,0.166,0
+S054,"you're crazy, everyone agrees with me on this",1,gaslighting,gaslighting,0.44,0
+S053,"i never said that, you always twist my words",1,gaslighting,gaslighting,0.296,0
+S044,"you're the reason i'm like this, you know that",1,guilt_manipulation,other_harm,0.38,0
+S045,nobody else would put up with you like i do,1,guilt_manipulation,other_harm,0.469,0
+S046,give me your phone password if you have nothing to hide,1,guilt_manipulation,other_harm,0.19,0
+S047,why were you online and not answering me? who were you talking to,1,guilt_manipulation,other_harm,0.495,0
+S048,"you don't need your friends, you have me",1,guilt_manipulation,other_harm,0.226,0
+S049,if you loved me you would quit that job,1,guilt_manipulation,other_harm,0.703,0
+S041,after everything i've done for you this is how you treat me,1,guilt_manipulation,other_harm,0.169,0
+S043,i guess i just don't matter to you at all,1,guilt_manipulation,other_harm,0.149,0
+S042,if you go out with your friends tonight don't bother coming back,1,guilt_manipulation,other_harm,0.174,0
+S081,you're such an idiot lol i love it,0,playful_banter,harmless,0.84,1
+S082,shut up that's hilarious,0,playful_banter,harmless,0.883,1
+S083,holy shit that is the cutest dog ever,0,playful_banter,harmless,0.93,1
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.821,1
+S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,harmless,0.906,1
+S086,"you little liar, you said you couldn't cook!",0,playful_banter,harmless,0.965,1
+S087,"i can't believe you like pineapple on pizza, you monster",0,playful_banter,harmless,0.95,1
+S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,harmless,0.734,1
+S088,"that movie was fucking great, thanks for picking it",0,playful_banter,harmless,0.807,1
+S011,you'd be pretty if you lost some weight,1,put_down,toxic,0.626,0
+S012,you're not really my type but i guess i'll settle tonight,1,put_down,toxic,0.197,0
+S014,i usually date people way smarter than you but ok,1,put_down,toxic,0.499,0
+S015,not bad for someone your age i suppose,1,put_down,toxic,0.214,0
+S016,you talk a lot for someone with so little to say,1,put_down,toxic,0.231,0
+S017,you should be grateful someone like me even replied,1,put_down,toxic,0.369,0
+S018,that outfit is brave for someone with your body,1,put_down,toxic,0.223,0
+S019,your degree must have been easy if they let you in,1,put_down,toxic,0.125,0
+S020,honestly you're lucky i lowered my standards this month,1,put_down,toxic,0.347,0
+S040,"i asked three times already, stop saying no",1,sexual_pressure,other_harm,0.254,0
+S031,"come on, send a pic, everyone does it",1,sexual_pressure,other_harm,0.109,0
+S032,if you liked me you would come over tonight and stay,1,sexual_pressure,other_harm,0.079,0
+S033,you owe me after i paid for dinner,1,sexual_pressure,other_harm,0.127,0
+S035,i won't keep talking to you unless you send something hot,1,sexual_pressure,other_harm,0.311,0
+S036,"you came on a date, what did you think was going to happen",1,sexual_pressure,other_harm,0.227,0
+S037,"don't be so frigid, it's just one photo",1,sexual_pressure,other_harm,0.134,0
+S038,you've been leading me on so now you have to make it up to me,1,sexual_pressure,other_harm,0.232,0
+S039,"no one will know, just do what i asked",1,sexual_pressure,other_harm,0.136,0
+S026,you better answer me or you're going to get hurt,1,threat,toxic,0.698,0
+S025,i'll make sure everyone sees those photos if you leave,1,threat,toxic,0.077,0
+S029,watch your back after what you did to me,1,threat,toxic,0.665,0
+S023,block me and i'll show up at your place,1,threat,toxic,0.369,0
+S022,"i know where you work, so think carefully about your next text",1,threat,toxic,0.016,0
+S021,you'll regret ignoring me,1,threat,toxic,0.503,0
+S027,"i can find you whenever i want, remember that",1,threat,toxic,0.051,0
+S024,keep talking like that and see what happens to you,1,threat,toxic,0.523,0

@@ -1,0 +1,13 @@
+label,topic,category,messages,flagged,flag_rate
+0,harmless,friendly_flirt,10,9,0.9
+0,harmless,healthy_conflict,10,8,0.8
+0,harmless,identity_mention,10,10,1.0
+0,harmless,neutral_logistics,10,9,0.9
+0,harmless,playful_banter,10,10,1.0
+0,harmless,polite_rejection,10,9,0.9
+1,gaslighting,gaslighting,10,7,0.7
+1,other_harm,guilt_manipulation,10,7,0.7
+1,other_harm,sexual_pressure,10,6,0.6
+1,toxic,explicit_insult,10,10,1.0
+1,toxic,put_down,10,8,0.8
+1,toxic,threat,10,4,0.4

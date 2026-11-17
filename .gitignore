@@ -13,3 +13,6 @@ dist/
 data/raw/*
 !data/raw/.gitkeep
 .gradio/
+
+# Fine-tuned DistilBERT weights (~265 MB each) stay out of Git
+models/distilbert_finetuned_*.pt

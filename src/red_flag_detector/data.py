@@ -12,6 +12,9 @@ from .validation import validate_binary_labels, validate_required_columns
 JIGSAW_TYPES = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
 STRESS_COLUMNS = ["id", "text", "label", "category", "topic", "label_status"]
 GASLIGHTING_COLUMNS = ["id", "turn", "speaker role", "utterance", "category"]
+# Shared D1 sample sizes: the CNN and DistilBERT train on the same 100,000 messages.
+D1_TRAIN_SIZE = 100_000
+D1_VAL_SIZE = 20_000
 
 
 def clean_text(text: str) -> str:
@@ -65,6 +68,38 @@ def load_toxic_conversations(split: str = "train", sample: int | None = None, se
     return read_toxic_conversations(path, sample=sample, seed=seed)
 
 
+def split_d1(
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+    train_size: int | None = D1_TRAIN_SIZE,
+    val_size: int = D1_VAL_SIZE,
+    seed: int = 42,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Make our D1 train and validation sets from the official train file.
+
+    D1 has no validation split, so we hold one out of train. The validation set
+    stays the same whatever `train_size` is, so models trained on different
+    amounts of data are compared on the same messages. Texts that also appear in
+    the official test file are dropped, so the final test stays unseen.
+    """
+    data = deduplicate(train)
+    data = data[~data["text"].str.lower().isin(set(test["text"].str.lower()))]
+    rest, val = train_test_split(data, test_size=val_size, stratify=data["label"], random_state=seed)
+    if train_size is not None and train_size < len(rest):
+        rest, _ = train_test_split(rest, train_size=train_size, stratify=rest["label"], random_state=seed)
+    return rest.reset_index(drop=True), val.reset_index(drop=True)
+
+
+def load_d1_train_val(
+    train_size: int | None = D1_TRAIN_SIZE, val_size: int = D1_VAL_SIZE, seed: int = 42
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Download D1 if needed and return the shared train and validation sets.
+
+    Every toxicity model uses this function, so all of them see the same data.
+    """
+    return split_d1(load_toxic_conversations("train"), load_toxic_conversations("test"), train_size, val_size, seed)
+
+
 def load_gaslighting(paths: Iterable[str | Path]) -> pd.DataFrame:
     """Load D3 assistant messages, labelled 1 for gaslighting and 0 for safe.
 
@@ -93,6 +128,25 @@ def load_gaslighting(paths: Iterable[str | Path]) -> pd.DataFrame:
             "chat_id": assistant["id"],
         }
     ).reset_index(drop=True)
+
+
+def load_d3_splits(root: str | Path = "data/raw/gaslighting") -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Return D3's official train, validation and test sets, both classes in each.
+
+    Train is deduplicated, and train texts that repeat in validation or test are
+    dropped, so no message is scored on data it was trained on. Validation and
+    test stay exactly as published.
+    """
+    root = Path(root)
+    splits = [
+        load_gaslighting([root / f"{prefix}_{split}.json" for prefix in ("gaslighting", "anti_gaslighting")])
+        for split in ("train", "validation", "test")
+    ]
+    train, val, test = splits
+    held_out = set(pd.concat([val["text"], test["text"]]).str.lower())
+    train = deduplicate(train)
+    train = train[~train["text"].str.lower().isin(held_out)].reset_index(drop=True)
+    return train, val, test
 
 
 def load_stress_test(path: str | Path) -> pd.DataFrame:
