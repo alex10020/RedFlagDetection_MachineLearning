@@ -172,12 +172,36 @@ def collect(name: str, val: pd.DataFrame, stress: pd.DataFrame, per_side: int) -
     return errors[["model", "source", "error", "label", "score", "category", "draft_cause", "team_cause", "text"]].round({"score": 3})
 
 
+def shortlist(errors: pd.DataFrame, per_model: int = 5) -> pd.DataFrame:
+    """Pick candidate report examples: the most confident mistake from each of a model's largest draft causes.
+
+    These are candidates for the team to read, not the final choice.
+    """
+    picks = []
+    for _, model_errors in errors.groupby("model", sort=False):
+        # Most confident = furthest from the decision: high scores for false positives, low for false negatives.
+        confidence = np.where(model_errors["error"] == "false positive", model_errors["score"], 1 - model_errors["score"])
+        ranked = model_errors.assign(confidence=confidence)
+        sizes = ranked.groupby(["source", "error", "draft_cause"]).size().sort_values(ascending=False)
+        for key in sizes.index[:per_model]:
+            group = ranked[(ranked["source"] == key[0]) & (ranked["error"] == key[1]) & (ranked["draft_cause"] == key[2])]
+            picks.append(group.nlargest(1, "confidence").assign(mistakes_with_this_cause=sizes[key]))
+    return pd.concat(picks, ignore_index=True).drop(columns=["confidence", "team_cause"])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--per-side", type=int, default=15, help="validation false positives and false negatives kept per model")
     parser.add_argument("--models", nargs="*", default=list(MODELS))
     parser.add_argument("--out", type=Path, default=RESULTS / "errors")
+    parser.add_argument("--shortlist", action="store_true", help="only rebuild candidates.csv from the existing error files")
     args = parser.parse_args()
+    if args.shortlist:
+        errors = pd.concat(pd.read_csv(args.out / f"{name}.csv", keep_default_na=False) for name in args.models)
+        candidates = shortlist(errors)
+        candidates.to_csv(args.out / "candidates.csv", index=False)
+        print(f"{len(candidates)} candidate examples written to {args.out / 'candidates.csv'}")
+        return
 
     _, d1_val = load_d1_train_val()
     _, d3_val, _ = load_d3_splits()

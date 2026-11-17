@@ -7,6 +7,8 @@ from red_flag_detector.data import (
     deduplicate,
     load_gaslighting,
     load_jigsaw,
+    load_jigsaw_test,
+    load_stress_test,
     make_splits,
     read_toxic_conversations,
     load_d3_splits,
@@ -34,6 +36,25 @@ def test_jigsaw_counts_any_type_as_toxic(tmp_path):
     path = tmp_path / "train.csv"
     pd.DataFrame(rows).to_csv(path, index=False)
     assert load_jigsaw(path)["label"].tolist() == [0, 1]
+
+
+def test_jigsaw_test_joins_labels_and_drops_unscored_rows(tmp_path):
+    pd.DataFrame({"id": ["a", "b", "c"], "comment_text": ["fine", "you idiot", "unscored"]}).to_csv(tmp_path / "test.csv", index=False)
+    zero = {name: 0 for name in JIGSAW_TYPES}
+    labels = [{"id": "a", **zero}, {"id": "b", **zero, "insult": 1}, {"id": "c", **{name: -1 for name in JIGSAW_TYPES}}]
+    pd.DataFrame(labels).to_csv(tmp_path / "test_labels.csv", index=False)
+    data = load_jigsaw_test(tmp_path / "test.csv", tmp_path / "test_labels.csv")
+    assert data["text"].tolist() == ["fine", "you idiot"]
+    assert data["label"].tolist() == [0, 1]
+
+
+def test_stress_test_keeps_final_messages_out_of_dev(tmp_path):
+    rows = [{"id": f"S{i:03d}", "text": "hi", "label": 0, "category": "c", "topic": "harmless", "label_status": "x"} for i in (1, 120, 121, 200)]
+    path = tmp_path / "stress.csv"
+    pd.DataFrame(rows).to_csv(path, index=False)
+    assert load_stress_test(path)["id"].tolist() == ["S001", "S120"]
+    assert load_stress_test(path, part="final")["id"].tolist() == ["S121", "S200"]
+    assert len(load_stress_test(path, part="all")) == 4
 
 
 def test_missing_file_points_to_instructions(tmp_path):
