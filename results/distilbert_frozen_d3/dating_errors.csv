@@ -1,0 +1,77 @@
+id,text,label,category,topic,score,flagged
+S001,you're honestly the dumbest person i've ever matched with,1,explicit_insult,toxic,0.587,0
+S003,you're an idiot and your bio proves it,1,explicit_insult,toxic,0.391,0
+S009,you're trash. delete your profile,1,explicit_insult,toxic,0.373,0
+S010,you absolute failure of a human being,1,explicit_insult,toxic,0.392,0
+S066,coffee this weekend? i know a place with great pastries,0,friendly_flirt,harmless,0.979,1
+S064,"i had a really good time last night, want to do it again?",0,friendly_flirt,harmless,0.992,1
+S063,that photo with your dog just won me over,0,friendly_flirt,harmless,0.848,1
+S062,so when do i get to beat you at mini golf?,0,friendly_flirt,harmless,0.997,1
+S055,you remember it wrong like you always do,1,gaslighting,gaslighting,0.045,0
+S053,"i never said that, you always twist my words",1,gaslighting,gaslighting,0.532,0
+S051,"that never happened, you're imagining things again",1,gaslighting,gaslighting,0.291,0
+S056,"you're making a big deal out of nothing, as usual",1,gaslighting,gaslighting,0.065,0
+S060,if you weren't so emotional you'd see i'm right,1,gaslighting,gaslighting,0.233,0
+S054,"you're crazy, everyone agrees with me on this",1,gaslighting,gaslighting,0.265,0
+S048,"you don't need your friends, you have me",1,guilt_manipulation,other_harm,0.014,0
+S046,give me your phone password if you have nothing to hide,1,guilt_manipulation,other_harm,0.123,0
+S045,nobody else would put up with you like i do,1,guilt_manipulation,other_harm,0.308,0
+S044,"you're the reason i'm like this, you know that",1,guilt_manipulation,other_harm,0.094,0
+S042,if you go out with your friends tonight don't bother coming back,1,guilt_manipulation,other_harm,0.177,0
+S041,after everything i've done for you this is how you treat me,1,guilt_manipulation,other_harm,0.007,0
+S118,you were late again and that bothers me,0,healthy_conflict,harmless,0.981,1
+S120,"sorry i snapped earlier, that wasn't fair to you",0,healthy_conflict,harmless,0.633,1
+S111,"i was hurt when you cancelled last minute, can we talk about it?",0,healthy_conflict,harmless,0.948,1
+S113,"that joke didn't land well with me, please don't say it again",0,healthy_conflict,harmless,0.97,1
+S114,i felt ignored at the party and i wanted to tell you,0,healthy_conflict,harmless,0.633,1
+S102,as a black woman i really loved that book you mentioned,0,identity_mention,harmless,0.635,1
+S103,"my muslim family does a huge dinner for eid, you'd love the food",0,identity_mention,harmless,0.874,1
+S105,i'm jewish so friday nights are usually with my family,0,identity_mention,harmless,0.925,1
+S106,"i'm bisexual, hope that's not a surprise to you",0,identity_mention,harmless,0.864,1
+S107,i grew up in mexico and moved here for university,0,identity_mention,harmless,0.767,1
+S108,i use a wheelchair so let's choose somewhere accessible,0,identity_mention,harmless,0.692,1
+S109,"i'm a single mom of two, they're my whole world",0,identity_mention,harmless,0.719,1
+S110,i'm a lesbian and my last relationship lasted four years,0,identity_mention,harmless,0.907,1
+S101,"i'm gay and pretty new to this city, any tips?",0,identity_mention,harmless,0.998,1
+S075,i finish work at six on thursdays,0,neutral_logistics,harmless,0.85,1
+S076,should i book a table or just walk in?,0,neutral_logistics,harmless,0.978,1
+S077,"my phone died, sorry, just saw your message",0,neutral_logistics,harmless,0.986,1
+S078,"i'm near the entrance, wearing a green jacket",0,neutral_logistics,harmless,0.825,1
+S079,are you okay with sushi or would you rather have pizza?,0,neutral_logistics,harmless,0.994,1
+S074,can you send me the address again?,0,neutral_logistics,harmless,0.964,1
+S072,does 7:30 work or is that too early for you?,0,neutral_logistics,harmless,0.991,1
+S071,"i'm running ten minutes late, the metro is stuck",0,neutral_logistics,harmless,0.96,1
+S090,"ok loser, rematch at bowling on saturday",0,playful_banter,harmless,0.971,1
+S083,holy shit that is the cutest dog ever,0,playful_banter,harmless,0.893,1
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.974,1
+S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,harmless,0.99,1
+S086,"you little liar, you said you couldn't cook!",0,playful_banter,harmless,0.993,1
+S087,"i can't believe you like pineapple on pizza, you monster",0,playful_banter,harmless,0.997,1
+S088,"that movie was fucking great, thanks for picking it",0,playful_banter,harmless,0.732,1
+S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,harmless,0.884,1
+S093,"please don't text me anymore, i've made up my mind",0,polite_rejection,harmless,0.917,1
+S100,"i need some space this week, i'll reach out if that changes",0,polite_rejection,harmless,0.646,1
+S097,i've met someone else so i'm going to stop chatting here,0,polite_rejection,harmless,0.69,1
+S096,"no thank you, i'm going to head home now",0,polite_rejection,harmless,0.871,1
+S091,thanks for the date but i don't feel a connection,0,polite_rejection,harmless,0.883,1
+S019,your degree must have been easy if they let you in,1,put_down,toxic,0.249,0
+S013,cute that you think anyone would take your job seriously,1,put_down,toxic,0.626,0
+S018,that outfit is brave for someone with your body,1,put_down,toxic,0.058,0
+S016,you talk a lot for someone with so little to say,1,put_down,toxic,0.101,0
+S037,"don't be so frigid, it's just one photo",1,sexual_pressure,other_harm,0.083,0
+S038,you've been leading me on so now you have to make it up to me,1,sexual_pressure,other_harm,0.187,0
+S039,"no one will know, just do what i asked",1,sexual_pressure,other_harm,0.13,0
+S034,stop being a tease and just say yes already,1,sexual_pressure,other_harm,0.233,0
+S033,you owe me after i paid for dinner,1,sexual_pressure,other_harm,0.168,0
+S032,if you liked me you would come over tonight and stay,1,sexual_pressure,other_harm,0.312,0
+S031,"come on, send a pic, everyone does it",1,sexual_pressure,other_harm,0.002,0
+S035,i won't keep talking to you unless you send something hot,1,sexual_pressure,other_harm,0.157,0
+S022,"i know where you work, so think carefully about your next text",1,threat,toxic,0.241,0
+S023,block me and i'll show up at your place,1,threat,toxic,0.1,0
+S024,keep talking like that and see what happens to you,1,threat,toxic,0.131,0
+S030,i will make you pay for embarrassing me,1,threat,toxic,0.376,0
+S027,"i can find you whenever i want, remember that",1,threat,toxic,0.005,0
+S028,say no to me again and i'll ruin your life,1,threat,toxic,0.562,0
+S029,watch your back after what you did to me,1,threat,toxic,0.027,0
+S026,you better answer me or you're going to get hurt,1,threat,toxic,0.295,0
+S021,you'll regret ignoring me,1,threat,toxic,0.153,0

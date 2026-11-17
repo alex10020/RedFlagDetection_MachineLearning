@@ -1,0 +1,112 @@
+{
+  "dataset": "D3 gaslighting official train split",
+  "mode": "frozen",
+  "backbone": "distilbert/distilbert-base-uncased",
+  "splits": {
+    "train": {
+      "rows": 24181,
+      "harmful_share": 0.5005
+    },
+    "val": {
+      "rows": 1688,
+      "harmful_share": 0.5
+    }
+  },
+  "share_truncated_at_128_tokens": 0.0,
+  "device": "NVIDIA GeForce RTX 2070 with Max-Q Design",
+  "embed_seconds": 5.7,
+  "grid": [
+    {
+      "lr": 0.001,
+      "weight_decay": 0.0,
+      "best_epoch": 76,
+      "epochs_run": 81,
+      "val_pr_auc": 0.9807507992495618,
+      "val_f1": 0.9390464695232348
+    },
+    {
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "best_epoch": 58,
+      "epochs_run": 63,
+      "val_pr_auc": 0.9801591501378439,
+      "val_f1": 0.9379144062688366
+    },
+    {
+      "lr": 0.0003,
+      "weight_decay": 0.0,
+      "best_epoch": 121,
+      "epochs_run": 126,
+      "val_pr_auc": 0.9793376635688782,
+      "val_f1": 0.9367088607594937
+    },
+    {
+      "lr": 0.0003,
+      "weight_decay": 0.0001,
+      "best_epoch": 121,
+      "epochs_run": 126,
+      "val_pr_auc": 0.9791960223044915,
+      "val_f1": 0.937799043062201
+    }
+  ],
+  "chosen": {
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "best_epoch": 76,
+    "epochs_run": 81,
+    "val_pr_auc": 0.9807507992495618,
+    "val_f1": 0.9390464695232348
+  },
+  "trainable_parameters": 1538,
+  "threshold": 0.6291856169700623,
+  "train_seconds": 50.7,
+  "model_mb": 0.01,
+  "validation": {
+    "precision": 0.956949569495695,
+    "recall": 0.9218009478672986,
+    "f1": 0.9390464695232348,
+    "pr_auc": 0.9807507992495618
+  },
+  "validation_at_threshold_0.5": {
+    "precision": 0.9339622641509434,
+    "recall": 0.9383886255924171,
+    "f1": 0.9361702127659575,
+    "pr_auc": 0.9807507992495618
+  },
+  "dating_dev_set": {
+    "all": {
+      "precision": 0.3709677419354839,
+      "recall": 0.38333333333333336,
+      "f1": 0.3770491803278688,
+      "pr_auc": 0.4062692440320943,
+      "messages": 120,
+      "f1_95ci": [
+        0.25925925925925924,
+        0.48438683712121205
+      ]
+    },
+    "toxic_vs_harmless": {
+      "precision": 0.25,
+      "recall": 0.43333333333333335,
+      "f1": 0.3170731707317073,
+      "pr_auc": 0.272936825963325,
+      "messages": 90,
+      "f1_95ci": [
+        0.18661538461538463,
+        0.4444444444444444
+      ]
+    },
+    "gaslighting_vs_harmless": {
+      "precision": 0.09302325581395349,
+      "recall": 0.4,
+      "f1": 0.1509433962264151,
+      "pr_auc": 0.10583983568191149,
+      "messages": 70,
+      "f1_95ci": [
+        0.037037037037037035,
+        0.28582949308755695
+      ]
+    },
+    "false_positive_rate": 0.65
+  }
+}
