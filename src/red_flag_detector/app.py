@@ -21,6 +21,9 @@ TOPICS = {"toxic": "Toxic", "gaslighting": "Gaslighting"}
 CNN_MODELS = {"toxic": MODELS_DIR / "cnn_d1.pt", "gaslighting": MODELS_DIR / "cnn_d3.pt"}
 BASELINE_MODELS = {"toxic": MODELS_DIR / "baseline_d1_100k.joblib", "gaslighting": MODELS_DIR / "baseline_d3.joblib"}
 LEVEL_ORDER = {"no flag": 0, "worth a look": 1, "red flag": 2}
+# Shown as a grey number only: it never raises a flag, colours a message or counts towards a sender.
+# Every model we trained on D3 flags most harmless dating messages, so its flags would mislead.
+EXPERIMENTAL = {"gaslighting"}
 
 SAMPLE_CHAT = """Sam: hey! loved your hiking photos
 Maya: thanks! that one was in the dolomites
@@ -65,10 +68,10 @@ STYLE = """
 """
 
 NOTE = (
-    "Support tool only. The toxic score catches explicit insults but misses most put-downs and threats, "
-    "so a message with no flag can still be harmful. The gaslighting score is experimental: on our test "
-    "messages it flags most ordinary messages too, because its training chats come from a different setting. "
-    "Treat a gaslighting flag as a prompt to reread, not a verdict. Scores are model outputs, not calibrated "
+    "Support tool only. Only the toxic score raises flags. It catches explicit insults but misses most "
+    "put-downs and threats, so a message with no flag can still be harmful. The gaslighting score is "
+    "experimental and raises no flags: its training chats come from a therapy setting, and on our dating "
+    "messages it gives high scores to most ordinary messages. Scores are model outputs, not calibrated "
     "chances. If you feel unsafe, trust that feeling and talk to someone you trust or a local support service."
 )
 
@@ -104,19 +107,21 @@ def default_models() -> tuple[dict[str, Path], str]:
 
 
 def _tag(topic: str, message: ScoredMessage) -> str:
+    if topic in EXPERIMENTAL:
+        return f'<span class="exp">{TOPICS[topic]} (experimental, not reliable on dating chats): {message.score:.2f}</span>'
     level = message.level
     css = CSS_CLASS.get(level, "")
-    label = f"{TOPICS[topic]}{' <span class=exp>(experimental)</span>' if topic == 'gaslighting' else ''}"
     text = f'<span class="{css}">{level.capitalize()}</span>' if css else level
-    return f"{label}: {text} · {message.score:.2f}"
+    return f"{TOPICS[topic]}: {text} · {message.score:.2f}"
 
 
 def _message_html(by_topic: dict[str, ScoredMessage]) -> str:
     first = next(iter(by_topic.values()))
-    worst = max((m.level for m in by_topic.values()), key=LEVEL_ORDER.get)
-    # Highlight a word if it pushed up any score that raised a flag.
+    flagging = {topic: m for topic, m in by_topic.items() if topic not in EXPERIMENTAL}
+    worst = max((m.level for m in flagging.values()), key=LEVEL_ORDER.get, default="no flag")
+    # Highlight a word if it pushed up a score that raised a flag.
     marked = set()
-    for message in by_topic.values():
+    for message in flagging.values():
         if message.level != "no flag":
             marked |= {i for i, (_, effect) in enumerate(message.word_effects) if effect >= MIN_WORD_EFFECT}
     words = [f"<mark>{html.escape(w)}</mark>" if i in marked else html.escape(w) for i, w in enumerate(first.text.split())]
@@ -128,28 +133,31 @@ def _message_html(by_topic: dict[str, ScoredMessage]) -> str:
 
 
 def _senders_html(reports: dict[str, list[ScoredMessage]]) -> str:
+    counted = [t for t in reports if t not in EXPERIMENTAL]
     rows: dict[str, dict] = {}
-    for topic, report in reports.items():
-        for message in report:
-            row = rows.setdefault(message.sender, {"messages": 0, **{t: 0 for t in reports}})
-            row["messages"] += topic == next(iter(reports))
-            row[topic] += message.level == "red flag"
-    ordered = sorted(rows.items(), key=lambda item: (-sum(item[1][t] for t in reports), item[0]))
+    for message in next(iter(reports.values())):
+        rows.setdefault(message.sender, {"messages": 0, **{t: 0 for t in counted}})["messages"] += 1
+    for topic in counted:
+        for message in reports[topic]:
+            rows[message.sender][topic] += message.level == "red flag"
+    ordered = sorted(rows.items(), key=lambda item: (-sum(item[1][t] for t in counted), item[0]))
     return "".join(
         f'<div class="sender"><b>{html.escape(sender)}</b>'
-        + " · ".join(f"{row[t]} {TOPICS[t].lower()} flags" for t in reports)
-        + f' · {row["messages"]} messages</div>'
+        + "".join(f"{row[t]} {TOPICS[t].lower()} flags · " for t in counted)
+        + f'{row["messages"]} messages</div>'
         for sender, row in ordered
     )
 
 
 def _timeline_html(topic: str, report: list[ScoredMessage]) -> str:
+    experimental = topic in EXPERIMENTAL
     ticks = "".join(
-        f'<div class="tick {CSS_CLASS.get(m.level, "")}" style="height:{max(m.score * 100, 4):.0f}%" '
-        f'title="Message {i}: {m.level}, score {m.score:.2f}"></div>'
+        f'<div class="tick {"" if experimental else CSS_CLASS.get(m.level, "")}" style="height:{max(m.score * 100, 4):.0f}%" '
+        f'title="Message {i}: score {m.score:.2f}"></div>'
         for i, m in enumerate(report, 1)
     )
-    return f'<div class="row-label">{TOPICS[topic]}</div><div class="timeline">{ticks}</div>'
+    label = f"{TOPICS[topic]} (experimental, grey only)" if experimental else TOPICS[topic]
+    return f'<div class="row-label">{label}</div><div class="timeline">{ticks}</div>'
 
 
 def render_report(reports: dict[str, list[ScoredMessage]] | list[ScoredMessage]) -> str:
@@ -179,7 +187,11 @@ def build_app(model_paths: dict[str, Path] | None = None) -> gr.Blocks:
     scorers = {topic: load_scorer(path) for topic, path in model_paths.items()}
 
     def analyse(chat: str) -> str:
-        return render_report({topic: score_chat(chat, scorer, threshold) for topic, (scorer, threshold) in scorers.items()})
+        reports = {}
+        for topic, (scorer, threshold) in scorers.items():
+            # An infinite threshold means an experimental score never reaches "red flag"; render_report ignores its level.
+            reports[topic] = score_chat(chat, scorer, float("inf") if topic in EXPERIMENTAL else threshold)
+        return render_report(reports)
 
     with gr.Blocks(title="Red Flag Detector", analytics_enabled=False) as app:
         gr.Markdown(

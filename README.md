@@ -68,7 +68,7 @@ python -m red_flag_detector.app
 
 Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. Each message gets two scores, toxic language and gaslighting, from our CNN models in `models/`, so you do not need any data to run it. Highlighted words are the ones that raised a flagged score most.
 
-The gaslighting score is experimental. Like every model we trained on D3, it flags most ordinary dating messages (see Results), and the app says so. Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
+Only the toxic score raises flags. The gaslighting score appears as a grey number marked experimental and never flags a message: like every model we trained on D3, it gives high scores to most ordinary dating messages (see Results). Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
 
 ## Get the data
 

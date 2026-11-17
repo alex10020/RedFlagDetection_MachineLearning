@@ -60,9 +60,20 @@ def test_report_shows_both_scores_and_counts_flags_per_topic():
         "gaslighting": score_chat("Sam: you are awful\nMaya: fine", calm, threshold=0.7),
     }
     page = render_report(reports)
-    assert "Toxic:" in page and "Gaslighting" in page
-    assert "1 toxic flags · 0 gaslighting flags · 1 messages" in page
+    assert "Toxic:" in page and "Gaslighting (experimental, not reliable on dating chats): 0.10" in page
+    assert "1 toxic flags · 1 messages" in page and "gaslighting flags" not in page
     assert "<mark>awful</mark>" in page
+
+
+def test_experimental_gaslighting_score_never_flags_or_colours_a_message():
+    loud = lambda texts: np.array([0.99 for _ in texts])
+    reports = {
+        "toxic": score_chat("Maya: fine", fake_scorer, threshold=0.7),
+        "gaslighting": score_chat("Maya: fine", loud, threshold=0.7),
+    }
+    page = render_report(reports)
+    assert '<div class="msg ">' in page  # no flag or watch class on the bubble
+    assert "Red flag" not in page and "0.99" in page
 
 
 def test_cnn_models_in_repo_load_and_score():
