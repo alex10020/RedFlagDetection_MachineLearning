@@ -9,6 +9,7 @@ from red_flag_detector.data import (
     load_jigsaw,
     make_splits,
     read_toxic_conversations,
+    split_d1,
 )
 from red_flag_detector.validation import validate_no_text_overlap
 
@@ -67,6 +68,22 @@ def test_splits_keep_class_share_and_do_not_overlap():
     for part in (train, val, test):
         assert part["label"].mean() == pytest.approx(0.2)
     assert validate_no_text_overlap(train, val, test)
+
+
+def test_split_d1_drops_test_texts_and_keeps_validation_fixed():
+    train = pd.DataFrame(
+        {"text": [f"msg {i}" for i in range(1000)] + ["MSG 0", "in test"], "label": [int(i % 5 == 0) for i in range(1000)] + [1, 0]}
+    )
+    test = pd.DataFrame({"text": ["In Test"], "label": [0]})
+    small, val_small = split_d1(train, test, train_size=200, val_size=100)
+    full, val_full = split_d1(train, test, train_size=None, val_size=100)
+    assert len(small) == 200 and len(val_small) == 100
+    assert val_small["text"].tolist() == val_full["text"].tolist()
+    assert len(full) == 900  # 1002 rows, minus the "MSG 0" duplicate, the test text and 100 validation rows
+    for part in (small, full, val_full):
+        assert "in test" not in part["text"].str.lower().tolist()
+        assert part["label"].mean() == pytest.approx(0.2, abs=0.01)
+    assert validate_no_text_overlap(full, val_full)
 
 
 def _d3_row(chat, role, text, category):

@@ -1,0 +1,94 @@
+{
+  "dataset": "D1 SetFit/toxic_conversations train.jsonl, deduplicated, official test texts removed",
+  "splits": {
+    "train": {
+      "rows": 100000,
+      "toxic_share": 0.0798
+    },
+    "val": {
+      "rows": 20000,
+      "toxic_share": 0.0798
+    }
+  },
+  "c_trials": [
+    {
+      "C": 0.1,
+      "threshold": 0.5770165611947521,
+      "train_seconds": 11.2,
+      "precision": 0.4837261503928171,
+      "recall": 0.5401002506265664,
+      "f1": 0.5103611604499704,
+      "pr_auc": 0.5349197252438428
+    },
+    {
+      "C": 1.0,
+      "threshold": 0.621554180308654,
+      "train_seconds": 11.5,
+      "precision": 0.5682367149758454,
+      "recall": 0.5895989974937343,
+      "f1": 0.5787207872078721,
+      "pr_auc": 0.6116076377478232
+    },
+    {
+      "C": 10.0,
+      "threshold": 0.6463028051282849,
+      "train_seconds": 11.8,
+      "precision": 0.5758533501896334,
+      "recall": 0.5708020050125313,
+      "f1": 0.5733165512901196,
+      "pr_auc": 0.6061418605947502
+    }
+  ],
+  "chosen_c": 1.0,
+  "threshold": 0.621554180308654,
+  "train_seconds": 11.5,
+  "model_mb": 0.99,
+  "validation": {
+    "precision": 0.5682367149758454,
+    "recall": 0.5895989974937343,
+    "f1": 0.5787207872078721,
+    "pr_auc": 0.6116076377478232
+  },
+  "validation_at_threshold_0.5": {
+    "precision": 0.44562230074597564,
+    "recall": 0.7111528822055138,
+    "f1": 0.5479121409606565,
+    "pr_auc": 0.6116076377478232
+  },
+  "dating_dev_set": {
+    "all": {
+      "precision": 0.5789473684210527,
+      "recall": 0.18333333333333332,
+      "f1": 0.27848101265822783,
+      "pr_auc": 0.6236548744479176,
+      "messages": 120,
+      "f1_95ci": [
+        0.15584415584415584,
+        0.4
+      ]
+    },
+    "toxic_vs_harmless": {
+      "precision": 0.5294117647058824,
+      "recall": 0.3,
+      "f1": 0.3829787234042553,
+      "pr_auc": 0.5499805806619965,
+      "messages": 90,
+      "f1_95ci": [
+        0.18604651162790697,
+        0.5490196078431373
+      ]
+    },
+    "gaslighting_vs_harmless": {
+      "precision": 0.2,
+      "recall": 0.2,
+      "f1": 0.2,
+      "pr_auc": 0.18035507695032515,
+      "messages": 70,
+      "f1_95ci": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    "false_positive_rate": 0.13333333333333333
+  }
+}
