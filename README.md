@@ -10,51 +10,55 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 
 ## Status
 
-This repo is a work in progress, and its numbers are provisional. [results/summary.md](results/summary.md) has the first results and their limits.
-
 | Part | State |
 |---|---|
-| Package structure and tests | Done |
-| EDA on D2 and the dating test | Done |
-| D3 loader | Done, tested on sample rows only |
-| EDA on D1 and D3 | To do |
-| Model 1: TF-IDF baseline, toxic | Trained on D2, retrain on D1 |
-| Model 1: TF-IDF baseline, gaslighting | To do |
-| Model 2: CNN with GloVe, both topics | To do |
-| Model 3: DistilBERT frozen, both topics | To do |
-| Model 4: DistilBERT fine-tuned, both topics | To do |
-| Dating test | 120 draft messages. Needs team labels and 80 new messages |
-| Prototype | v0 gives the toxic score. Gaslighting score to do |
-| Score calibration, bias check | To do |
-| Report and slides (due 24 November) | To do |
+| Package structure and tests | Done, 50 tests |
+| EDA on D1, D3 and the dating messages | Done (`notebooks/03_eda_d1_d3.ipynb`) |
+| TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics |
+| Error analysis | Mistakes exported per model; the team is reading them |
+| Dating test | 120 messages (development set). 80 new messages and two-person labelling in progress |
+| Final test runs | Sunday 22 November, once |
+| Prototype | v0 gives the toxic score. Gaslighting score in progress |
+| Report and slides (due 24 November) | In progress |
 
-## First result
+## Results so far
 
-| Test data | F1 for toxic |
-|---|---:|
-| D2 test comments | 0.79 |
-| Dating messages: toxic vs harmless | 0.50 |
-| Dating messages: gaslighting vs harmless | 0.27 |
+F1 for the harmful class. We chose hyperparameters and thresholds on validation data. The dating numbers come from the 120-message development set, and no official test set has been scored yet.
 
-The baseline learned toxic language only, so 0.27 is a starting point for the gaslighting model. It catches 10 of 10 explicit insults and 3 of 10 gaslighting messages. It also flags 8 of 10 friendly teasing messages, so it reacts to rude words more than to intent.
+| Model | D1 validation | Dating: toxic vs harmless | D3 validation | Dating: gaslighting vs harmless | Harmless dating messages flagged by the D3 model |
+|---|---:|---:|---:|---:|---:|
+| TF-IDF + logistic regression | 0.58 | 0.38 | 0.95 | 0.31 | 75% |
+| CNN + GloVe | 0.63 | 0.41 | 0.95 | 0.25 | 98% |
+| DistilBERT, frozen | 0.44 | 0.50 | 0.94 | 0.15 | 65% |
+| DistilBERT, fine-tuned | 0.68 | 0.40 | 0.97 | 0.19 | 92% |
+
+Fine-tuned DistilBERT is best on the training domains. On dating messages the models fall within each other's wide intervals: they catch explicit insults and miss put-downs and threats. The gaslighting models learn D3's style instead of gaslighting, because D3's safe class is reassuring therapist language. Each `results/<model>/metrics.json` has the full numbers, and `notebooks/03_eda_d1_d3.ipynb` explains the D3 problem.
 
 ## Setup
 
 Use Python 3.12 or newer. We tested on 3.13.
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+pip install -e .
+```
+
+With conda instead:
+
+```bash
 conda env create -f environment.yml
 conda activate red-flag-detector
 ```
 
-Without conda:
+The CNN and DistilBERT need PyTorch and transformers:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pip install -e .
+pip install -e ".[deep]"
 ```
+
+For an NVIDIA GPU, install the CUDA build of PyTorch first (see pytorch.org). We trained on an RTX 2070 with `torch` 2.14.1+cu126 and `transformers` 5.23.0.
 
 ## Run the prototype
 
@@ -62,43 +66,70 @@ pip install -e .
 python -m red_flag_detector.app
 ```
 
-Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. The repo includes the trained baseline, so you do not need to download any data first.
+Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. The app uses a model saved in the repo, so you do not need any data to run it.
+
+## Get the data
+
+Raw data stays out of Git. All datasets contain offensive language. See [data/README.md](data/README.md) for sources and licences.
+
+| Data | How to get it |
+|---|---|
+| D1 Toxic Conversations | Nothing to do: the code downloads it from Hugging Face on first use (635 MB) |
+| D3 Gaslighting | `python -c "from huggingface_hub import hf_hub_download as d; [d('Maxwe11y/gaslighting', f'{c}_{s}.json', repo_type='dataset', local_dir='data/raw/gaslighting') for c in ('gaslighting', 'anti_gaslighting') for s in ('train', 'validation', 'test')]"` |
+| GloVe 6B 100d (CNN only) | Download `glove.6B.zip` (862 MB) from the `stanfordnlp/glove` repo on Hugging Face and put `glove.6B.100d.txt` in `data/raw/` |
+| D2 Jigsaw (extra test) | Log in to Kaggle and put `test.csv` and `test_labels.csv` in `data/raw/` |
+| Dating messages | Already in `data/dating_stress_test.csv` |
 
 ## Reproduce the results
 
-Follow [data/README.md](data/README.md) to place the data, then run:
-
 ```bash
 pytest -q
-python -m red_flag_detector.baseline --data data/raw/jigsaw_train.csv
-jupyter notebook notebooks/
+python -m red_flag_detector.baseline --dataset d1      # TF-IDF, toxic
+python -m red_flag_detector.baseline --dataset d3      # TF-IDF, gaslighting
+python -m red_flag_detector.cnn --dataset d1           # CNN, toxic (add --dataset d3 for gaslighting)
+python -m red_flag_detector.transformer --dataset d1 --mode frozen
+python -m red_flag_detector.transformer --dataset d1 --mode finetuned
+python -m red_flag_detector.errors                     # mistakes per model, into results/errors/
 ```
 
-New here? Read [PROJECT_GUIDE.md](PROJECT_GUIDE.md) for decisions, rules and the next tasks.
+Each run writes `results/<model>/metrics.json`, the flag rate per dating category and every dating mistake. On an RTX 2070, the CNN takes about a minute per setting and fine-tuned DistilBERT about 17 minutes on D1.
+
+Fine-tuned DistilBERT weights are 265 MB each, so Git ignores them. Run the fine-tuned commands to recreate them. The other models are in `models/`.
+
+## How we keep the evaluation honest
+
+- Every toxic model trains on the same 100,000 D1 messages and is tuned on the same 20,000. We removed duplicates and every D1 train text that also appears in the official test file.
+- D3 keeps its official splits, which share no chats. We use assistant turns only and drop the `internal thought` field, which states the speaker's intent.
+- Dating messages S001 to S120 are a development set, because we have read the models' mistakes on them. S121 to S200 are the final test: `load_stress_test()` leaves them out unless you pass `part="final"`.
+- Each official test set runs once, at the end.
+
+## Label the dating messages
+
+Two people label every message without seeing each other's answers, and we report Cohen's kappa. The steps are at the top of [labelling.py](src/red_flag_detector/labelling.py), and the brief for new messages is in [data/labelling/WRITER_BRIEF.md](data/labelling/WRITER_BRIEF.md).
+
+New here? Read [PROJECT_GUIDE.md](PROJECT_GUIDE.md) for decisions, rules and the work split.
 
 ## Project layout
 
 ```
-├── data/                 dating test and download instructions
-├── models/               saved baseline
-├── notebooks/            01 EDA, 02 baseline results
-├── results/              figures, metrics, summary
+├── data/                   dating messages, labelling brief, download instructions
+├── models/                 saved models (fine-tuned DistilBERT excluded)
+├── notebooks/              01 EDA on D2, 02 first baseline, 03 EDA on D1 and D3
+├── results/                metrics, figures and mistakes per model
 ├── src/red_flag_detector/
-│   ├── data.py           loaders for D1, D2, D3 and our test, splits
-│   ├── validation.py     column, label and leakage checks
-│   ├── baseline.py       TF-IDF and logistic regression
-│   ├── evaluate.py       metrics, threshold, intervals
-│   ├── chat.py           chat parsing and word effects
-│   ├── plots.py          chart style
-│   └── app.py            Gradio prototype
+│   ├── data.py             loaders and splits for D1, D2, D3 and the dating messages
+│   ├── validation.py       column, label and leakage checks
+│   ├── baseline.py         TF-IDF and logistic regression
+│   ├── cnn.py              CNN over GloVe vectors
+│   ├── transformer.py      DistilBERT, frozen and fine-tuned
+│   ├── evaluate.py         metrics, threshold, intervals
+│   ├── errors.py           mistakes per model for error analysis
+│   ├── labelling.py        two-person labelling and Cohen's kappa
+│   ├── chat.py             chat parsing and word effects
+│   ├── plots.py            chart style
+│   └── app.py              Gradio prototype
 └── tests/
 ```
-
-## Data
-
-We keep raw data out of Git. See [data/README.md](data/README.md) for sources and licences. All datasets contain offensive language, and the notebooks do not print raw comments.
-
-We removed 271 duplicate or conflicting D2 rows before splitting, so no text appears in both train and test.
 
 ## Responsible use
 
@@ -106,9 +137,11 @@ The app supports a person's own judgement and makes no decisions for them. A low
 
 ## AI use
 
-We used Claude (Anthropic) to draft the package code, tests, prototype and this README, and to write version 0.1 of the dating test. Every team member needs to review and be able to explain this work. We will give the full declaration in the report.
+We used Claude (Anthropic) to write the package code, tests, prototype, notebooks and this README, to run the training, and to draft version 0.1 of the dating test. Every team member needs to review and be able to explain this work. The report gives the full declaration.
 
 ## References
 
-- Sanh, V., Debut, L., Chaumond, J. and Wolf, T. (2019). DistilBERT, a distilled version of BERT. arXiv:1910.01108.
+- Kim, Y. (2014). Convolutional Neural Networks for Sentence Classification. EMNLP 2014.
+- Li et al. (2025). Can a Large Language Model be a Gaslighter? ICLR 2025. Source of D3.
 - Pennington, J., Socher, R. and Manning, C. D. (2014). GloVe: Global Vectors for Word Representation. EMNLP 2014.
+- Sanh, V., Debut, L., Chaumond, J. and Wolf, T. (2019). DistilBERT, a distilled version of BERT. arXiv:1910.01108.
