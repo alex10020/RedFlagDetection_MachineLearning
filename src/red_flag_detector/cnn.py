@@ -33,6 +33,13 @@ from .validation import validate_no_text_overlap
 
 SEED = 42
 PAD, UNK = 0, 1
+# Validation grid: frozen vs fine-tuned GloVe, two learning rates, with and without weight decay.
+GRID = [
+    {"freeze_embeddings": freeze, "lr": lr, "weight_decay": decay}
+    for freeze in (False, True)
+    for lr in (1e-3, 3e-4)
+    for decay in (0.0, 1e-4)
+]
 # Words, numbers and single punctuation marks. GloVe has vectors for "?" and "!", which carry tone.
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+(?:'[a-z]+)?|[^\sa-z0-9]")
 
@@ -80,6 +87,25 @@ def load_glove(path: str | Path, vocab: dict[str, int], dim: int = 100, seed: in
     return matrix, found / max(len(vocab) - 2, 1)
 
 
+class WindowConv(nn.Module):
+    """A 1D convolution over `size` consecutive words, written as unfold + linear.
+
+    The maths is the same as nn.Conv1d without padding. We write it this way
+    because cuDNN's Conv1d backward pass ran about 50x slower on our RTX 2070
+    (50 ms vs 1 ms per step).
+    """
+
+    def __init__(self, dim: int, filters: int, size: int):
+        super().__init__()
+        self.size = size
+        self.linear = nn.Linear(dim * size, filters)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # x: (batch, words, dim) -> windows: (batch, words - size + 1, dim * size) -> (batch, windows, filters)
+        windows = x.unfold(1, self.size, 1).flatten(2)
+        return self.linear(windows)
+
+
 class TextCNN(nn.Module):
     """Embedding, parallel convolutions over 3, 4 and 5 words, max pooling over time, dropout, linear."""
 
@@ -96,7 +122,7 @@ class TextCNN(nn.Module):
             torch.as_tensor(embeddings), freeze=freeze_embeddings, padding_idx=PAD
         )
         dim = embeddings.shape[1]
-        self.convs = nn.ModuleList(nn.Conv1d(dim, filters, size) for size in filter_sizes)
+        self.convs = nn.ModuleList(WindowConv(dim, filters, size) for size in filter_sizes)
         self.dropout = nn.Dropout(dropout)
         self.out = nn.Linear(filters * len(filter_sizes), 2)
         self.max_filter = max(filter_sizes)
@@ -105,8 +131,8 @@ class TextCNN(nn.Module):
         if ids.shape[1] < self.max_filter:
             # Messages shorter than the widest filter get padded so every filter fits once.
             ids = nn.functional.pad(ids, (0, self.max_filter - ids.shape[1]), value=PAD)
-        x = self.embedding(ids).transpose(1, 2)  # (batch, dim, words), the shape Conv1d expects
-        pooled = [torch.relu(conv(x)).amax(dim=2) for conv in self.convs]
+        x = self.embedding(ids)  # (batch, words, dim)
+        pooled = [torch.relu(conv(x)).amax(dim=1) for conv in self.convs]  # max over word positions
         return self.out(self.dropout(torch.cat(pooled, dim=1)))
 
 
@@ -138,6 +164,9 @@ def train_cnn(
     patience: int = 2,
     batch_size: int = 64,
     lr: float = 1e-3,
+    weight_decay: float = 0.0,
+    dropout: float = 0.5,
+    freeze_embeddings: bool = False,
     device: str | None = None,
     seed: int = SEED,
     log=print,
@@ -148,14 +177,16 @@ def train_cnn(
     """
     _seed_everything(seed)
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-    model = TextCNN(embeddings).to(device)
+    model = TextCNN(embeddings, dropout=dropout, freeze_embeddings=freeze_embeddings).to(device)
     train_ids, val_ids = encode(train["text"], vocab, max_len), encode(val["text"], vocab, max_len)
     labels = torch.tensor(train["label"].to_numpy(dtype=np.int64))
     # "Balanced" weights, as in the baseline: each class counts as much as the other in the loss.
     counts = np.bincount(train["label"], minlength=2)
     weights = torch.tensor(len(train) / (2 * counts), dtype=torch.float32, device=device)
     loss_fn = nn.CrossEntropyLoss(weight=weights)
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    # Adam with an L2 penalty (weight decay) on every trainable weight; frozen embeddings are left out.
+    trainable = [p for p in model.parameters() if p.requires_grad]
+    optimizer = torch.optim.Adam(trainable, lr=lr, weight_decay=weight_decay)
     generator = torch.Generator().manual_seed(seed)
 
     history, best_score, best_state, waited = [], -1.0, None, 0
@@ -200,9 +231,22 @@ def run(dataset: str, glove_path: Path, stress_path: Path, results_dir: Path, mo
     vocab = build_vocab(train["text"])
     embeddings, coverage = load_glove(glove_path, vocab)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    started = time.perf_counter()
-    model, history = train_cnn(train, val, embeddings, vocab, max_len=max_len, device=device)
-    train_seconds = time.perf_counter() - started
+
+    # Small grid, judged on validation PR-AUC only. Dropout 0.5 and filters 3/4/5 x 100 follow Kim (2014).
+    trials, best = [], None
+    for config in GRID:
+        started = time.perf_counter()
+        model, history = train_cnn(train, val, embeddings, vocab, max_len=max_len, device=device, **config)
+        seconds = time.perf_counter() - started
+        best_row = max(history, key=lambda row: row["pr_auc"])
+        trial = {**config, "best_epoch": best_row["epoch"], "epochs_run": len(history), "train_seconds": round(seconds, 1),
+                 "val_pr_auc": best_row["pr_auc"], "val_f1": best_row["f1"], "history": history}
+        trials.append(trial)
+        print(json.dumps({k: v for k, v in trial.items() if k != "history"}), flush=True)
+        if best is None or best_row["pr_auc"] > best["trial"]["val_pr_auc"]:
+            best = {"model": model, "trial": trial}
+    model, chosen = best["model"], best["trial"]
+    train_seconds = chosen["train_seconds"]
 
     val_scores = predict_scores(model, encode(val["text"], vocab, max_len), device)
     threshold = best_f1_threshold(val["label"], val_scores)
@@ -223,9 +267,10 @@ def run(dataset: str, glove_path: Path, stress_path: Path, results_dir: Path, mo
         "vocab_size": len(vocab),
         "glove_coverage": round(coverage, 4),
         "parameters": sum(p.numel() for p in model.parameters()),
+        "trainable_parameters": sum(p.numel() for p in model.parameters() if p.requires_grad),
         "device": torch.cuda.get_device_name(0) if device == "cuda" else "cpu",
-        "history": history,
-        "best_epoch": max(history, key=lambda row: row["pr_auc"])["epoch"],
+        "grid": trials,
+        "chosen": {k: v for k, v in chosen.items() if k != "history"},
         "threshold": threshold,
         "train_seconds": round(train_seconds, 1),
         "model_mb": round(model_path.stat().st_size / 1e6, 2),
@@ -252,7 +297,7 @@ def main() -> None:
         args.results or Path(f"results/cnn_{args.dataset}"),
         args.model or Path(f"models/cnn_{args.dataset}.pt"),
     )
-    print(json.dumps({key: value for key, value in report.items() if key != "history"}, indent=2))
+    print(json.dumps({key: value for key, value in report.items() if key != "grid"}, indent=2))
 
 
 if __name__ == "__main__":

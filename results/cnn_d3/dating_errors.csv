@@ -1,61 +1,63 @@
 id,text,label,category,topic,score,flagged
-S004,"nobody asked you, you ugly loser",1,explicit_insult,toxic,0.424,0
-S009,you're trash. delete your profile,1,explicit_insult,toxic,0.386,0
-S010,you absolute failure of a human being,1,explicit_insult,toxic,0.465,0
-S069,i've been smiling at my phone all day because of you,0,friendly_flirt,harmless,1.0,1
-S068,okay your taste in music is unfairly good,0,friendly_flirt,harmless,0.717,1
-S066,coffee this weekend? i know a place with great pastries,0,friendly_flirt,harmless,0.976,1
-S065,"you're kind of dangerously charming, you know",0,friendly_flirt,harmless,0.921,1
-S064,"i had a really good time last night, want to do it again?",0,friendly_flirt,harmless,0.993,1
-S063,that photo with your dog just won me over,0,friendly_flirt,harmless,1.0,1
-S070,"tell me your best first date story, i'll judge it fairly",0,friendly_flirt,harmless,0.757,1
 S061,"you have the best smile, i couldn't not swipe right",0,friendly_flirt,harmless,0.999,1
 S062,so when do i get to beat you at mini golf?,0,friendly_flirt,harmless,1.0,1
-S057,"you know you sound insane right now, right?",1,gaslighting,gaslighting,0.636,0
-S113,"that joke didn't land well with me, please don't say it again",0,healthy_conflict,harmless,1.0,1
-S114,i felt ignored at the party and i wanted to tell you,0,healthy_conflict,harmless,0.759,1
-S116,i think we both messed up on this one,0,healthy_conflict,harmless,0.987,1
-S117,i really hate it when plans change without warning,0,healthy_conflict,harmless,0.987,1
-S118,you were late again and that bothers me,0,healthy_conflict,harmless,0.987,1
-S112,"i disagree, but i see where you're coming from",0,healthy_conflict,harmless,0.817,1
-S119,i don't agree with your politics but i respect you for explaining them,0,healthy_conflict,harmless,0.652,1
-S120,"sorry i snapped earlier, that wasn't fair to you",0,healthy_conflict,harmless,0.807,1
+S063,that photo with your dog just won me over,0,friendly_flirt,harmless,0.999,1
+S064,"i had a really good time last night, want to do it again?",0,friendly_flirt,harmless,0.991,1
+S065,"you're kind of dangerously charming, you know",0,friendly_flirt,harmless,0.939,1
+S066,coffee this weekend? i know a place with great pastries,0,friendly_flirt,harmless,0.992,1
+S067,you're cute when you get excited about space documentaries,0,friendly_flirt,harmless,0.396,1
+S068,okay your taste in music is unfairly good,0,friendly_flirt,harmless,0.687,1
+S069,i've been smiling at my phone all day because of you,0,friendly_flirt,harmless,0.999,1
+S070,"tell me your best first date story, i'll judge it fairly",0,friendly_flirt,harmless,0.843,1
+S120,"sorry i snapped earlier, that wasn't fair to you",0,healthy_conflict,harmless,0.917,1
+S115,"i'm annoyed right now, let's talk when we've both calmed down",0,healthy_conflict,harmless,0.463,1
+S116,i think we both messed up on this one,0,healthy_conflict,harmless,0.926,1
+S112,"i disagree, but i see where you're coming from",0,healthy_conflict,harmless,0.902,1
+S111,"i was hurt when you cancelled last minute, can we talk about it?",0,healthy_conflict,harmless,0.516,1
+S119,i don't agree with your politics but i respect you for explaining them,0,healthy_conflict,harmless,0.899,1
+S113,"that joke didn't land well with me, please don't say it again",0,healthy_conflict,harmless,0.998,1
+S114,i felt ignored at the party and i wanted to tell you,0,healthy_conflict,harmless,0.96,1
+S117,i really hate it when plans change without warning,0,healthy_conflict,harmless,0.988,1
+S118,you were late again and that bothers me,0,healthy_conflict,harmless,0.986,1
+S108,i use a wheelchair so let's choose somewhere accessible,0,identity_mention,harmless,0.969,1
+S109,"i'm a single mom of two, they're my whole world",0,identity_mention,harmless,0.974,1
+S105,i'm jewish so friday nights are usually with my family,0,identity_mention,harmless,0.996,1
+S110,i'm a lesbian and my last relationship lasted four years,0,identity_mention,harmless,0.963,1
+S104,i'm trans and i like to mention it early on,0,identity_mention,harmless,0.995,1
+S107,i grew up in mexico and moved here for university,0,identity_mention,harmless,0.845,1
+S103,"my muslim family does a huge dinner for eid, you'd love the food",0,identity_mention,harmless,0.991,1
+S101,"i'm gay and pretty new to this city, any tips?",0,identity_mention,harmless,0.935,1
 S102,as a black woman i really loved that book you mentioned,0,identity_mention,harmless,1.0,1
-S103,"my muslim family does a huge dinner for eid, you'd love the food",0,identity_mention,harmless,0.997,1
-S104,i'm trans and i like to mention it early on,0,identity_mention,harmless,0.993,1
-S105,i'm jewish so friday nights are usually with my family,0,identity_mention,harmless,0.998,1
-S107,i grew up in mexico and moved here for university,0,identity_mention,harmless,0.946,1
-S108,i use a wheelchair so let's choose somewhere accessible,0,identity_mention,harmless,0.872,1
-S110,i'm a lesbian and my last relationship lasted four years,0,identity_mention,harmless,0.953,1
-S101,"i'm gay and pretty new to this city, any tips?",0,identity_mention,harmless,0.907,1
-S109,"i'm a single mom of two, they're my whole world",0,identity_mention,harmless,0.992,1
-S074,can you send me the address again?,0,neutral_logistics,harmless,0.929,1
-S071,"i'm running ten minutes late, the metro is stuck",0,neutral_logistics,harmless,0.718,1
-S079,are you okay with sushi or would you rather have pizza?,0,neutral_logistics,harmless,0.996,1
-S078,"i'm near the entrance, wearing a green jacket",0,neutral_logistics,harmless,0.942,1
-S077,"my phone died, sorry, just saw your message",0,neutral_logistics,harmless,0.855,1
-S076,should i book a table or just walk in?,0,neutral_logistics,harmless,0.957,1
-S075,i finish work at six on thursdays,0,neutral_logistics,harmless,0.887,1
-S080,i'll grab the tickets online tonight,0,neutral_logistics,harmless,0.998,1
-S073,the restaurant is on the corner next to the pharmacy,0,neutral_logistics,harmless,0.972,1
-S083,holy shit that is the cutest dog ever,0,playful_banter,harmless,0.998,1
+S079,are you okay with sushi or would you rather have pizza?,0,neutral_logistics,harmless,0.992,1
+S078,"i'm near the entrance, wearing a green jacket",0,neutral_logistics,harmless,0.932,1
+S076,should i book a table or just walk in?,0,neutral_logistics,harmless,0.988,1
+S075,i finish work at six on thursdays,0,neutral_logistics,harmless,0.665,1
+S074,can you send me the address again?,0,neutral_logistics,harmless,0.915,1
+S073,the restaurant is on the corner next to the pharmacy,0,neutral_logistics,harmless,0.945,1
+S072,does 7:30 work or is that too early for you?,0,neutral_logistics,harmless,0.866,1
+S071,"i'm running ten minutes late, the metro is stuck",0,neutral_logistics,harmless,0.929,1
+S080,i'll grab the tickets online tonight,0,neutral_logistics,harmless,0.983,1
+S077,"my phone died, sorry, just saw your message",0,neutral_logistics,harmless,0.896,1
+S088,"that movie was fucking great, thanks for picking it",0,playful_banter,harmless,0.469,1
+S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,harmless,0.999,1
+S081,you're such an idiot lol i love it,0,playful_banter,harmless,0.954,1
+S082,shut up that's hilarious,0,playful_banter,harmless,0.801,1
+S083,holy shit that is the cutest dog ever,0,playful_banter,harmless,0.997,1
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.934,1
 S085,"damn you really destroyed me at trivia, i hate you (not really)",0,playful_banter,harmless,1.0,1
-S081,you're such an idiot lol i love it,0,playful_banter,harmless,0.953,1
-S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.963,1
+S086,"you little liar, you said you couldn't cook!",0,playful_banter,harmless,0.55,1
 S087,"i can't believe you like pineapple on pizza, you monster",0,playful_banter,harmless,0.999,1
-S090,"ok loser, rematch at bowling on saturday",0,playful_banter,harmless,0.849,1
-S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,harmless,1.0,1
-S088,"that movie was fucking great, thanks for picking it",0,playful_banter,harmless,0.869,1
-S095,i'd rather not go home with you tonight,0,polite_rejection,harmless,0.972,1
-S094,"i don't send photos, that's a boundary for me",0,polite_rejection,harmless,0.977,1
+S090,"ok loser, rematch at bowling on saturday",0,playful_banter,harmless,0.906,1
+S097,i've met someone else so i'm going to stop chatting here,0,polite_rejection,harmless,0.998,1
+S098,"i'm not comfortable with that, let's slow down",0,polite_rejection,harmless,0.702,1
+S092,"i'm not interested, but i wish you the best",0,polite_rejection,harmless,0.66,1
 S093,"please don't text me anymore, i've made up my mind",0,polite_rejection,harmless,1.0,1
-S100,"i need some space this week, i'll reach out if that changes",0,polite_rejection,harmless,0.675,1
-S097,i've met someone else so i'm going to stop chatting here,0,polite_rejection,harmless,1.0,1
-S092,"i'm not interested, but i wish you the best",0,polite_rejection,harmless,0.849,1
-S096,"no thank you, i'm going to head home now",0,polite_rejection,harmless,1.0,1
-S018,that outfit is brave for someone with your body,1,put_down,toxic,0.052,0
-S040,"i asked three times already, stop saying no",1,sexual_pressure,other_harm,0.233,0
-S027,"i can find you whenever i want, remember that",1,threat,toxic,0.017,0
-S024,keep talking like that and see what happens to you,1,threat,toxic,0.009,0
-S023,block me and i'll show up at your place,1,threat,toxic,0.622,0
-S022,"i know where you work, so think carefully about your next text",1,threat,toxic,0.399,0
+S094,"i don't send photos, that's a boundary for me",0,polite_rejection,harmless,0.979,1
+S095,i'd rather not go home with you tonight,0,polite_rejection,harmless,0.931,1
+S096,"no thank you, i'm going to head home now",0,polite_rejection,harmless,0.996,1
+S100,"i need some space this week, i'll reach out if that changes",0,polite_rejection,harmless,0.48,1
+S099,i don't think we want the same things,0,polite_rejection,harmless,0.321,1
+S091,thanks for the date but i don't feel a connection,0,polite_rejection,harmless,0.727,1
+S018,that outfit is brave for someone with your body,1,put_down,toxic,0.282,0
+S027,"i can find you whenever i want, remember that",1,threat,toxic,0.02,0
+S024,keep talking like that and see what happens to you,1,threat,toxic,0.03,0

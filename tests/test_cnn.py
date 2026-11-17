@@ -4,7 +4,7 @@ import pytest
 
 torch = pytest.importorskip("torch")
 
-from red_flag_detector.cnn import PAD, UNK, TextCNN, build_vocab, encode, load_glove, predict_scores, tokenize, train_cnn
+from red_flag_detector.cnn import PAD, UNK, TextCNN, WindowConv, build_vocab, encode, load_glove, predict_scores, tokenize, train_cnn
 
 
 def test_tokenize_keeps_question_marks_and_contractions():
@@ -35,6 +35,16 @@ def test_load_glove_fills_known_words_and_reports_coverage(tmp_path):
 def test_cnn_handles_messages_shorter_than_its_widest_filter():
     model = TextCNN(np.random.default_rng(0).normal(size=(5, 4)).astype(np.float32), filters=3)
     assert model(torch.tensor([[2, 3]])).shape == (1, 2)
+
+
+def test_window_conv_matches_conv1d():
+    conv = torch.nn.Conv1d(4, 3, 2)
+    window = WindowConv(4, 3, 2)
+    # Conv1d stores weights as (filters, dim, size); unfold flattens each window as dim-major too.
+    window.linear.weight.data = conv.weight.data.reshape(3, -1)
+    window.linear.bias.data = conv.bias.data
+    x = torch.randn(2, 5, 4)
+    assert torch.allclose(window(x), conv(x.transpose(1, 2)).transpose(1, 2), atol=1e-6)
 
 
 def test_cnn_learns_a_separable_toy_task():
