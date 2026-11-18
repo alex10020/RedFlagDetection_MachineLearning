@@ -1,0 +1,348 @@
+# Red Flag Detector: can models trained outside dating spot toxic language and gaslighting in dating chats?
+
+**Group 7.** Alexander Glapiak (contact), Alp Kurtbolat, Raya Metchkarova, Milan Josifovikj, Aysel Zeynalova, Sacha Benayoun
+**Course.** AI: Machine Learning & Analytics, IE University, Prof. Paula Delgado-Santos
+**Submitted.** 24 November 2026. Code: https://github.com/alex10020/RedFlagDetection_MachineLearning
+
+> **DRAFT (written by Claude, 18 November).** Every number comes from `results/final/`, the `results/<model>/metrics.json` files or notebook 03. Text in **[TEAM: ...]** brackets marks something only the team can fill in, mainly the error-analysis reading, the contribution table and the business sources still to check. Each section owner should rewrite the draft in their own words and be ready to explain it in the Q&A. Remove this box before exporting to PDF.
+
+---
+
+## 1. Executive summary
+
+Dating apps rely on users reporting abusive messages, and moderators then have to read the reports. We asked whether a model trained on text from *outside* dating can flag two kinds of harm in dating messages: **toxic language** (insults, put-downs, threats) and **gaslighting** (making someone doubt their own memory or perception). No public dataset of real dating chats exists. We therefore trained on 1.7 million labelled news-site comments for toxic language and on 2,000 AI-written gaslighting conversations for gaslighting. We then tested on 200 dating-style messages we wrote ourselves, keeping 80 of them unseen until a single final run.
+
+For each topic we compared four models: a TF-IDF + logistic regression baseline, a CNN over GloVe word vectors, frozen DistilBERT and fine-tuned DistilBERT.
+
+- **Toxic language transfers partly.** On held-out comments, fine-tuned DistilBERT is best (F1 0.66), ahead of the CNN (0.62) and the baseline (0.57). Every gap is statistically reliable. Scores hold on a second comment dataset (Wikipedia). On dating messages all models catch every explicit insult but miss most put-downs and threats. Only frozen DistilBERT is reliably better than the baseline there (F1 0.55 vs 0.39; ROC-AUC 0.88).
+- **Gaslighting does not transfer.** All eight gaslighting models score F1 0.92–0.98 on their own test set, but rank dating messages at chance level (ROC-AUC 0.33–0.58). The training data shows a therapist undermining a patient, which looks nothing like a partner gaslighting a partner.
+- **The answer to our research question:** the setting of the training data matters more than the choice of model. Our CNN beats the baseline but not fine-tuned DistilBERT on comments, and no model is clearly best on dating messages.
+
+The prototype is a Gradio app that scores each message of a pasted chat. Our results do not support selling an automatic red-flag detector to daters. The realistic product is a **triage tool for dating-app trust and safety teams**: it ranks reported messages so human moderators see likely abuse first. A second phase would use consented, in-domain reports to learn the gaslighting and coercion that generic data misses.
+
+---
+
+## 2. Problem, users and business value
+
+### 2.1 The problem
+
+Harassment in dating apps ranges from explicit insults to subtle control: put-downs disguised as jokes, guilt-tripping, sexual pressure and gaslighting ("that never happened, you're imagining things again"). Platforms depend on user reports and human moderators, and moderators have to read reports in some order. A model that ranks likely abuse first can shorten the time to action. The gap we study is that no labelled data of real dating chats is public, so any model a platform buys or builds off the shelf was trained somewhere else. We measure how much that costs.
+
+### 2.2 Users
+
+- **Primary: trust and safety (T&S) teams at dating apps**, the moderators who review reported messages. They need a ranking, not a verdict.
+- **Secondary: daters**, who can paste a chat into the demo app to see which messages a model would flag. Our results show this use needs heavy caveats (Section 7).
+
+### 2.3 Value proposition
+
+- **Now:** explicit-toxicity triage. Our toxic models rank dating messages reasonably well (ROC-AUC 0.68–0.88), but their F1 is too low for automatic action. That fits a tool that orders a moderation queue and never blocks or bans on its own.
+- **From the research:** an off-the-shelf toxicity model misses most put-downs, threats and all gaslighting in dating chats. A platform should test any moderation model on its own messages before relying on it, and our evaluation (category-level flag rates, paired bootstrap comparisons) is a reusable recipe for doing that.
+
+### 2.4 Market and existing solutions
+
+**[TEAM: every figure below comes from `report/BUSINESS_SOURCES.md`. Open each link before submitting.]**
+
+- **Need.** Harassment is common: 48% of US online daters have experienced at least one form, 24% have been called offensive names and 6% physically threatened, and the figures are far higher for women under 50 (Pew Research Center, 2023). Subtle harm is common too: in a 2026 survey of 1,008 women using dating platforms in Australia, 53% reported gaslighting, and psychological and coercive behaviours were "reported far less despite being highly prevalent" (Behavioural Insights Team, 2026).
+- **Market.** Dating apps earned more than $6 billion in 2024 (Business of Apps, via Global Dating Insights, 2025). The largest operator, Match Group, had $3.49 billion of revenue in 2025 and states that it invests $125 million a year in trust and safety. Content moderation services as a whole were estimated at about $10 billion in 2023 (Market.us; estimates vary).
+- **Existing solutions.** Platforms already detect explicit rudeness. Tinder's "Does This Bother You?" (2020) and "Are You Sure?" (2021) use machine learning to flag offensive messages, and Match Group reports over 500 million messages edited or deleted after an "Are You Sure?" prompt (Match Group, 2023). Bumble's "Review before you send" and Badoo's "Rude Message Detector" do similar work, and Bumble flags harassment to moderators (Bumble 10-K, 2026). None of them claims to detect gaslighting or coercion. Our results show why: generic data doesn't contain it. This is the gap Phase 2 targets.
+- **Why now.** The UK Online Safety Act puts dating services explicitly in scope, with fines up to 10% of worldwide revenue, and lists controlling or coercive behaviour as illegal content (DSIT, 2025). The EU Digital Services Act requires platforms to handle user reports, explain their decisions and offer appeals. Both raise the volume and the stakes of report handling, which is the workflow our triage tool speeds up.
+
+### 2.5 Business model
+
+- **Phase 1, paid pilot with one dating app:** explicit-toxicity triage on the reported-message queue, with the moderator always deciding. Success metric: time to first action on confirmed abuse reports.
+- **Phase 2, in-domain learning:** with users' explicit consent, train on messages that users themselves reported and moderators labelled. This is exactly the data our results show is missing, and it would be used to build gaslighting and coercion detection.
+- **Revenue:** a per-platform licence, or pricing by moderation volume (messages scored per month).
+- **Responsible-AI fit:** a human decides every case, nothing happens automatically, and training data is used only with consent (Section 7).
+
+---
+
+## 3. Data
+
+### 3.1 Sources
+
+| ID | Dataset | Content | Use | Licence |
+|---|---|---|---|---|
+| D1 | SetFit/toxic_conversations (Hugging Face), from Civil Comments | News-site comments, binary toxic label | Train, validate and test the toxic models | CC0 |
+| D2 | Jigsaw Toxic Comment Classification (Kaggle) | Wikipedia talk-page comments, six toxicity types | Extra test set only | CC0 data, text under CC BY-SA 3.0; Kaggle rules forbid redistribution |
+| D3 | Maxwe11y/gaslighting (Li et al., 2025) | 2,000 ChatGPT-written chats between a user and an assistant, labelled gaslighting or safe (anti-gaslighting) | Train, validate and test the gaslighting models | Apache 2.0 |
+| Ours | Dating Stress Test, `data/dating_stress_test.csv` | 200 short fictional dating messages in 12 categories | Development set (120) and final test (80) | Ours |
+
+GloVe 6B 100-dimensional vectors (Pennington et al., 2014) initialise the CNN's embeddings.
+
+### 3.2 Description
+
+| Set | Messages | Harmful share | Median words |
+|---|---:|---:|---:|
+| D1 official train | 1,754,874 | 8.0% | 36 (not toxic), 34 (toxic) |
+| D1 our train sample | 100,000 | 8.0% | |
+| D1 our validation | 20,000 | 8.0% | |
+| D1 official test | 50,000 (3,954 toxic) | 7.9% | |
+| D2 test (scored rows) | 63,978 (6,243 toxic) | 9.8% | |
+| D3 train / validation / test (assistant turns) | 24,181 / 1,688 / 1,720 | 50% | 16 (safe), 22 (gaslighting) |
+| Dating development set (S001–S120) | 120 | 50% | 9 |
+| Dating final test (S121–S200) | 80 | 50% | 9 |
+
+The dating set has 12 categories. **Harmful:** explicit insult, put-down, threat (topic *toxic*), gaslighting, guilt or manipulation and sexual pressure (*other harm*). **Harmless:** friendly flirt, playful banter, healthy conflict, polite rejection, neutral logistics and identity mention. The final 80 contain 20 toxic, 7 gaslighting, 13 other-harm and 40 harmless messages.
+
+Figure 1: `results/eda_harmful_share.png`. Figure 2: `results/eda_message_length.png`.
+
+### 3.3 Exploratory analysis: what matters for the models
+
+1. **Imbalance.** D1 is 8% toxic, so a model that always answers "not toxic" reaches 92% accuracy with an F1 of 0. We therefore report F1 for the harmful class and use class weights in every loss.
+2. **Length.** Dating messages have a median of 9 words, against 34–36 in D1 and 16–22 in D3, so each message gives the model less evidence. DistilBERT reads at most 128 tokens, which cuts 16% of the D1 training messages.
+3. **D3's two classes differ in style.** 80% of gaslighting turns contain a question mark against 13% of safe turns, but only 10–15% of dating messages do. A word-level check on the D3 baseline shows the bigger problem: everyday words (*you* +23.8, *my* +22.1, *me* +15.2, *really* +10.4) push towards gaslighting, while reassuring therapist words (*we*, *let*, *okay*, *great*) push towards safe. Ordinary first- and second-person chat therefore lands on the gaslighting side (Figure 3: `results/eda_d3_question_marks.png`).
+4. **D3 label noise.** Labels describe whole chats, so a neutral turn inside a gaslighting chat still counts as gaslighting. About 4% of assistant turns read like the user talking ("I've been okay, just a bit nervous..."), and over 80% of those sit in gaslighting chats in every split.
+5. **Identity words in D1.** Messages that mention identity groups are labelled toxic far more often than the 8% average: 31% for "gay", 33% for "lesbian", 24% for "black", 22% for "muslim" (Figure 4: `results/eda_d1_identity_words.png`). This is a correlation in the labels and a bias risk (Section 7).
+6. **Vocabulary.** 99.7% of dating-message tokens appear in the D1 training sample and 92.2% in D3 train, so unknown words are not the issue. The setting is.
+
+### 3.4 Preprocessing and leakage control
+
+- **Cleaning:** whitespace collapsed; case and punctuation kept for the deep models, because they carry tone (GloVe has vectors for "?" and "!").
+- **D1 deduplication:** we removed 28,002 duplicate texts (case-insensitive) or texts that appear with both labels, plus 974 training texts that also appear in the official test file, so no test text was seen in training.
+- **D1 splits:** a fixed 20,000-message validation set and a 100,000-message training sample, both stratified to the 8% toxic share and shared by every toxic model.
+- **D3:** we keep the official splits, which share no chats (1,752 / 124 / 124 chats). We use assistant turns only, because the label describes the assistant, and drop the `internal thought` field, because it states the speaker's intent and would leak the label. We removed 47 training texts that duplicate validation or test texts.
+- **D3 + everyday messages (second gaslighting version):** D3's safe class is almost all therapist reassurance, so we added short (≤ 25 words) non-toxic D1 messages to the safe class: 12,079 in train and 844 in validation, as many as D3's safe turns. The size was fixed in advance, not tuned. The test split stays as published.
+- **Dating messages:** Claude drafted S001–S120 before any model was trained; we read model errors on them, so they are a development set only. A team member wrote S121–S200 without seeing model output, the group reviewed every label together, and the loader excludes them unless explicitly asked (`part="final"`).
+
+---
+
+## 4. Methodology
+
+We train **one classifier per topic**, because D1 has only toxic labels and D3 only gaslighting labels. Each topic gets the same four models.
+
+### 4.1 Baseline: TF-IDF + logistic regression
+
+Word unigrams and bigrams (min document frequency 3, at most 50,000 features, sublinear term frequency) feed a logistic regression with `class_weight="balanced"`. We tried C ∈ {0.1, 1, 10} and kept the best validation F1 (C = 1 for D1, 10 for D3). It trains in 11.5 s on 100,000 messages and is 1 MB. It is transparent: the app shows which words raised each score.
+
+### 4.2 CNN over GloVe vectors (our own model)
+
+Following Kim (2014): a 100-d embedding layer initialised from GloVe (88.9% of the D1 vocabulary of 46,576 words is covered), parallel convolutions over windows of **3, 4 and 5 words with 100 filters each**, ReLU, max pooling over the message, **dropout 0.5** and a linear layer to two classes. Messages are cut at 128 words. Unlike TF-IDF, each filter sees word order inside its window, so it could in principle separate "you're such an idiot lol i love it" from a real insult.
+
+- **Loss:** cross-entropy with balanced class weights.
+- **Optimiser:** Adam, batch 64, up to 10 epochs, early stopping when validation PR-AUC fails to improve for 2 epochs.
+- **Hyperparameters:** an 8-setting validation grid (frozen vs fine-tuned GloVe × learning rate {1e-3, 3e-4} × weight decay {0, 1e-4}), selected on validation PR-AUC. For D1 the best setting fine-tunes the embeddings with learning rate 3e-4 and weight decay 1e-4 (best epoch 4). That model has 4.8 M parameters, 20 MB, and trained in 57 s on an RTX 2070.
+- **Implementation note:** each convolution is written as unfold plus a linear layer, which gives the same output as `nn.Conv1d` (a unit test checks this), because cuDNN's Conv1d backward pass ran about 50 times slower on our GPU.
+
+### 4.3 DistilBERT, frozen (feature extraction)
+
+DistilBERT (Sanh et al., 2019; `distilbert-base-uncased`) is a 66 M-parameter transformer distilled from BERT. In the frozen version we compute the first-token ([CLS]) vector once and train only dropout (0.1) plus a linear layer: 1,538 parameters. This mirrors the feature-extraction strategy from Session 12 (ResNet-18). We used weighted cross-entropy and Adam (batch 256, early stopping with patience 5), with a grid over learning rate {1e-3, 3e-4} × weight decay {0, 1e-4}.
+
+### 4.4 DistilBERT, fine-tuned
+
+We train all 66.4 M parameters, with a smaller learning rate for the pretrained part (2e-5) than for the new head (1e-4). We use **AdamW** (weight decay 0.01) with 10% warm-up and linear decay, the standard recipe for fine-tuning transformers, plus mixed precision, batch 32, at most 3 epochs and early stopping with patience 1. On D1 the best epoch was 2, training took 17 minutes, and the model is 265 MB.
+
+### 4.5 Thresholds and model selection
+
+Every model picks its decision threshold as the **F1-maximising threshold on its own validation set**. No threshold, hyperparameter or design choice used a test set or the final dating messages. Class weighting shifts the scores, so they are rankings, not calibrated probabilities.
+
+### 4.6 Why these models
+
+The baseline sets the bar a deep model must beat and is explainable. The CNN is the course's deep model built and trained by us, and it adds word order cheaply. Frozen vs fine-tuned DistilBERT separates two questions: what general pretrained language knowledge buys on its own, and what adapting it to the training domain adds.
+
+---
+
+## 5. Experiments and results
+
+### 5.1 Validation strategy
+
+- **Train / validation:** fixed splits as in Section 3.4. All tuning used validation only.
+- **Development set:** dating messages S001–S120, used to inspect errors and to decide on the D3 + everyday variant.
+- **Final test, run once (18 November, commit `4add43c`):** all 12 models scored together on the D1 test, D2 test, D3 test and dating messages S121–S200. A dry run on validation data first reproduced every saved validation score, so the final pipeline is the one we tuned.
+- **Metrics:** F1, precision and recall for the harmful class (main); PR-AUC and ROC-AUC as threshold-free ranking measures, because thresholds come from validation sets with a different harmful share than the dating test; false-positive rate and flag rate per dating category; 95% bootstrap intervals on the small dating sets (1,000 resamples); and paired bootstrap intervals for the difference between two models on the same messages.
+
+### 5.2 Toxic language
+
+| Model | D1 test F1 | D2 test F1 | Dating F1 (95% CI) | Dating ROC-AUC | Harmless dating flagged | Train time | Size |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| TF-IDF + logistic regression | 0.57 | 0.56 | 0.39 (0.17–0.57) | 0.68 | 23% | 12 s | 1 MB |
+| CNN + GloVe | 0.62 | 0.60 | 0.41 (0.17–0.63) | 0.70 | 8% | 57 s | 20 MB |
+| DistilBERT, frozen | 0.43 | 0.55 | **0.55 (0.30–0.73)** | **0.88** | 10% | 3 min* | 0.01 MB head |
+| DistilBERT, fine-tuned | **0.66** | **0.66** | 0.45 (0.20–0.65) | 0.77 | 10% | 17 min | 265 MB |
+
+*Dating = 20 toxic vs 40 harmless messages from the final test. *Frozen: 50 s to embed plus 136 s for the head grid. Times are on an RTX 2070.*
+
+**Paired comparisons (95% intervals for the F1 difference):**
+- D1 test: CNN − baseline +0.049 (0.038 to 0.061); fine-tuned DistilBERT − CNN +0.039 (0.029 to 0.050). Both are reliable.
+- D2 test: fine-tuned DistilBERT − baseline +0.101 (0.092 to 0.109). Reliable.
+- Dating: frozen DistilBERT − baseline **+0.157 (0.036 to 0.307)**, the only reliable gain on dating messages. The CNN − baseline difference (+0.025, −0.103 to 0.125) and fine-tuned DistilBERT − baseline (+0.063, −0.085 to 0.215) are within noise.
+
+**Per category on the final dating messages** (flag rate; Figure 5 can be drawn from `results/final/dating_by_category.csv`):
+
+| Category | Baseline | CNN | DistilBERT frozen | DistilBERT fine-tuned |
+|---|---:|---:|---:|---:|
+| Explicit insult (6) | 6/6 | 6/6 | 6/6 | 6/6 |
+| Put-down (7) | 0/7 | 0/7 | 2/7 | 1/7 |
+| Threat (7) | 1/7 | 0/7 | 1/7 | 0/7 |
+| Playful banter, harmless (7) | 4/7 | 2/7 | 2/7 | 3/7 |
+| Identity mention, harmless (7) | 2/7 | 1/7 | 2/7 | 1/7 |
+| Friendly flirt, harmless (6) | 3/6 | 0/6 | 0/6 | 0/6 |
+| Guilt, sexual pressure, gaslighting (20) | 0/20 | 0/20 | 0/20 | 0/20 |
+
+The models learned **rude words, not hostility**: every explicit insult is caught, but "I despise you" scores 0.14 while "you are pathetic" scores 1.00, and threats written in polite words pass.
+
+### 5.3 Gaslighting
+
+| Model | D3 test F1 | Dating ROC-AUC | Gaslighting caught (of 7) | Harmless dating flagged |
+|---|---:|---:|---:|---:|
+| TF-IDF, D3 only | 0.96 | 0.58 | 4 | 58% |
+| CNN, D3 only | 0.96 | 0.41 | 4 | 68% |
+| DistilBERT frozen, D3 only | 0.94 | 0.49 | 3 | 45% |
+| DistilBERT fine-tuned, D3 only | 0.98 | 0.52 | 5 | 65% |
+| TF-IDF, D3 + everyday | 0.95 | 0.43 | 0 | 13% |
+| CNN, D3 + everyday | 0.93 | 0.33 | 2 | 43% |
+| DistilBERT frozen, D3 + everyday | 0.92 | 0.35 | 0 | 5% |
+| DistilBERT fine-tuned, D3 + everyday | 0.97 | 0.36 | 0 | 3% |
+
+*Dating = 7 gaslighting vs 40 harmless messages from the final test.*
+
+On D3 itself fine-tuned DistilBERT is reliably best (+0.015 F1 over the CNN, interval 0.007 to 0.024). On dating messages every model ranks at chance (ROC-AUC 0.33–0.58, where 0.5 is guessing). The D3-only models "catch" gaslighting only because they flag most messages. Adding everyday messages cuts false alarms sharply (for fine-tuned DistilBERT from 65% to 3%) but also removes the remaining detections. On the 120 development messages the fix had seemed to help detection as well; on the final 80 it did not, which shows how little a 70-message development set can tell us.
+
+### 5.4 Error analysis
+
+**[TEAM: this section depends on the team reading the mistakes. Follow TEAM_UPDATE.md: read 20–30 rows each of `results/errors/cnn_d1.csv`, `distilbert_finetuned_d1.csv`, `cnn_d3.csv` and `distilbert_finetuned_d3.csv`, fill `team_cause`, count the causes per model, then replace the draft below with your counts and three examples per model.]**
+
+Draft structure, based on the automatic draft causes in `results/errors/summary.csv` (to be confirmed or corrected by reading):
+
+**Toxic models (CNN and fine-tuned DistilBERT on D1).**
+- *Confident false positives on D1 validation:* mostly texts with insulting words that D1 labels not toxic, e.g. "Overpaid, childish, Morons" (score 1.00 CNN, 0.998 DistilBERT). Reading these suggests **label noise** in D1 rather than model error. [TEAM: count how many of the 15 are label noise.]
+- *Confident false negatives on D1 validation:* toxic comments without rude words, e.g. sarcasm or contempt for a group ("...way past any intellectual ability to be reasonably discerned by libbers", CNN 0.02). [TEAM: count.]
+- *Dating misses:* put-downs in polite words ("honestly you're lucky i lowered my standards this month", CNN 0.05; "you're not really my type but i guess i'll settle tonight", DistilBERT 0.001), threats without insult words ("you'll regret ignoring me", DistilBERT 0.001). Guilt, sexual pressure and gaslighting are never flagged, because D1's labels do not cover them.
+- *Dating false alarms:* friendly teasing with insult words (5 of the CNN's and 9 of fine-tuned DistilBERT's development-set false alarms).
+
+**Gaslighting models (CNN and fine-tuned DistilBERT on D3).**
+- *On D3 validation:* false positives are safe turns that ask a probing question ("How has playing soccer influenced your life over the years?", CNN 0.99). False negatives are gaslighting turns phrased as praise or flat statements ("It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve.", CNN 0.002).
+- *On dating messages:* almost every harmless message looks like gaslighting to the D3-only models (59 of the CNN's and 55 of fine-tuned DistilBERT's development-set false alarms), e.g. "so when do i get to beat you at mini golf?" (CNN 1.00, DistilBERT 0.999). Plain-statement gaslighting is missed: "you're making a big deal out of nothing, as usual" (DistilBERT 0.005).
+
+**Proposed causes table (to fill):**
+
+| Cause | CNN D1 | DistilBERT ft D1 | CNN D3 | DistilBERT ft D3 |
+|---|---:|---:|---:|---:|
+| Label noise in the training data | [ ] | [ ] | [ ] | [ ] |
+| Hostility without rude words | [ ] | [ ] | | |
+| Rude words in friendly banter | [ ] | [ ] | | |
+| Identity word | [ ] | [ ] | | |
+| Harm type absent from training labels | [ ] | [ ] | | |
+| Question or therapy style in a safe turn | | | [ ] | [ ] |
+| Gaslighting stated plainly, without a question | | | [ ] | [ ] |
+| Turn reads like the user | | | [ ] | [ ] |
+| Everyday chat style absent from D3 | | | [ ] | [ ] |
+
+### 5.5 Discussion
+
+- **Model vs data.** On the training domains, more capacity helps steadily: baseline < CNN < fine-tuned DistilBERT, all reliable. On dating messages the ordering collapses, and the only reliable gain comes from the *least* adapted deep model, frozen DistilBERT. A plausible reading is that fine-tuning on news comments specialises DistilBERT to that setting, while the frozen [CLS] vector keeps more general language knowledge. The same frozen model is the *worst* on D1 (F1 0.43), because its [CLS] vector was never trained to summarise a message. This rests on 60 dating messages, so we state it as a hypothesis.
+- **Gaslighting.** D3's gaslighting is a ChatGPT-written therapist undermining a patient, and its safe class is the same therapist reassuring them. A model learns the therapy setting's style, not the act of denying someone's reality. Gaslighting between dating partners ("you were drunk, you don't even remember") looks different. Changing the architecture cannot fix this, only in-domain data can.
+- **Research question.** Models trained outside dating catch explicit toxic language in dating messages reasonably well, miss subtle harm and do not detect gaslighting. Our CNN beats the baseline but not fine-tuned DistilBERT where they were trained; on dating messages none is clearly better, except frozen DistilBERT for toxic language.
+
+---
+
+## 6. Prototype
+
+`python -m red_flag_detector.app` opens a Gradio app at http://127.0.0.1:7860. It runs on CPU from a clean install and needs no data download, because the CNN models are in `models/`.
+
+**How to use it:** paste a chat with one `Name: message` per line (WhatsApp exports also work) and press **Check this chat**. For each message the app shows:
+
+- a **toxic-language score** from the CNN trained on D1, which raises a red flag above the threshold chosen on validation. The words that pushed the score up most are highlighted;
+- a **gaslighting score** from the CNN trained on D3 + everyday messages, shown as a grey number marked experimental. It never raises a flag, because it performs at chance on dating messages;
+- a summary per sender (number of flags and messages) and a bar chart of scores across the chat;
+- a note that it is a support tool, that "no flag" can still be harmful, and a pointer to support services.
+
+Screenshot: `results/prototype_v1.jpg` **[TEAM: paste it here, and optionally a second screenshot with your own chat]**.
+
+The screenshot shows both strengths and limits. "you're honestly such a stupid tease" (1.00) and "shut up, you're pathetic and nobody else would date you" (0.99) are flagged. "can't this week, work is a bit crazy" is also flagged (0.90, because of "crazy"), a false alarm. "you are going to be sorry you ignored me" scores only 0.21, a missed threat.
+
+Code: the Session 6 package structure (`src/red_flag_detector/`, `tests/` with 52 passing tests, `notebooks/`, `results/`, `pyproject.toml`, `requirements.txt` with pinned versions, `environment.yml`). The README gives install, data download and reproduction commands. Fine-tuned DistilBERT weights (265 MB) are not in the repository; the README explains how to retrain them (about 17 minutes on a GPU).
+
+---
+
+## 7. Responsible AI
+
+Every point below is tied to a number from our results.
+
+### 7.1 Bias
+
+In D1, messages that mention identity groups are labelled toxic far more often than average: 31% for "gay" and 24% for "black", against 8% overall. A model can learn the word itself as a toxicity signal. On the final dating test, the toxic models flagged 1 to 2 of 7 harmless messages that only mention identity (such as "I am gay is that a problem"), and 2 to 4 of 7 friendly banter messages. The bias comes from the training labels. A deployed version would need a fairness check that compares false-positive rates across identity groups, on far more than 7 messages, before any use.
+
+### 7.2 Privacy
+
+Pasting a chat shares another person's messages without their consent. The app stores nothing, but the issue remains, so the demo is for illustration, not for monitoring a partner. The business-case pilot would train on reported messages, so it would need a lawful basis and explicit consent, data minimisation and anonymisation, and GDPR compliance In particular, messages can reveal special-category data such as sex life or sexual orientation, which GDPR Art. 9(1) prohibits processing without an exception such as explicit consent (Art. 9(2)(a)). The Behavioural Insights Team's survey also warns against over-reliance on automated moderation, which supports keeping a human decision on every case. We used no real private chats: the team or Claude wrote every dating message, and D2's Kaggle files are not redistributed.
+
+### 7.3 Misuse and risks
+
+- **False reassurance:** "no flag" does not mean safe. The models miss most threats ("you are going to be sorry you ignored me" scores 0.21) and all gaslighting.
+- **False alarms:** flagging banter or identity mentions could cause conflict or unfair moderation (23% of harmless dating messages flagged by the baseline, 8–10% by the deep models).
+- **Score as proof:** a score is a model output, not a calibrated probability, and must not be used as evidence that a partner is abusive.
+- **Gaming:** a model that reacts to rude words is easy to dodge by rewording ("I despise you" scores 0.14).
+
+### 7.4 Design choices that reduce the risks
+
+A human always decides; the business version only ranks messages for review. The gaslighting score is grey and never flags. The app note says it is a support tool, that "no flag" can still be harmful, and points to support services. No chat is stored.
+
+### 7.5 Limitations
+
+- **Data:** D3 is ChatGPT-written and set in therapy, not dating; its labels describe whole chats; about 4% of assistant turns read like the user. D1 has label noise. Our dating messages are written by us, short (median 9 words), and 50% harmful, unlike real chats.
+- **Labels:** the final dating labels were reviewed by the group but not labelled twice independently, so we report no agreement score. Some messages (for example threats to block or end contact) could reasonably be labelled either way.
+- **Evaluation:** the final dating subsets are small (20 toxic and 7 gaslighting messages, each against 40 harmless), so intervals are wide. A 70-message development set misled us once (Section 5.3).
+- **Models:** thresholds come from training-domain validation data, not dating data; DistilBERT truncates 16% of D1 messages at 128 tokens; a single message can hide context that only a whole chat shows.
+
+---
+
+## 8. Conclusions and next steps
+
+**Conclusions.** Generic toxicity data transfers to dating chats for explicit insults only. Subtle harms (put-downs, threats in polite words, guilt, sexual pressure) are missed, and gaslighting learned from AI-written therapy chats does not transfer at all. Model choice matters on the training domain (fine-tuned DistilBERT > CNN > baseline) but much less than the data's setting on the target domain. The honest product is moderator triage with a human in the loop, not an automatic red-flag detector for daters.
+
+**Next steps.**
+1. **In-domain data:** a consented pilot that collects user-reported dating messages labelled by moderators, the missing ingredient for gaslighting and coercion detection.
+2. **Chat-level models:** gaslighting often shows only across several turns; a model that reads the conversation, not single messages.
+3. **Calibration and per-platform thresholds:** calibrate scores on in-domain validation data so they can be read as probabilities.
+4. **Fairness audit:** compare false-positive rates across identity groups on a larger set.
+5. **App v2:** a model switcher, with fine-tuned DistilBERT hosted as a release download.
+6. **Independent double labelling** of a larger dating test, with an agreement score.
+
+---
+
+## 9. Contribution table
+
+**[TEAM: fill in honestly; the professor can adjust individual grades based on this table and the Q&A. Git history shows code commits by Alp (27) and Alexander (D1 loader, merges); the writing tasks below are still open.]**
+
+| Member | Contribution |
+|---|---|
+| Alexander Glapiak | Contact person; proposal; first milestone and check-in; D1 loader fix; [TEAM: report or slides part] |
+| Alp Kurtbolat | Trained and evaluated all models with Claude Code; EDA; error export; final run; app v1; wrote dating messages S121–S200; project documentation |
+| Raya Metchkarova | [TEAM] |
+| Milan Josifovikj | [TEAM] |
+| Aysel Zeynalova | [TEAM] |
+| Sacha Benayoun | [TEAM] |
+
+---
+
+## 10. Declaration of AI-assistant use
+
+We used Claude (Anthropic), mainly through Claude Code, as follows:
+
+- **Code:** Claude drafted the package code (`data.py`, `validation.py`, `baseline.py`, `evaluate.py`, `chat.py`, `cnn.py`, `transformer.py`, `errors.py`, `final.py`, `app.py`), the tests, and EDA notebook 03, and it ran the training of all twelve models, the hyperparameter grids, the leakage checks and the one-time final run. Team members decided what to build, reviewed the results and must each be able to explain the code they present.
+- **Data:** Claude drafted dating messages S001–S120 (development set). Alp wrote S121–S200 (final test) without AI, and the group reviewed the labels.
+- **Writing:** Claude drafted the READMEs, the project guide, the draft error causes, the business case framing, and a first draft of this report and the slide script. It also researched sources for the market section, which the team checked. **[TEAM: list what each member rewrote or wrote themselves.]**
+- **Not AI:** the research question, the scope decisions (two topics, the D3 + everyday variant, the final-test protocol), the labelling review and the error-analysis reading **[TEAM: confirm]**.
+
+External code and models used: DistilBERT (`distilbert-base-uncased`, Hugging Face), GloVe 6B vectors (Stanford NLP), scikit-learn, PyTorch, Hugging Face Transformers and Gradio.
+
+---
+
+## References
+
+- Kim, Y. (2014). Convolutional neural networks for sentence classification. *Proceedings of EMNLP 2014*, 1746–1751.
+- Li, W., et al. (2025). Can a large language model be a gaslighter? *ICLR 2025*. Source of D3.
+- Pennington, J., Socher, R., & Manning, C. D. (2014). GloVe: Global vectors for word representation. *Proceedings of EMNLP 2014*, 1532–1543.
+- Sanh, V., Debut, L., Chaumond, J., & Wolf, T. (2019). DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter. arXiv:1910.01108.
+- Borkan, D., Dixon, L., Sorensen, J., Thain, N., & Vasserman, L. (2019). Nuanced metrics for measuring unintended bias with real data for text classification. *Companion Proceedings of WWW 2019*. (Civil Comments, the source of D1.)
+- Jigsaw / Conversation AI (2018). Toxic Comment Classification Challenge. Kaggle.
+- Behavioural Insights Team. (2026). *Understanding tech-based abuse of women on dating platforms: Final report*. Minderoo Foundation.
+- Bumble Inc. (2026). *Annual report on Form 10-K for the fiscal year ended December 31, 2025*. U.S. Securities and Exchange Commission.
+- Department for Science, Innovation and Technology. (2025). *Online Safety Act: Explainer*. GOV.UK.
+- Global Dating Insights. (2025, August 27). *Global dating app revenues top $6 billion* (reporting Business of Apps data).
+- Market.us. (n.d.). *Content moderation services market*.
+- Match Group. (2023, November 14). *"Are You Sure?" to expand to millions of users across Match, Stir, OurTime & more* [Press release].
+- Match Group. (2026, February 3). *Fourth quarter and full-year results* [Press release].
+- Pew Research Center. (2023, February 2). *The experiences of U.S. online daters*.
+- Regulation (EU) 2016/679 (General Data Protection Regulation); Regulation (EU) 2022/2065 (Digital Services Act).
+- **[TEAM: check each reference against BUSINESS_SOURCES.md and the original page.]**
