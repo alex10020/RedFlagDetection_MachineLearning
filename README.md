@@ -17,26 +17,41 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 | TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus all four gaslighting models trained again on D3 with everyday messages |
 | Error analysis | Mistakes exported per model; the team is reading them |
 | Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
-| Final test runs | Sunday 22 November, once |
+| Final test runs | Done once, 18 November, from commit `4add43c` |
 | Prototype | v1 gives a toxic and a gaslighting score from the CNN models. v2 (next step): a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
 | Report and slides (due 24 November) | In progress |
 
-## Results so far
+## Final results
 
-F1 for the harmful class. We chose hyperparameters and thresholds on validation data. The dating numbers come from the 120-message development set, and no official test set has been scored yet.
+We scored every model once, on held-out test sets, from commit `4add43c` (see `results/final/run_info.json`). Each model kept the threshold it chose on validation data. Full numbers are in `results/final/metrics.csv`, and the paired comparisons in `results/final/paired_differences.csv`. Development-set and validation results stay in each `results/<model>/metrics.json`.
 
-| Model | D1 validation | Dating: toxic vs harmless | D3 validation | Dating: gaslighting vs harmless | Harmless dating messages flagged by the D3 model |
+**Toxic language** (F1 for the harmful class; the dating subset has 20 toxic and 40 harmless messages)
+
+| Model | D1 test | D2 test | Dating: toxic vs harmless (95% CI) | Dating ROC-AUC | Harmless dating flagged |
 |---|---:|---:|---:|---:|---:|
-| TF-IDF + logistic regression | 0.58 | 0.38 | 0.95 | 0.31 | 75% |
-| CNN + GloVe | 0.63 | 0.41 | 0.95 | 0.25 | 98% |
-| DistilBERT, frozen | 0.44 | 0.50 | 0.94 | 0.15 | 65% |
-| DistilBERT, fine-tuned | 0.68 | 0.40 | 0.97 | 0.19 | 92% |
-| TF-IDF, D3 + everyday messages | | | 0.93 | 0.43 | 13% |
-| CNN, D3 + everyday messages | | | 0.94 | 0.29 | 43% |
-| DistilBERT frozen, D3 + everyday messages | | | 0.92 | 0.00 | 12% |
-| DistilBERT fine-tuned, D3 + everyday messages | | | 0.96 | 0.00 | 3% |
+| TF-IDF + logistic regression | 0.57 | 0.56 | 0.39 (0.17 to 0.57) | 0.68 | 23% |
+| CNN + GloVe | 0.62 | 0.60 | 0.41 (0.17 to 0.63) | 0.70 | 8% |
+| DistilBERT, frozen | 0.43 | 0.55 | 0.55 (0.30 to 0.73) | 0.88 | 10% |
+| DistilBERT, fine-tuned | 0.66 | 0.66 | 0.45 (0.20 to 0.65) | 0.77 | 10% |
 
-Fine-tuned DistilBERT is best on the training domains. On dating messages the models fall within each other's wide intervals: they catch explicit insults and miss put-downs and threats. The gaslighting models learn D3's style instead of gaslighting, because D3's safe class is reassuring therapist language. Adding 12,079 short non-toxic D1 messages to D3's safe class (and 844 to its validation set) cuts false alarms on harmless dating messages from 75% to 13% for TF-IDF and from 98% to 43% for the CNN, at a cost of about 0.02 D3 validation F1. With the same data, both DistilBERT models stop flagging harmless messages (3% and 12%) but catch none of the 10 gaslighting development messages: they learn "D3 style is gaslighting, everyday chat is safe", and dating gaslighting reads like everyday chat. The last four rows give D3 validation F1 on D3 messages only. Each `results/<model>/metrics.json` has the full numbers, and `notebooks/03_eda_d1_d3.ipynb` explains the D3 problem.
+On D1 and D2, fine-tuned DistilBERT beats the CNN, and the CNN beats the baseline; every one of these gaps has a paired 95% interval above zero. Scores barely drop from D1 (news comments) to D2 (Wikipedia comments). On dating messages only frozen DistilBERT is reliably better than the baseline (+0.16 F1, interval 0.04 to 0.31); the other differences are within noise.
+
+**Gaslighting** (the dating subset has 7 gaslighting and 40 harmless messages)
+
+| Model | D3 test F1 | Dating ROC-AUC | Gaslighting caught | Harmless dating flagged |
+|---|---:|---:|---:|---:|
+| TF-IDF, D3 only | 0.96 | 0.58 | 4 of 7 | 58% |
+| CNN, D3 only | 0.96 | 0.41 | 4 of 7 | 68% |
+| DistilBERT frozen, D3 only | 0.94 | 0.49 | 3 of 7 | 45% |
+| DistilBERT fine-tuned, D3 only | 0.98 | 0.52 | 5 of 7 | 65% |
+| TF-IDF, D3 + everyday messages | 0.95 | 0.43 | 0 of 7 | 13% |
+| CNN, D3 + everyday messages | 0.93 | 0.33 | 2 of 7 | 43% |
+| DistilBERT frozen, D3 + everyday messages | 0.92 | 0.35 | 0 of 7 | 5% |
+| DistilBERT fine-tuned, D3 + everyday messages | 0.97 | 0.36 | 0 of 7 | 3% |
+
+Every gaslighting model scores 0.92 to 0.98 on D3, but on dating messages they rank at chance level (ROC-AUC 0.33 to 0.58, where 0.5 is guessing). D3's gaslighting is a therapist undermining a patient, and its safe class is the same therapist reassuring them, so the models learn the therapy setting's style rather than gaslighting between partners. Adding everyday non-toxic messages to the safe class (12,079 in train, 844 in validation) stops the models flagging ordinary chat, but it does not make them detect gaslighting. On the 120 development messages the fix seemed to help detection; on the final messages it did not, which shows how little a small development set can tell us.
+
+**Research question.** Models trained outside dating catch explicit toxic language in dating messages reasonably well, but miss subtle harm and do not detect gaslighting at all. Our CNN does better than the baseline but not as well as fine-tuned DistilBERT on the training domains; on dating messages none of them is clearly better, except frozen DistilBERT for toxic language. The training data's setting matters more than the model.
 
 ## Setup
 
@@ -72,7 +87,7 @@ python -m red_flag_detector.app
 
 Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. Each message gets two scores, toxic language and gaslighting, from our CNN models in `models/`, so you do not need any data to run it. Highlighted words are the ones that raised a flagged score most.
 
-Only the toxic score raises flags. The gaslighting score appears as a grey number marked experimental and never flags a message. It comes from the CNN trained on D3 plus everyday messages, which still flags 43% of our harmless dating messages (see Results). Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
+Only the toxic score raises flags. The gaslighting score appears as a grey number marked experimental and never flags a message. It comes from the CNN trained on D3 plus everyday messages, which ranks our final dating messages at chance level (see Final results). Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
 
 ## Get the data
 

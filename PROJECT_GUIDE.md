@@ -86,14 +86,13 @@ To retrain the CNN, put `glove.6B.100d.txt` in `data/raw/` (see [data/README.md]
 
 Add a name to each task when you take it.
 
-**Done:** all four models on both topics, EDA on D1 and D3, error export, app v1, READMEs, pinned requirements, clean-install check, the 80 final-test messages and the D2 test files.
+**Done:** all four models on both topics, EDA on D1 and D3, error export, app v1, READMEs, pinned requirements, clean-install check, the 80 final-test messages, the D2 test files and the one-time final run (18 November, commit `4add43c`, results in `results/final/`). The models are frozen: do not change them.
 
 | Task | Due | Owner |
 |---|---|---|
 | Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Sat 21 Nov | |
 | Business case: users, value, business model, market | Sat 21 Nov | |
 | Responsible AI: bias, privacy, misuse, limits | Sat 21 Nov | |
-| Final test runs and the final results table | Sun 22 Nov | Alp (with Claude) |
 | Slides and the 10-minute script | Sun 22 to Mon 23 Nov | |
 | Report (10 to 15 pages), contribution table, AI declaration | Mon 23 Nov | |
 | Rehearse, make sure each of us can explain the code, submit | Tue 24 Nov | Everyone |
@@ -132,7 +131,7 @@ Implementation note: the CNN writes each convolution as unfold plus a linear lay
 ## Limits to discuss in the report
 
 Data:
-- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98%, depending on the model). Adding everyday messages cuts this to 3% to 43%, but detection of real gaslighting on dating messages stays weak: TF-IDF and the CNN catch 5 or 6 of 10, both DistilBERT models catch none, and the comparison rests on only 70 development messages.
+- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98%, depending on the model). Adding everyday messages cuts false alarms to 3% to 43%, but on the final test every gaslighting model, with or without the fix, ranks dating messages at chance level (ROC-AUC 0.33 to 0.58).
 - D3 labels describe whole chats, and about 4% of assistant turns read like the user talking, over 80% of them in gaslighting chats.
 - ChatGPT wrote D3, and its assistant plays a psychologist, not a date.
 - D1 has label noise: some of the models' most confident false positives are insults labelled not toxic.
@@ -142,7 +141,9 @@ Data:
 
 Models and evaluation:
 - The toxic models learned rude words, not hostility: "I despise you" scores 0.14 while "you are pathetic" scores 1.00.
-- Deep models beat the baseline on D1 (fine-tuned DistilBERT +0.10 F1, CNN +0.05), but not clearly on dating messages, where the intervals overlap.
+- On the D1 and D2 tests, fine-tuned DistilBERT and the CNN are reliably better than the baseline (paired intervals above zero). On dating messages only frozen DistilBERT is reliably better, and that rests on 60 messages.
+- The final dating subsets are small: 20 toxic and 7 gaslighting messages, each against 40 harmless. Their intervals are wide.
+- The everyday-messages fix looked like it helped detection on 70 development messages but not on the final messages: a small development set can mislead.
 - Frozen DistilBERT scores below the baseline on D1, because its [CLS] vector was never trained to summarise a message.
 - DistilBERT reads at most 128 tokens, which cuts 16% of the D1 training messages.
 - All D3 models score about 0.95 on validation, so the CNN grid on D3 chose between settings within noise.
@@ -155,7 +156,20 @@ Models and evaluation:
 Findings from checks we ran outside the training scripts, with the numbers to quote. Add to it as you go.
 
 - **Why gaslighting does not transfer.** D3's gaslighting is a ChatGPT-written therapist undermining a patient, and its safe class is the same therapist reassuring them. Gaslighting between dating partners looks different: denying events ("you were drunk, you don't even remember"), rewriting memories, calling the other person dramatic. A model trained on D3 learns the therapy setting's style, so it cannot recognise a partner gaslighting a partner. This is our main conclusion for the gaslighting half of the research question.
+- **Final run, toxic language.** On the D1 test, F1 is 0.57 (baseline), 0.62 (CNN), 0.43 (frozen DistilBERT) and 0.66 (fine-tuned DistilBERT); D2 gives almost the same picture (0.56, 0.60, 0.55, 0.66), so the models carry over from news comments to Wikipedia comments. On dating messages (toxic vs harmless), ROC-AUC is 0.68 to 0.88 and only frozen DistilBERT beats the baseline reliably (+0.16 F1). A possible reason: fine-tuning on news comments fits DistilBERT to that setting, while the frozen model keeps more general language knowledge.
+- **Final run, gaslighting.** D3 test F1 is 0.92 to 0.98 for all eight gaslighting models, but on dating messages ROC-AUC is 0.33 to 0.58, which is chance level. The D3-only models flag 45% to 68% of harmless dating messages; with everyday messages they flag 3% to 43% but catch 0 to 2 of 7 gaslighting messages.
 - **Reproducibility.** A fresh clone, set up only with the README steps (venv, `requirements.txt`, `pip install -e .`), passes all tests and starts the app with the CNN models on CPU PyTorch.
+
+## Business case framing
+
+Our results do not support selling an automatic red-flag detector to daters. Frame the business case around what the evidence shows:
+
+- **Users:** trust and safety teams at dating apps, the people who handle reported messages. Daters are secondary users of the demo app.
+- **Value now:** the toxic model as a triage tool that ranks reported messages so human moderators see likely abuse first. It never blocks or bans on its own. That fits our numbers: decent ranking on dating messages (ROC-AUC 0.68 to 0.88), F1 too low for automatic action.
+- **Value from the research:** generic toxicity data misses most put-downs, threats and all gaslighting in dating chats. A platform should test any moderation model on its own messages before relying on it, and our evaluation shows how.
+- **Business model:** a paid pilot with one dating app. Phase 1: explicit-toxicity triage for moderators. Phase 2: with users' consent, train on messages users themselves reported, the in-domain data our results show is missing, to build gaslighting and coercion detection. Revenue from a per-platform licence or by moderation volume.
+- **Responsible AI fit:** a human decides every case, nothing happens automatically, and training data is used only with consent.
+- **Still to research, with real sources:** market size, and what features dating apps already have against harassment. Do not quote numbers or competitor features without a source.
 
 ## Marking scheme
 
@@ -165,7 +179,7 @@ Findings from checks we ran outside the training scripts, with the numbers to qu
 | Originality | 0.5 | Gaslighting classifier (the D3 paper trains none) and our own dating test |
 | Data | 1.5 | D1, D3 and dating EDA done; cleaning and leakage checks documented |
 | Methodology and models | 2.0 | Four models on both topics, tuned on validation |
-| Evaluation and results | 1.5 | Validation and dating comparison done. Final tests and error reading to do |
+| Evaluation and results | 1.5 | Final tests done with paired comparisons. Error reading to do |
 | Prototype and code | 1.5 | App v1 runs from a clean install; 53 tests |
 | Report | 0.5 | Not started |
 | Presentation | 1.0 | Not started |
