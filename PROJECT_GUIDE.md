@@ -90,12 +90,14 @@ Add a name to each task when you take it.
 
 | Task | Due | Owner |
 |---|---|---|
-| Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Sat 21 Nov | |
-| Business case: users, value, business model, market | Sat 21 Nov | |
-| Responsible AI: bias, privacy, misuse, limits | Sat 21 Nov | |
-| Slides and the 10-minute script | Sun 22 to Mon 23 Nov | |
-| Report (10 to 15 pages), contribution table, AI declaration | Mon 23 Nov | |
-| Rehearse, make sure each of us can explain the code, submit | Tue 24 Nov | Everyone |
+| Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Done 18 Nov (Claude); Milan second-reads 20 rows by Sat 21 Nov | Milan |
+| Business case: check `report/BUSINESS_SOURCES.md`, write report §2 | Sat 21 Nov | Raya |
+| Responsible AI: bias, privacy, misuse, limits (report §7) | Sat 21 Nov | Milan |
+| Data section (report §3) and slide deck design | Sun 22 Nov | Aysel |
+| Prototype section (report §6), screenshots, live demo, PDF assembly | Mon 23 Nov | Sacha |
+| Methodology and results (report §4, §5) | Sat 21 Nov | Alp |
+| Executive summary, conclusions, final edit, zip and submission | Tue 24 Nov | Alexander |
+| Rehearse to 10 minutes (two slides each, see `report/SLIDES_AND_SCRIPT.md`), make sure each of us can explain the code | Mon 23 Nov | Everyone |
 
 ## Rules that protect the results
 
@@ -145,7 +147,8 @@ Models and evaluation:
 - The final dating subsets are small: 20 toxic and 7 gaslighting messages, each against 40 harmless. Their intervals are wide.
 - The everyday-messages fix looked like it helped detection on 70 development messages but not on the final messages: a small development set can mislead.
 - Frozen DistilBERT scores below the baseline on D1, because its [CLS] vector was never trained to summarise a message.
-- DistilBERT reads at most 128 tokens, which cuts 16% of the D1 training messages.
+- DistilBERT reads at most 128 tokens, which cuts 16% of the D1 training messages. The CNN also cuts at 128 words: in 6 of its 15 most confident D1 validation misses, the only rude words come after the cut (error analysis, 18 November). Dating messages are at most 15 words, so this does not affect them.
+- About a third (CNN) to half (fine-tuned DistilBERT) of the 30 most confident D1 validation mistakes are label noise, so D1 F1 slightly understates both models.
 - All D3 models score about 0.95 on validation, so the CNN grid on D3 chose between settings within noise.
 - Thresholds come from each training set's validation data, not from dating data, and the scores are not calibrated probabilities.
 - A single message can hide context. Some gaslighting only shows across a whole chat.
@@ -203,4 +206,4 @@ Log any AI help as you go, so the declaration is easy to write.
 - Claude (Claude Code, 17 to 18 November) trained all twelve models, including the four gaslighting models on D3 plus everyday messages, and ran the CNN and frozen DistilBERT grids. It wrote `cnn.py`, `transformer.py`, `errors.py`, `final.py`, the D3-plus-everyday data step, the EDA notebook 03, app v1, the READMEs, the writer brief and the draft error causes, and drafted pull request descriptions.
 - Claude ran the leakage checks, the one-time final run (from commit `4add43c`) and the cleanup of outdated v0 files, and drafted the business case framing in this guide. Alp decided which changes to make and reviewed the results.
 - Alp wrote dating messages S121 to S200 without AI, and the group reviewed their labels.
-- Claude (Claude Code, 18 November, with Alexander) drafted the full report, the slide script and Q&A answers, researched sourced facts for the business case (`report/`), and wrote `scripts/make_submission_zip.py`. It did not fill `team_cause` or change any model or result.
+- Claude (Claude Code, 18 November, with Alexander) drafted the full report, the slide script and Q&A answers, researched sourced facts for the business case (`report/`), and wrote `scripts/make_submission_zip.py`. At Alexander's request it also did the error analysis: it read the four main models' mistakes, filled `team_cause` and wrote report §5.4. Alexander assigned the remaining writing tasks. It changed no model or result.

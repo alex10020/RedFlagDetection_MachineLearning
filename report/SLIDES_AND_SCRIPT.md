@@ -1,23 +1,23 @@
 # Slides and 10-minute script (draft)
 
-> **DRAFT (written by Claude, 18 November).** 12 slides, about 1,250 spoken words, which is roughly 10 minutes at a calm pace. Each speaker should reword their lines so they sound like themselves, then time a full run. If it runs long, cut slide 7 to one sentence first. Suggested split: six speakers with two slides each. **[TEAM: put names in the Speaker column.]**
+> **DRAFT (written by Claude, 18 November).** 12 slides, about 1,250 spoken words, which is roughly 10 minutes at a calm pace. Each speaker should reword their lines so they sound like themselves, then time a full run. If it runs long, cut slide 7 to one sentence first. Six speakers with two slides each, matching the contribution table in the report. Swap slides if you like, but keep two each.
 >
 > Visual style: reuse the 5 November check-in deck (dark title slide, cream content slides, red for flags), so the two decks look like one project.
 
 | # | Slide | Speaker | Time |
 |---|---|---|---:|
-| 1 | Title and hook | [TEAM] | 0:40 |
-| 2 | The problem and who has it | [TEAM] | 0:50 |
-| 3 | Research question and plan | [TEAM] | 0:40 |
-| 4 | Data: three sources and our own test | [TEAM] | 1:00 |
-| 5 | What the data told us (EDA) | [TEAM] | 0:50 |
-| 6 | Four models | [TEAM] | 1:00 |
-| 7 | Keeping the test honest | [TEAM] | 0:40 |
-| 8 | Result 1: toxic language | [TEAM] | 1:00 |
-| 9 | Result 2: gaslighting | [TEAM] | 1:00 |
-| 10 | Demo / prototype | [TEAM] | 0:50 |
-| 11 | Business case and responsible AI | [TEAM] | 1:00 |
-| 12 | Conclusion and next steps | [TEAM] | 0:30 |
+| 1 | Title and hook | Alexander | 0:40 |
+| 2 | The problem and who has it | Raya | 0:50 |
+| 3 | Research question and plan | Alexander | 0:40 |
+| 4 | Data: three sources and our own test | Aysel | 1:00 |
+| 5 | What the data told us (EDA) | Aysel | 0:50 |
+| 6 | Four models | Alp | 1:00 |
+| 7 | Keeping the test honest | Milan | 0:40 |
+| 8 | Result 1: toxic language | Alp | 1:00 |
+| 9 | Result 2: gaslighting | Milan | 1:00 |
+| 10 | Demo / prototype | Sacha | 0:50 |
+| 11 | Business case and responsible AI | Raya | 1:00 |
+| 12 | Conclusion and next steps | Sacha | 0:30 |
 | | **Total** | | **10:00** |
 
 ---
@@ -34,7 +34,7 @@ Below them: "Which one is the red flag?" Team names, Group 7.
 
 ## Slide 2: The problem and who has it
 
-**On the slide:** Harm in dating chats ranges from explicit insults to put-downs, threats, guilt-tripping, sexual pressure and gaslighting. Who handles it: users report, and trust & safety moderators read the reports. Two numbers: "48% of US online daters faced harassment (Pew 2023)" and "53% of women on dating apps experienced gaslighting (BIT/Minderoo 2026)". **[TEAM: check both links in BUSINESS_SOURCES.md.]**
+**On the slide:** Harm in dating chats ranges from explicit insults to put-downs, threats, guilt-tripping, sexual pressure and gaslighting. Who handles it: users report, and trust & safety moderators read the reports. Two numbers: "48% of US online daters faced harassment (Pew 2023)" and "53% of women on dating apps experienced gaslighting (BIT/Minderoo 2026)". (Both checked against the source pages.)
 
 **Script:** "Dating apps depend on users reporting abuse, and then a human moderator has to read every report. The harmful messages aren't all obvious. Some are insults, but many are quiet: a put-down dressed as a joke, a threat in polite words, or gaslighting. Almost half of US online daters have been harassed, and in a 2026 survey of women on dating apps, more than half had been gaslit, a harm that's reported far less than insults. So our users aren't daters first. They're the trust and safety teams who need to know which reports to read first."
 
@@ -96,7 +96,7 @@ Footnote: D2, Wikipedia comments, used as an extra test only.
 ## Slide 11: Business case and responsible AI
 
 **On the slide:** two columns.
-- **Business:** user = dating-app T&S teams; Phase 1 paid pilot, triage of reported messages, a human decides; Phase 2 consented in-domain data for gaslighting and coercion detection; licence per platform or by volume. Market: dating apps earned more than $6B in 2024; Match Group spends $125M a year on trust and safety; the UK Online Safety Act puts dating apps in scope. Existing tools (Tinder "Are You Sure?", Bumble) catch rudeness, not gaslighting.
+- **Business:** user = dating-app T&S teams; Phase 1 paid pilot, triage of reported messages, a human decides; Phase 2 consented in-domain data for gaslighting and coercion detection; licence per platform or by volume. Market: dating apps earned more than $6B in 2024, Match Group alone $3.5B in 2025; the UK Online Safety Act covers dating services and lists coercive behaviour as illegal content. Existing tools (Tinder "Does This Bother You?", Hinge "Are You Sure?", Bumble's rude-message detection) catch rudeness, not gaslighting.
 - **Responsible AI:** identity-word bias (1–2 of 7 identity messages flagged); privacy of pasted chats (nothing stored, GDPR and consent for Phase 2); risks of false reassurance, false alarms, and treating a score as proof.
 
 **Script:** "So what can you sell? Not an automatic red-flag detector for daters; our numbers don't support that. But the toxic model ranks dating messages decently, which is useful for moderators: put likely abuse at the top of the queue, with a human always deciding. Phase two collects consented, reported messages, the in-domain data our results show is missing. On responsible AI: the training labels link identity words to toxicity, pasted chats contain someone else's messages, and a score is never proof of abuse."
@@ -111,7 +111,7 @@ Footnote: D2, Wikipedia comments, used as an extra test only.
 
 ## Q&A preparation
 
-Everyone should be able to answer these. Suggested owner in brackets. **[TEAM: assign.]**
+Everyone should be able to answer all of these. As a default: Alp takes the model and training questions, Milan leakage and evaluation, Aysel data, Raya business, Sacha the app, and Alexander AI use and anything else.
 
 | Likely question | Short answer |
 |---|---|
