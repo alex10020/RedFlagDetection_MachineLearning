@@ -23,7 +23,7 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 
 ## Final results
 
-We scored every model once, on held-out test sets, from commit `4add43c` (see `results/final/run_info.json`). Each model kept the threshold it chose on validation data. Full numbers are in `results/final/metrics.csv`, and the paired comparisons in `results/final/paired_differences.csv`. Development-set and validation results stay in each `results/<model>/metrics.json`.
+We scored all 12 models in the comparison once, on held-out test sets, from commit `4add43c` (see `results/final/run_info.json`). Each model kept the threshold it chose on validation data. Full numbers are in `results/final/metrics.csv`, and the paired comparisons in `results/final/paired_differences.csv`. Development-set and validation results stay in each `results/<model>/metrics.json`. The full-data TF-IDF baseline (`results/d1_baseline_all/`) was a validation experiment only and is not in the final run.
 
 **Toxic language** (F1 for the harmful class; the dating subset has 20 toxic and 40 harmless messages)
 

@@ -28,7 +28,7 @@ Gaslighting is the hook. It uses ordinary words, so a word-count model barely se
 - Guilt or control messages and sexual pressure stay in the dating test as extra categories.
 - The dating test has a development set (S001 to S120, drafted by Claude) and a final test (S121 to S200, written by a team member). The group reviewed the final labels together. We do not double-label or report Cohen's kappa.
 - D2 (Kaggle Jigsaw) is an extra test set only. Each person who downloads it accepts the competition rules on their own account, and nobody commits or shares the files.
-- Gaslighting has two versions of all four models: trained on D3 alone, and on D3 plus short non-toxic D1 messages as extra safe examples (as many as D3's safe turns, fixed in advance). We report both. The second cut false alarms on harmless dating messages from 75% to 13% (TF-IDF), 98% to 43% (CNN), 65% to 12% (frozen DistilBERT) and 92% to 3% (fine-tuned DistilBERT), but both DistilBERT models then catch none of the 10 gaslighting development messages.
+- Gaslighting has two versions of all four models: trained on D3 alone, and on D3 plus short non-toxic D1 messages as extra safe examples (as many as D3's safe turns, fixed in advance). We report both. On the 120 development messages, the second cut false alarms on harmless messages from 75% to 13% (TF-IDF), 98% to 43% (CNN), 65% to 12% (frozen DistilBERT) and 92% to 3% (fine-tuned DistilBERT), but both DistilBERT models then caught none of the 10 gaslighting messages. On the final test the cut was similar (58% to 13%, 68% to 43%, 45% to 5%, 65% to 3%), and no version detected gaslighting better than chance.
 - The final run (`python -m red_flag_detector.final`) scores every model once on all test sets and reports F1, PR-AUC, ROC-AUC and paired bootstrap intervals for the differences between models. A dry run on validation data reproduced every saved validation score.
 - The app uses the CNN for both scores, with the D3-plus-everyday CNN for gaslighting. Only the toxic score raises flags. The gaslighting score is a grey number marked experimental, because it still flags 43% of harmless dating messages.
 - App v2, with a model switcher and fine-tuned DistilBERT hosted as a GitHub release, is a next step for the report, not for this submission.
@@ -100,7 +100,7 @@ Add a name to each task when you take it.
 ## Rules that protect the results
 
 - Choose thresholds and hyperparameters on validation data only.
-- Run the final tests once, on Sunday 22 November, for all models together: the official D1 and D3 test sets, the D2 test set and dating messages S121 to S200. `load_stress_test()` leaves S121 to S200 out unless you pass `part="final"`.
+- The final tests ran once, on 18 November, for all models together: the official D1 and D3 test sets, the D2 test set and dating messages S121 to S200. `load_stress_test()` leaves S121 to S200 out unless you pass `part="final"`.
 - Treat the first 120 dating messages as a development set, because we have seen errors on them.
 - Use D3's assistant turns only, drop `internal thought` and keep its official splits. See [data/README.md](data/README.md).
 - Report intervals on small test sets. Half the dating test is harmful, so its F1 does not compare directly with F1 on comments.
@@ -131,7 +131,7 @@ Implementation note: the CNN writes each convolution as unfold plus a linear lay
 ## Limits to discuss in the report
 
 Data:
-- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98%, depending on the model). Adding everyday messages cuts false alarms to 3% to 43%, but on the final test every gaslighting model, with or without the fix, ranks dating messages at chance level (ROC-AUC 0.33 to 0.58).
+- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98% on the development set, 45% to 68% on the final test). Adding everyday messages cuts false alarms to 3% to 43%, but on the final test every gaslighting model, with or without the fix, ranks dating messages at chance level (ROC-AUC 0.33 to 0.58).
 - D3 labels describe whole chats, and about 4% of assistant turns read like the user talking, over 80% of them in gaslighting chats.
 - ChatGPT wrote D3, and its assistant plays a psychologist, not a date.
 - D1 has label noise: some of the models' most confident false positives are insults labelled not toxic.
