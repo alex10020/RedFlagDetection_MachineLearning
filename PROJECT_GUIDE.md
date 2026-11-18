@@ -75,7 +75,6 @@ To retrain the CNN, put `glove.6B.100d.txt` in `data/raw/` (see [data/README.md]
 | `src/red_flag_detector/evaluate.py` | Metrics, threshold, intervals, category report |
 | `src/red_flag_detector/errors.py` | Each model's most confident mistakes |
 | `src/red_flag_detector/final.py` | The one-time final run on all test sets |
-| `src/red_flag_detector/labelling.py` | Two-person labelling and kappa (not used) |
 | `src/red_flag_detector/chat.py` | Chat parsing and word effects |
 | `src/red_flag_detector/app.py` | Gradio prototype |
 | `notebooks/03_eda_d1_d3.ipynb` | EDA on D1, D3 and the dating messages |
@@ -187,5 +186,5 @@ git checkout -b your-task-name
 Log any AI help as you go, so the declaration is easy to write.
 
 - Claude drafted the package code, tests, prototype v0, this guide and dating messages S001 to S120.
-- Claude (Claude Code, 17 to 18 November) trained all eight models and ran the CNN and frozen DistilBERT grids. It also wrote `cnn.py`, `transformer.py`, `errors.py`, `labelling.py`, the EDA notebook 03, app v1, the READMEs, the writer brief and the draft error causes, and drafted pull request descriptions.
+- Claude (Claude Code, 17 to 18 November) trained all eight models and ran the CNN and frozen DistilBERT grids. It also wrote `cnn.py`, `transformer.py`, `errors.py`, `final.py`, the EDA notebook 03, app v1, the READMEs, the writer brief and the draft error causes, and drafted pull request descriptions.
 - Alp wrote dating messages S121 to S200 without AI, and the group reviewed their labels.

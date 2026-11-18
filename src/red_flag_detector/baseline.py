@@ -5,11 +5,9 @@ Run with:
     python -m red_flag_detector.baseline --dataset d1 --d1-train-size all
     python -m red_flag_detector.baseline --dataset d3                 # gaslighting
     python -m red_flag_detector.baseline --dataset d3plus             # gaslighting + everyday D1 messages
-    python -m red_flag_detector.baseline --dataset d2 --data data/raw/jigsaw_train.csv
 """
 
 import argparse
-import hashlib
 import json
 import time
 from pathlib import Path
@@ -24,13 +22,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from .data import (
     D1_TRAIN_SIZE,
     D1_VAL_SIZE,
-    deduplicate,
     load_d1_train_val,
     load_d3_plus,
     load_d3_splits,
-    load_jigsaw,
     load_stress_test,
-    make_splits,
 )
 from .evaluate import best_f1_threshold, binary_metrics, bootstrap_interval, category_report
 from .validation import validate_no_text_overlap
@@ -50,10 +45,6 @@ def build_baseline(c: float = 1.0) -> Pipeline:
             ("logreg", LogisticRegression(C=c, class_weight="balanced", max_iter=1000, random_state=SEED)),
         ]
     )
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def select_model(train: pd.DataFrame, val: pd.DataFrame) -> tuple[dict, list[dict]]:
@@ -102,47 +93,6 @@ def save_stress_outputs(stress: pd.DataFrame, scores: np.ndarray, threshold: flo
 
 def _split_info(parts: dict[str, pd.DataFrame]) -> dict:
     return {name: {"rows": len(part), "toxic_share": round(float(part["label"].mean()), 4)} for name, part in parts.items()}
-
-
-def run_d2(data_path: Path, stress_path: Path, results_dir: Path, model_path: Path) -> dict:
-    """Train on our 64/16/20 split of Jigsaw train.csv. This was the first stand-in baseline."""
-    data = load_jigsaw(data_path)
-    rows_loaded = len(data)
-    data = deduplicate(data)[["text", "label"]]
-    train, val, test = make_splits(data, val_size=0.16, test_size=0.20, seed=SEED)
-    validate_no_text_overlap(train, val, test)
-
-    best, trials = select_model(train, val)
-    model, threshold = best["model"], best["threshold"]
-
-    test_scores = model.predict_proba(test["text"])[:, 1]
-    stress = load_stress_test(stress_path)
-    stress_scores = model.predict_proba(stress["text"])[:, 1]
-
-    results_dir.mkdir(parents=True, exist_ok=True)
-    model_path.parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump({"model": model, "threshold": threshold, "trained_on": "D2 Jigsaw train.csv"}, model_path, compress=3)
-    save_stress_outputs(
-        stress, stress_scores, threshold,
-        results_dir / "dating_stress_test_by_category.csv", results_dir / "dating_stress_test_errors.csv",
-    )
-
-    report = {
-        "dataset": "D2 Jigsaw train.csv, split internally",
-        "dataset_sha256": _sha256(data_path),
-        "rows_loaded": rows_loaded,
-        "rows_after_dedup": len(data),
-        "splits": _split_info({"train": train, "val": val, "test": test}),
-        "c_trials": trials,
-        "chosen_c": best["c"],
-        "threshold": threshold,
-        "test": binary_metrics(test["label"], test_scores, threshold),
-        "test_at_threshold_0.5": binary_metrics(test["label"], test_scores, 0.5),
-        "majority_class_test_accuracy": float(1 - test["label"].mean()),
-        "dating_stress_test": stress_summary(stress, stress_scores, threshold),
-    }
-    (results_dir / "baseline_metrics.json").write_text(json.dumps(report, indent=2))
-    return report
 
 
 def run_d1(train_size: int | None, stress_path: Path, results_dir: Path, model_path: Path) -> dict:
@@ -235,13 +185,12 @@ def _d3_only_validation(val: pd.DataFrame, scores: np.ndarray, threshold: float)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dataset", choices=["d1", "d2", "d3", "d3plus"], default="d1")
+    parser.add_argument("--dataset", choices=["d1", "d3", "d3plus"], default="d1")
     parser.add_argument("--d3-dir", type=Path, default=Path("data/raw/gaslighting"), help="D3 only")
-    parser.add_argument("--data", type=Path, default=Path("data/raw/jigsaw_train.csv"), help="D2 only")
     parser.add_argument("--d1-train-size", default=str(D1_TRAIN_SIZE), help="number of D1 training messages, or 'all'")
     parser.add_argument("--stress", type=Path, default=Path("data/dating_stress_test.csv"))
-    parser.add_argument("--results", type=Path, help="defaults to results/ (D2) or results/d1_baseline_<size>/ (D1)")
-    parser.add_argument("--model", type=Path, help="defaults to models/baseline_v0.joblib (D2) or models/baseline_d1_<size>.joblib")
+    parser.add_argument("--results", type=Path, help="defaults to results/<dataset>_baseline/ or results/d1_baseline_<size>/")
+    parser.add_argument("--model", type=Path, help="defaults to models/baseline_<dataset>.joblib or models/baseline_d1_<size>.joblib")
     args = parser.parse_args()
 
     if args.dataset in {"d3", "d3plus"}:
@@ -251,8 +200,6 @@ def main() -> None:
             args.d3_dir, args.stress, args.results or Path(f"results/{name}"), args.model or Path(f"models/{model_file}"),
             everyday=args.dataset == "d3plus",
         )
-    elif args.dataset == "d2":
-        report = run_d2(args.data, args.stress, args.results or Path("results"), args.model or Path("models/baseline_v0.joblib"))
     else:
         train_size = None if args.d1_train_size == "all" else int(args.d1_train_size)
         tag = "all" if train_size is None else f"{train_size // 1000}k"

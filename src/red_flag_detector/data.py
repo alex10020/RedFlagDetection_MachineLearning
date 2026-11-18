@@ -208,7 +208,7 @@ def load_stress_test(path: str | Path, part: str = "dev") -> pd.DataFrame:
 
     `part="dev"` (the default) returns messages S001 to S120, whose model errors we
     have already seen. `part="final"` returns S121 onwards, which we score once, at
-    the end. `part="all"` returns both, for labelling only. The default keeps every
+    the end. `part="all"` returns both, for data checks only. The default keeps every
     training script away from the final messages.
     """
     if part not in {"dev", "final", "all"}:

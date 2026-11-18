@@ -123,7 +123,7 @@ New here? Read [PROJECT_GUIDE.md](PROJECT_GUIDE.md) for decisions, rules and the
 ```
 ├── data/                   dating messages, writer brief, download instructions
 ├── models/                 saved models (fine-tuned DistilBERT excluded)
-├── notebooks/              01 EDA on D2, 02 first baseline, 03 EDA on D1 and D3
+├── notebooks/              01 EDA on D2, 03 EDA on D1 and D3
 ├── results/                metrics, figures and mistakes per model
 ├── src/red_flag_detector/
 │   ├── data.py             loaders and splits for D1, D2, D3 and the dating messages
@@ -133,7 +133,7 @@ New here? Read [PROJECT_GUIDE.md](PROJECT_GUIDE.md) for decisions, rules and the
 │   ├── transformer.py      DistilBERT, frozen and fine-tuned
 │   ├── evaluate.py         metrics, threshold, intervals
 │   ├── errors.py           mistakes per model for error analysis
-│   ├── labelling.py        optional two-person labelling and Cohen's kappa (not used)
+│   ├── final.py            the one-time final run on all test sets
 │   ├── chat.py             chat parsing and word effects
 │   ├── plots.py            chart style
 │   └── app.py              Gradio prototype

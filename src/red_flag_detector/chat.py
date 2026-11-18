@@ -12,7 +12,7 @@ Scorer = Callable[[Sequence[str]], np.ndarray]
 _TIMESTAMP = r"(?:\[[^\]]*\d[^\]]*\]\s*|\d{1,4}[/.-]\d{1,2}[/.-]\d{1,4},?\s+\d{1,2}[:.]\d{2}(?:\s?[APap][Mm])?\s*-\s*)?"
 _LINE = re.compile(rf"^{_TIMESTAMP}(?P<sender>[^\d\s:][^:]{{0,29}}):\s+(?P<text>.+)$")
 
-# Default cut-off of the class-weighted model. On D2 test comments it trades precision for recall.
+# Scores between this and a model's own threshold count as "worth a look".
 WATCH_THRESHOLD = 0.5
 MIN_WORD_EFFECT = 0.05
 
