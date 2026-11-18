@@ -12,7 +12,7 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 
 | Part | State |
 |---|---|
-| Package structure and tests | Done, 50 tests |
+| Package structure and tests | Done, 52 tests |
 | EDA on D1, D3 and the dating messages | Done (`notebooks/03_eda_d1_d3.ipynb`) |
 | TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus all four gaslighting models trained again on D3 with everyday messages |
 | Error analysis | Mistakes exported per model; the team is reading them |

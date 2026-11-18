@@ -122,7 +122,7 @@ Keep this list up to date. The report should explain each change.
 | Hyperparameters not specified | Validation grids: CNN (frozen vs fine-tuned GloVe, learning rate, weight decay) and frozen DistilBERT head (learning rate, weight decay) | The rubric asks for justified hyperparameters |
 | About 200 messages that we write and label | 120 messages drafted by Claude (development set) and 80 written by a team member (final test), labels reviewed by the group | We saw model errors on the first 120, so the final score needs unseen messages |
 | D2 licence: CC0 | CC0, with the comment text under Wikipedia's CC BY-SA 3.0, and Kaggle's rules: academic use allowed, no redistribution | This is what the Kaggle data page and rules say |
-| 20+ mistakes for the CNN and DistilBERT | Mistakes exported for all eight models; the CNN and fine-tuned DistilBERT are read closely | Covers the proposal at a manageable size |
+| 20+ mistakes for the CNN and DistilBERT | Mistakes exported for all twelve models; the CNN and fine-tuned DistilBERT are read closely | Covers the proposal at a manageable size |
 | Streamlit or Gradio app with a red-flag score | Gradio app with a toxic score and an experimental gaslighting score from the CNN | Fine-tuned DistilBERT (265 MB) is too large for GitHub, so a clean install could not run it |
 | Metrics: F1, precision, recall | Also PR-AUC, ROC-AUC, bootstrap intervals on the dating test, paired bootstrap intervals for differences between models and flag rate per dating category | Thresholds come from validation sets with a different harmful share, so ROC-AUC shows ranking quality independent of the threshold; paired intervals show whether one model is reliably better |
 
@@ -180,7 +180,7 @@ Our results do not support selling an automatic red-flag detector to daters. Fra
 | Data | 1.5 | D1, D3 and dating EDA done; cleaning and leakage checks documented |
 | Methodology and models | 2.0 | Four models on both topics, tuned on validation |
 | Evaluation and results | 1.5 | Final tests done with paired comparisons. Error reading to do |
-| Prototype and code | 1.5 | App v1 runs from a clean install; 53 tests |
+| Prototype and code | 1.5 | App v1 runs from a clean install; 52 tests |
 | Report | 0.5 | Not started |
 | Presentation | 1.0 | Not started |
 
@@ -200,5 +200,6 @@ git checkout -b your-task-name
 Log any AI help as you go, so the declaration is easy to write.
 
 - Claude drafted the package code, tests, prototype v0, this guide and dating messages S001 to S120.
-- Claude (Claude Code, 17 to 18 November) trained all eight models and ran the CNN and frozen DistilBERT grids. It also wrote `cnn.py`, `transformer.py`, `errors.py`, `final.py`, the EDA notebook 03, app v1, the READMEs, the writer brief and the draft error causes, and drafted pull request descriptions.
+- Claude (Claude Code, 17 to 18 November) trained all twelve models, including the four gaslighting models on D3 plus everyday messages, and ran the CNN and frozen DistilBERT grids. It wrote `cnn.py`, `transformer.py`, `errors.py`, `final.py`, the D3-plus-everyday data step, the EDA notebook 03, app v1, the READMEs, the writer brief and the draft error causes, and drafted pull request descriptions.
+- Claude ran the leakage checks, the one-time final run (from commit `4add43c`) and the cleanup of outdated v0 files, and drafted the business case framing in this guide. Alp decided which changes to make and reviewed the results.
 - Alp wrote dating messages S121 to S200 without AI, and the group reviewed their labels.
