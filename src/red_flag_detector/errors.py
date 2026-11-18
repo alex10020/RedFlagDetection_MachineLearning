@@ -39,6 +39,8 @@ MODELS = {
     "distilbert_finetuned_d3": ("finetuned", "gaslighting"),
     "d3plus_baseline": ("baseline", "gaslighting"),
     "cnn_d3plus": ("cnn", "gaslighting"),
+    "distilbert_frozen_d3plus": ("frozen", "gaslighting"),
+    "distilbert_finetuned_d3plus": ("finetuned", "gaslighting"),
 }
 MODEL_FILES = {
     "d1_baseline_100k": "baseline_d1_100k.joblib",

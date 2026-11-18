@@ -12,7 +12,7 @@ own output layer on the first token's 768-number vector.
 Run with:
     python -m red_flag_detector.transformer --dataset d1 --mode frozen
     python -m red_flag_detector.transformer --dataset d1 --mode finetuned
-    (and --dataset d3 for gaslighting)
+    (and --dataset d3 or d3plus for gaslighting)
 """
 
 import argparse
@@ -26,8 +26,8 @@ import pandas as pd
 import torch
 from torch import nn
 
-from .baseline import save_stress_outputs, stress_summary
-from .data import D1_TRAIN_SIZE, D1_VAL_SIZE, load_d1_train_val, load_d3_splits, load_stress_test
+from .baseline import _d3_only_validation, save_stress_outputs, stress_summary
+from .data import D1_TRAIN_SIZE, D1_VAL_SIZE, load_d1_train_val, load_d3_plus, load_d3_splits, load_stress_test
 from .evaluate import best_f1_threshold, binary_metrics
 from .validation import validate_no_text_overlap
 
@@ -236,6 +236,9 @@ def _load_data(dataset: str) -> tuple[pd.DataFrame, pd.DataFrame, str]:
     if dataset == "d1":
         train, val = load_d1_train_val(train_size=D1_TRAIN_SIZE, val_size=D1_VAL_SIZE, seed=SEED)
         return train, val, f"D1 train, shared {len(train)}-message sample"
+    if dataset == "d3plus":
+        train, val, _ = load_d3_plus()
+        return train, val, "D3 train plus everyday D1 messages"
     train, val, _ = load_d3_splits()
     return train, val, "D3 gaslighting official train split"
 
@@ -307,6 +310,7 @@ def run(dataset: str, mode: str, stress_path: Path, results_dir: Path, model_pat
         # Size the app needs: the frozen model also needs the 268 MB backbone from Hugging Face.
         "model_mb": round(model_path.stat().st_size / 1e6, 2),
         "validation": binary_metrics(val["label"], val_scores, threshold),
+        **_d3_only_validation(val, val_scores, threshold),
         "validation_at_threshold_0.5": binary_metrics(val["label"], val_scores, 0.5),
         "dating_dev_set": stress_summary(stress, stress_scores, threshold),
     }
@@ -316,7 +320,7 @@ def run(dataset: str, mode: str, stress_path: Path, results_dir: Path, model_pat
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dataset", choices=["d1", "d3"], default="d1")
+    parser.add_argument("--dataset", choices=["d1", "d3", "d3plus"], default="d1")
     parser.add_argument("--mode", choices=["frozen", "finetuned"], default="finetuned")
     parser.add_argument("--stress", type=Path, default=Path("data/dating_stress_test.csv"))
     parser.add_argument("--results", type=Path, help="defaults to results/distilbert_<mode>_<dataset>/")

@@ -1,0 +1,43 @@
+model,source,error,label,score,category,draft_cause,team_cause,text
+distilbert_finetuned_d3plus,validation,false positive,0,1.0,,needs reading,,Maybe your neighbor just likes to dress up for fun.
+distilbert_finetuned_d3plus,validation,false positive,0,0.999,,question in a safe chat,,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?
+distilbert_finetuned_d3plus,validation,false positive,0,0.998,,question in a safe chat,,How do you feel about the idea of creating your own family in the future?
+distilbert_finetuned_d3plus,validation,false positive,0,0.998,,question in a safe chat,,How do you feel about reality TV stars that decide to get involved in politics?
+distilbert_finetuned_d3plus,validation,false positive,0,0.994,,question in a safe chat,,"William, what specific skills or experiences make you well-suited for this research project?"
+distilbert_finetuned_d3plus,validation,false positive,0,0.994,,question in a safe chat,,"Your question makes me reflect on my actions deeply. I aim to be more mindful of my impact on others. Are there practices you've adopted to stay aligned with your values, especially in challenging times?"
+distilbert_finetuned_d3plus,validation,false positive,0,0.992,,question in a safe chat,,"""Remember, the journey to the top of Mount Everest is as much mental as it is physical. How do you plan to strengthen your mental resilience for this expedition?"""
+distilbert_finetuned_d3plus,validation,false positive,0,0.991,,question in a safe chat,,"It's understandable to wonder about the different factors that contribute to our successes. However, how do you think your dedication to your art and your own unique skills played a role in earning this award?"
+distilbert_finetuned_d3plus,validation,false positive,0,0.988,,question in a safe chat,,"I'm really impressed with how dedicated you are to improving. It sounds like you're really enjoying it, which is fantastic. How do you feel about your skill level now compared to when you first started?"
+distilbert_finetuned_d3plus,validation,false positive,0,0.988,,question in a safe chat,,"It's understandable to feel overwhelmed, Alex. Have you thought about practicing self-compassion and seeking professional support to work through these challenges?"
+distilbert_finetuned_d3plus,validation,false positive,0,0.988,,needs reading,,"William, think of the progress you've already made and the potential impact your research could have in the renewable energy sector."
+distilbert_finetuned_d3plus,validation,false positive,0,0.987,,needs reading,,You live in a dream world.
+distilbert_finetuned_d3plus,validation,false positive,0,0.985,,question in a safe chat,,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
+distilbert_finetuned_d3plus,validation,false positive,0,0.984,,question in a safe chat,,"""How do you think your overall mindset could impact your performance in badminton?"""
+distilbert_finetuned_d3plus,validation,false positive,0,0.98,,question in a safe chat,,"Completely stopping might seem like an easy way out now, but it could lead to regrets. Have you thought about balancing cooking with your other interests and responsibilities? It's all about finding what works best for you."
+distilbert_finetuned_d3plus,validation,false negative,1,0.001,,gaslighting turn without a question,,You can't be relied upon to follow through with anything you say.
+distilbert_finetuned_d3plus,validation,false negative,1,0.008,,gaslighting turn without a question,,"It's true, hunger and responsibilities can indeed make it harder to concentrate during a storm."
+distilbert_finetuned_d3plus,validation,false negative,1,0.013,,gaslighting turn without a question,,"It's natural to have these moments of uncertainty, especially when your values come into question."
+distilbert_finetuned_d3plus,validation,false negative,1,0.016,,gaslighting turn without a question,,"Real explorers are focused and disciplined, not distracted by daydreams and painting."
+distilbert_finetuned_d3plus,validation,false negative,1,0.021,,gaslighting turn without a question,,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
+distilbert_finetuned_d3plus,validation,false negative,1,0.023,,gaslighting turn without a question,,It sounds like you're aware of the potential consequences of your actions. Your self-awareness is a positive step towards understanding yourself better.
+distilbert_finetuned_d3plus,validation,false negative,1,0.025,,needs reading,,How can you inspire your students to love their bodies when you're still struggling with your own mental health?
+distilbert_finetuned_d3plus,validation,false negative,1,0.034,,needs reading,,Your dedication to cooking shows your uniqueness. How do you think this impacts your social interactions?
+distilbert_finetuned_d3plus,validation,false negative,1,0.041,,turn reads like the user,,I was just admiring your dedication to helping the dogs at the shelter.
+distilbert_finetuned_d3plus,validation,false negative,1,0.054,,gaslighting turn without a question,,Teaching them feels like a constant battle.
+distilbert_finetuned_d3plus,validation,false negative,1,0.083,,needs reading,,"""With so few friends, how can you truly bring peace and tranquility with your flute?"""
+distilbert_finetuned_d3plus,validation,false negative,1,0.123,,needs reading,,"Have you received feedback from others on your guitar skills, Daniel?"
+distilbert_finetuned_d3plus,validation,false negative,1,0.157,,needs reading,,"""Acknowledging these feelings of guilt and impatience is a significant step, Ethan. How do you think addressing these emotions can improve not only your relationships with your children but also your approach to teaching?"""
+distilbert_finetuned_d3plus,validation,false negative,1,0.228,,needs reading,,That's amazing to witness such dedication and success in someone you admire. What does that achievement make you feel about yourself?
+distilbert_finetuned_d3plus,validation,false negative,1,0.262,,gaslighting turn without a question,,"""Self-reflection is a powerful tool for growth, Ethan. I believe your willingness to explore these challenging topics will lead to personal and professional development. Keep questioning and evolving, and you'll continue to thrive in your roles as a parent and a lecturer."""
+distilbert_finetuned_d3plus,dating,false negative,1,0.14,gaslighting,"gaslighting stated plainly, not as a probing question",,"that never happened, you're imagining things again"
+distilbert_finetuned_d3plus,dating,false negative,1,0.009,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're way too sensitive, it was obviously a joke"
+distilbert_finetuned_d3plus,dating,false negative,1,0.517,gaslighting,"gaslighting stated plainly, not as a probing question",,"i never said that, you always twist my words"
+distilbert_finetuned_d3plus,dating,false negative,1,0.0,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're crazy, everyone agrees with me on this"
+distilbert_finetuned_d3plus,dating,false negative,1,0.352,gaslighting,"gaslighting stated plainly, not as a probing question",,you remember it wrong like you always do
+distilbert_finetuned_d3plus,dating,false negative,1,0.0,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're making a big deal out of nothing, as usual"
+distilbert_finetuned_d3plus,dating,false negative,1,0.473,gaslighting,"gaslighting stated plainly, not as a probing question",,"you know you sound insane right now, right?"
+distilbert_finetuned_d3plus,dating,false negative,1,0.02,gaslighting,"gaslighting stated plainly, not as a probing question",,"nobody else has a problem with me, so it must be you"
+distilbert_finetuned_d3plus,dating,false negative,1,0.001,gaslighting,"gaslighting stated plainly, not as a probing question",,"i didn't do anything, you just get paranoid"
+distilbert_finetuned_d3plus,dating,false negative,1,0.017,gaslighting,"gaslighting stated plainly, not as a probing question",,if you weren't so emotional you'd see i'm right
+distilbert_finetuned_d3plus,dating,false positive,0,0.981,friendly_flirt,harmless chat in a style the training data lacks,,"you're kind of dangerously charming, you know"
+distilbert_finetuned_d3plus,dating,false positive,0,0.977,neutral_logistics,harmless chat in a style the training data lacks,,are you okay with sushi or would you rather have pizza?

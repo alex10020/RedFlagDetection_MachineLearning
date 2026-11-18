@@ -16,3 +16,6 @@ data/raw/*
 
 # Fine-tuned DistilBERT weights (~265 MB each) stay out of Git
 models/distilbert_finetuned_*.pt
+
+# Raw final-run scores: D2 rows may not be redistributed under Kaggle rules
+results/final*/scores/

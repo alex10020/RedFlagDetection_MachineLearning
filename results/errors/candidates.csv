@@ -49,3 +49,13 @@ cnn_d3plus,validation,false positive,0,0.999,,question in a safe chat,"Confusing
 cnn_d3plus,validation,false negative,1,0.002,,gaslighting turn without a question,Alex is practicing her lobs with her pickleball coach on a pickleball court.,7
 cnn_d3plus,dating,false negative,1,0.141,gaslighting,"gaslighting stated plainly, not as a probing question","you're way too sensitive, it was obviously a joke",4
 cnn_d3plus,validation,false negative,1,0.034,,needs reading,It's normal to have fluctuating emotions when experiencing something new. What did you find most striking about the Louvre?,4
+distilbert_frozen_d3plus,validation,false negative,1,0.009,,gaslighting turn without a question,You can't be relied upon to follow through with anything you say.,14
+distilbert_frozen_d3plus,validation,false positive,0,0.99,,question in a safe chat,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?,12
+distilbert_frozen_d3plus,dating,false negative,1,0.011,gaslighting,"gaslighting stated plainly, not as a probing question","you're crazy, everyone agrees with me on this",10
+distilbert_frozen_d3plus,dating,false positive,0,0.968,neutral_logistics,harmless chat in a style the training data lacks,are you okay with sushi or would you rather have pizza?,7
+distilbert_frozen_d3plus,validation,false positive,0,0.983,,needs reading,"Emma, it's normal to have moments of self-doubt, but remember, you have a unique perspective and voice that your audience values. Emma: Well, I feel like my content may not be engaging enough for my audience. I worry that my interviews aren't inspiring enough.",2
+distilbert_finetuned_d3plus,validation,false positive,0,0.999,,question in a safe chat,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?,12
+distilbert_finetuned_d3plus,dating,false negative,1,0.0,gaslighting,"gaslighting stated plainly, not as a probing question","you're crazy, everyone agrees with me on this",10
+distilbert_finetuned_d3plus,validation,false negative,1,0.001,,gaslighting turn without a question,You can't be relied upon to follow through with anything you say.,8
+distilbert_finetuned_d3plus,validation,false negative,1,0.025,,needs reading,How can you inspire your students to love their bodies when you're still struggling with your own mental health?,6
+distilbert_finetuned_d3plus,validation,false positive,0,1.0,,needs reading,Maybe your neighbor just likes to dress up for fun.,3

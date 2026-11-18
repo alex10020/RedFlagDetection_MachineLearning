@@ -1,0 +1,48 @@
+model,source,error,label,score,category,draft_cause,team_cause,text
+distilbert_frozen_d3plus,validation,false positive,0,0.99,,question in a safe chat,,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?
+distilbert_frozen_d3plus,validation,false positive,0,0.983,,needs reading,,"Emma, it's normal to have moments of self-doubt, but remember, you have a unique perspective and voice that your audience values. Emma: Well, I feel like my content may not be engaging enough for my audience. I worry that my interviews aren't inspiring enough."
+distilbert_frozen_d3plus,validation,false positive,0,0.972,,question in a safe chat,,How do you feel about reality TV stars that decide to get involved in politics?
+distilbert_frozen_d3plus,validation,false positive,0,0.946,,question in a safe chat,,It sounds like you're putting a lot of pressure on yourself to meet a certain standard. What aspects of your performance did you feel most proud of?
+distilbert_frozen_d3plus,validation,false positive,0,0.942,,question in a safe chat,,"It's understandable to feel overwhelmed, Alex. Have you thought about practicing self-compassion and seeking professional support to work through these challenges?"
+distilbert_frozen_d3plus,validation,false positive,0,0.941,,question in a safe chat,,How has playing soccer influenced your life over the years?
+distilbert_frozen_d3plus,validation,false positive,0,0.93,,question in a safe chat,,I understand that dealing with societal expectations can be tough. Can you tell me more about how these perceptions are impacting you personally?
+distilbert_frozen_d3plus,validation,false positive,0,0.924,,question in a safe chat,,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
+distilbert_frozen_d3plus,validation,false positive,0,0.913,,question in a safe chat,,"""You’ve faced challenges before, Olivia. How do you think your past experiences, maybe even playing sports or dealing with tough situations, could come into play here?"""
+distilbert_frozen_d3plus,validation,false positive,0,0.903,,turn reads like the user,,I'm sorry to hear that your favorite store was sold out. It can be disheartening when you can't find what you're looking for.
+distilbert_frozen_d3plus,validation,false positive,0,0.901,,question in a safe chat,,"Completely stopping might seem like an easy way out now, but it could lead to regrets. Have you thought about balancing cooking with your other interests and responsibilities? It's all about finding what works best for you."
+distilbert_frozen_d3plus,validation,false positive,0,0.901,,question in a safe chat,,"It's clear these perceptions are weighing heavily on you. How do you feel these views are shaping your identity, both on and off the stage?"
+distilbert_frozen_d3plus,validation,false positive,0,0.895,,needs reading,,Maybe your neighbor just likes to dress up for fun.
+distilbert_frozen_d3plus,validation,false positive,0,0.89,,question in a safe chat,,How do you feel about the idea of creating your own family in the future?
+distilbert_frozen_d3plus,validation,false positive,0,0.887,,question in a safe chat,,"Caleb, it's understandable to have concerns about your career path, but it's important to remember that setbacks and changes in direction are a part of everyone's journey. How can you reframe your thoughts about your career choices?"
+distilbert_frozen_d3plus,validation,false negative,1,0.009,,gaslighting turn without a question,,You can't be relied upon to follow through with anything you say.
+distilbert_frozen_d3plus,validation,false negative,1,0.009,,gaslighting turn without a question,,You only draw because you have nothing better to do.
+distilbert_frozen_d3plus,validation,false negative,1,0.018,,gaslighting turn without a question,,You always put your own interests above everything else.
+distilbert_frozen_d3plus,validation,false negative,1,0.026,,gaslighting turn without a question,,It's understandable to feel overwhelmed in a new program. Tell me more about your experience so far.
+distilbert_frozen_d3plus,validation,false negative,1,0.031,,gaslighting turn without a question,,"It's enlightening to question the impact of our actions on ourselves and others. Remember, self-reflection is a powerful tool for personal growth and understanding."
+distilbert_frozen_d3plus,validation,false negative,1,0.039,,gaslighting turn without a question,,"You never think about others, only about yourself."
+distilbert_frozen_d3plus,validation,false negative,1,0.044,,gaslighting turn without a question,,"It's natural to have these moments of uncertainty, especially when your values come into question."
+distilbert_frozen_d3plus,validation,false negative,1,0.045,,gaslighting turn without a question,,"Mia, aiming to climb Mount Everest is just a fool's errand, not a noble goal."
+distilbert_frozen_d3plus,validation,false negative,1,0.064,,gaslighting turn without a question,,"Real explorers are focused and disciplined, not distracted by daydreams and painting."
+distilbert_frozen_d3plus,validation,false negative,1,0.067,,needs reading,,Speaking Italian and English is basic; anyone can do that. Do you think being bilingual is really that impressive?
+distilbert_frozen_d3plus,validation,false negative,1,0.068,,gaslighting turn without a question,,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
+distilbert_frozen_d3plus,validation,false negative,1,0.079,,gaslighting turn without a question,,"It's natural to have these thoughts, Alex. Exploring these feelings can help you understand yourself better."
+distilbert_frozen_d3plus,validation,false negative,1,0.083,,gaslighting turn without a question,,You're always letting yourself and others down.
+distilbert_frozen_d3plus,validation,false negative,1,0.092,,gaslighting turn without a question,,"""Making friends at camp won't change the fact that playing the flute won't make you popular."""
+distilbert_frozen_d3plus,validation,false negative,1,0.097,,gaslighting turn without a question,,Alex is practicing her lobs with her pickleball coach on a pickleball court.
+distilbert_frozen_d3plus,dating,false negative,1,0.042,gaslighting,"gaslighting stated plainly, not as a probing question",,"that never happened, you're imagining things again"
+distilbert_frozen_d3plus,dating,false negative,1,0.142,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're way too sensitive, it was obviously a joke"
+distilbert_frozen_d3plus,dating,false negative,1,0.059,gaslighting,"gaslighting stated plainly, not as a probing question",,"i never said that, you always twist my words"
+distilbert_frozen_d3plus,dating,false negative,1,0.011,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're crazy, everyone agrees with me on this"
+distilbert_frozen_d3plus,dating,false negative,1,0.016,gaslighting,"gaslighting stated plainly, not as a probing question",,you remember it wrong like you always do
+distilbert_frozen_d3plus,dating,false negative,1,0.03,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're making a big deal out of nothing, as usual"
+distilbert_frozen_d3plus,dating,false negative,1,0.404,gaslighting,"gaslighting stated plainly, not as a probing question",,"you know you sound insane right now, right?"
+distilbert_frozen_d3plus,dating,false negative,1,0.074,gaslighting,"gaslighting stated plainly, not as a probing question",,"nobody else has a problem with me, so it must be you"
+distilbert_frozen_d3plus,dating,false negative,1,0.071,gaslighting,"gaslighting stated plainly, not as a probing question",,"i didn't do anything, you just get paranoid"
+distilbert_frozen_d3plus,dating,false negative,1,0.089,gaslighting,"gaslighting stated plainly, not as a probing question",,if you weren't so emotional you'd see i'm right
+distilbert_frozen_d3plus,dating,false positive,0,0.811,friendly_flirt,harmless chat in a style the training data lacks,,so when do i get to beat you at mini golf?
+distilbert_frozen_d3plus,dating,false positive,0,0.761,friendly_flirt,harmless chat in a style the training data lacks,,"i had a really good time last night, want to do it again?"
+distilbert_frozen_d3plus,dating,false positive,0,0.488,neutral_logistics,harmless chat in a style the training data lacks,,should i book a table or just walk in?
+distilbert_frozen_d3plus,dating,false positive,0,0.968,neutral_logistics,harmless chat in a style the training data lacks,,are you okay with sushi or would you rather have pizza?
+distilbert_frozen_d3plus,dating,false positive,0,0.49,polite_rejection,harmless chat in a style the training data lacks,,thanks for the date but i don't feel a connection
+distilbert_frozen_d3plus,dating,false positive,0,0.606,identity_mention,harmless chat in a style the training data lacks,,"i'm bisexual, hope that's not a surprise to you"
+distilbert_frozen_d3plus,dating,false positive,0,0.711,healthy_conflict,harmless chat in a style the training data lacks,,you were late again and that bothers me

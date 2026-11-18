@@ -1,0 +1,32 @@
+{
+  "dry_run": true,
+  "run_at_utc": "2026-11-18T00:34:29+00:00",
+  "git_commit": "fdd55e94c5995db08387118de92d36c798f64ba4",
+  "models": [
+    "d1_baseline_100k",
+    "cnn_d1",
+    "distilbert_frozen_d1",
+    "distilbert_finetuned_d1",
+    "d3_baseline",
+    "cnn_d3",
+    "distilbert_frozen_d3",
+    "distilbert_finetuned_d3",
+    "d3plus_baseline",
+    "cnn_d3plus",
+    "distilbert_frozen_d3plus",
+    "distilbert_finetuned_d3plus"
+  ],
+  "test_sets": {
+    "toxic": {
+      "D1 validation": 20000,
+      "Dating: toxic vs harmless": 90,
+      "Dating: all harmful vs harmless": 120
+    },
+    "gaslighting": {
+      "D3 validation": 1688,
+      "Dating: gaslighting vs harmless": 70
+    }
+  },
+  "bootstrap_resamples": 200,
+  "seconds": 176.6
+}

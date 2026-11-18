@@ -28,7 +28,8 @@ Gaslighting is the hook. It uses ordinary words, so a word-count model barely se
 - Guilt or control messages and sexual pressure stay in the dating test as extra categories.
 - The dating test has a development set (S001 to S120, drafted by Claude) and a final test (S121 to S200, written by a team member). The group reviewed the final labels together. We do not double-label or report Cohen's kappa.
 - D2 (Kaggle Jigsaw) is an extra test set only. Each person who downloads it accepts the competition rules on their own account, and nobody commits or shares the files.
-- Gaslighting has two versions: trained on D3 alone, and on D3 plus short non-toxic D1 messages as extra safe examples (as many as D3's safe turns, fixed in advance). We report both. The second cut false alarms on harmless dating messages from 75% to 13% (TF-IDF) and 98% to 43% (CNN).
+- Gaslighting has two versions of all four models: trained on D3 alone, and on D3 plus short non-toxic D1 messages as extra safe examples (as many as D3's safe turns, fixed in advance). We report both. The second cut false alarms on harmless dating messages from 75% to 13% (TF-IDF), 98% to 43% (CNN), 65% to 12% (frozen DistilBERT) and 92% to 3% (fine-tuned DistilBERT), but both DistilBERT models then catch none of the 10 gaslighting development messages.
+- The final run (`python -m red_flag_detector.final`) scores every model once on all test sets and reports F1, PR-AUC, ROC-AUC and paired bootstrap intervals for the differences between models. A dry run on validation data reproduced every saved validation score.
 - The app uses the CNN for both scores, with the D3-plus-everyday CNN for gaslighting. Only the toxic score raises flags. The gaslighting score is a grey number marked experimental, because it still flags 43% of harmless dating messages.
 - App v2, with a model switcher and fine-tuned DistilBERT hosted as a GitHub release, is a next step for the report, not for this submission.
 - Error analysis reads the CNN and fine-tuned DistilBERT mistakes closely and summarises the other models with counts.
@@ -73,6 +74,7 @@ To retrain the CNN, put `glove.6B.100d.txt` in `data/raw/` (see [data/README.md]
 | `src/red_flag_detector/transformer.py` | DistilBERT, frozen and fine-tuned |
 | `src/red_flag_detector/evaluate.py` | Metrics, threshold, intervals, category report |
 | `src/red_flag_detector/errors.py` | Each model's most confident mistakes |
+| `src/red_flag_detector/final.py` | The one-time final run on all test sets |
 | `src/red_flag_detector/labelling.py` | Two-person labelling and kappa (not used) |
 | `src/red_flag_detector/chat.py` | Chat parsing and word effects |
 | `src/red_flag_detector/app.py` | Gradio prototype |
@@ -115,7 +117,7 @@ Keep this list up to date. The report should explain each change.
 |---|---|---|
 | One task: toxic or not toxic | Two topics, toxic language and gaslighting, with one classifier each | Gaslighting is the original part of the project. D1 has only toxic labels and D3 only gaslighting labels |
 | D3 as a test set without retraining | D3 trains and tunes the gaslighting models; its official test split stays for the final run | A model trained on toxic comments cannot learn gaslighting |
-| Gaslighting trained on D3 only | An extra version of the TF-IDF and CNN gaslighting models adds short non-toxic D1 messages to D3's safe class in train and validation | Error analysis showed the D3-only models flag ordinary chat; the fix was judged on the 120 development messages, never on the final 80 |
+| Gaslighting trained on D3 only | An extra version of all four gaslighting models adds short non-toxic D1 messages to D3's safe class in train and validation | Error analysis showed the D3-only models flag ordinary chat; the fix was judged on the 120 development messages, never on the final 80 |
 | 80/20 train/validation split of D1 | A fixed 20,000-message validation set and a 100,000-message training sample from D1 train. Duplicates and the 974 train texts that also appear in D1's test file are removed | Every model sees the same data, and the official test stays unseen |
 | The CNN can use more D1 data than DistilBERT | The CNN uses the same 100,000 messages as DistilBERT; only the baseline has an extra full-data run (1.7 million messages) | A fair comparison. The full-data baseline gained 0.06 validation F1 and nothing on dating messages |
 | Adam optimiser for the deep models | Adam for the CNN and the frozen DistilBERT head; AdamW with warm-up and linear decay for fine-tuned DistilBERT | AdamW is the standard optimiser for fine-tuning transformers |
@@ -124,14 +126,14 @@ Keep this list up to date. The report should explain each change.
 | D2 licence: CC0 | CC0, with the comment text under Wikipedia's CC BY-SA 3.0, and Kaggle's rules: academic use allowed, no redistribution | This is what the Kaggle data page and rules say |
 | 20+ mistakes for the CNN and DistilBERT | Mistakes exported for all eight models; the CNN and fine-tuned DistilBERT are read closely | Covers the proposal at a manageable size |
 | Streamlit or Gradio app with a red-flag score | Gradio app with a toxic score and an experimental gaslighting score from the CNN | Fine-tuned DistilBERT (265 MB) is too large for GitHub, so a clean install could not run it |
-| Metrics: F1, precision, recall | Also PR-AUC, bootstrap intervals on the dating test and flag rate per dating category | Small, balanced dating test needs intervals and per-category results |
+| Metrics: F1, precision, recall | Also PR-AUC, ROC-AUC, bootstrap intervals on the dating test, paired bootstrap intervals for differences between models and flag rate per dating category | Thresholds come from validation sets with a different harmful share, so ROC-AUC shows ranking quality independent of the threshold; paired intervals show whether one model is reliably better |
 
 Implementation note: the CNN writes each convolution as unfold plus a linear layer, which gives the same output as `nn.Conv1d` (a test checks this). cuDNN's Conv1d backward pass ran about 50 times slower on our GPU.
 
 ## Limits to discuss in the report
 
 Data:
-- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98%, depending on the model). Adding everyday messages cuts this to 13% (TF-IDF) and 43% (CNN), but detection of real gaslighting on dating messages stays weak (5 or 6 of 10 caught, wide intervals), and the improvement was measured on only 70 development messages.
+- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98%, depending on the model). Adding everyday messages cuts this to 3% to 43%, but detection of real gaslighting on dating messages stays weak: TF-IDF and the CNN catch 5 or 6 of 10, both DistilBERT models catch none, and the comparison rests on only 70 development messages.
 - D3 labels describe whole chats, and about 4% of assistant turns read like the user talking, over 80% of them in gaslighting chats.
 - ChatGPT wrote D3, and its assistant plays a psychologist, not a date.
 - D1 has label noise: some of the models' most confident false positives are insults labelled not toxic.

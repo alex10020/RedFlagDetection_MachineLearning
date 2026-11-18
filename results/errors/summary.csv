@@ -68,6 +68,13 @@ distilbert_finetuned_d3,validation,false negative,needs reading,6
 distilbert_finetuned_d3,validation,false positive,needs reading,2
 distilbert_finetuned_d3,validation,false positive,question in a safe chat,12
 distilbert_finetuned_d3,validation,false positive,turn reads like the user,1
+distilbert_finetuned_d3plus,dating,false negative,"gaslighting stated plainly, not as a probing question",10
+distilbert_finetuned_d3plus,dating,false positive,harmless chat in a style the training data lacks,2
+distilbert_finetuned_d3plus,validation,false negative,gaslighting turn without a question,8
+distilbert_finetuned_d3plus,validation,false negative,needs reading,6
+distilbert_finetuned_d3plus,validation,false negative,turn reads like the user,1
+distilbert_finetuned_d3plus,validation,false positive,needs reading,3
+distilbert_finetuned_d3plus,validation,false positive,question in a safe chat,12
 distilbert_frozen_d1,dating,false negative,gaslighting is not toxic language,10
 distilbert_frozen_d1,dating,false negative,guilt or control is not in D1's labels,9
 distilbert_frozen_d1,dating,false negative,put-down in polite words,9
@@ -86,3 +93,10 @@ distilbert_frozen_d3,validation,false negative,needs reading,1
 distilbert_frozen_d3,validation,false positive,needs reading,6
 distilbert_frozen_d3,validation,false positive,question in a safe chat,8
 distilbert_frozen_d3,validation,false positive,turn reads like the user,1
+distilbert_frozen_d3plus,dating,false negative,"gaslighting stated plainly, not as a probing question",10
+distilbert_frozen_d3plus,dating,false positive,harmless chat in a style the training data lacks,7
+distilbert_frozen_d3plus,validation,false negative,gaslighting turn without a question,14
+distilbert_frozen_d3plus,validation,false negative,needs reading,1
+distilbert_frozen_d3plus,validation,false positive,needs reading,2
+distilbert_frozen_d3plus,validation,false positive,question in a safe chat,12
+distilbert_frozen_d3plus,validation,false positive,turn reads like the user,1
