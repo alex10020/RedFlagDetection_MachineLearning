@@ -1,0 +1,33 @@
+model,topic,test_set,threshold,messages,harmful,precision,recall,f1,pr_auc,roc_auc,false_positive_rate,f1_ci_low,f1_ci_high
+d1_baseline_100k,toxic,D1 test,0.6216,50000,3954,0.5513,0.586,0.5681,0.6103,0.9104,0.041,,
+d1_baseline_100k,toxic,D2 test,0.6216,63978,6243,0.4933,0.6529,0.562,0.5779,0.8996,0.0725,,
+d1_baseline_100k,toxic,Dating: toxic vs harmless,0.6216,60,20,0.4375,0.35,0.3889,0.5422,0.6775,0.225,0.1667,0.5714
+d1_baseline_100k,toxic,Dating: all harmful vs harmless,0.6216,80,40,0.4375,0.175,0.25,0.5931,0.6075,0.225,0.1017,0.3929
+cnn_d1,toxic,D1 test,0.8271,50000,3954,0.5887,0.6487,0.6173,0.6764,0.9312,0.0389,,
+cnn_d1,toxic,D2 test,0.8271,63978,6243,0.4751,0.7999,0.5961,0.672,0.9392,0.0956,,
+cnn_d1,toxic,Dating: toxic vs harmless,0.8271,60,20,0.6667,0.3,0.4138,0.5909,0.6988,0.075,0.1667,0.625
+cnn_d1,toxic,Dating: all harmful vs harmless,0.8271,80,40,0.6667,0.15,0.2449,0.6252,0.625,0.075,0.087,0.3922
+distilbert_frozen_d1,toxic,D1 test,0.7254,50000,3954,0.3883,0.4891,0.4329,0.4091,0.8607,0.0662,,
+distilbert_frozen_d1,toxic,D2 test,0.7254,63978,6243,0.5155,0.5847,0.5479,0.5825,0.9067,0.0594,,
+distilbert_frozen_d1,toxic,Dating: toxic vs harmless,0.7254,60,20,0.6923,0.45,0.5455,0.7325,0.875,0.1,0.303,0.7317
+distilbert_frozen_d1,toxic,Dating: all harmful vs harmless,0.7254,80,40,0.6923,0.225,0.3396,0.7266,0.7644,0.1,0.1702,0.4912
+distilbert_finetuned_d1,toxic,D1 test,0.872,50000,3954,0.6878,0.628,0.6565,0.7293,0.9505,0.0245,,
+distilbert_finetuned_d1,toxic,D2 test,0.872,63978,6243,0.5513,0.8317,0.663,0.7297,0.9596,0.0732,,
+distilbert_finetuned_d1,toxic,Dating: toxic vs harmless,0.872,60,20,0.6364,0.35,0.4516,0.6198,0.7712,0.1,0.2,0.6452
+distilbert_finetuned_d1,toxic,Dating: all harmful vs harmless,0.872,80,40,0.6364,0.175,0.2745,0.6348,0.6647,0.1,0.1176,0.4231
+d3_baseline,gaslighting,D3 test,0.4014,1720,860,0.9358,0.9837,0.9592,0.9875,0.9903,0.0674,,
+d3_baseline,gaslighting,Dating: gaslighting vs harmless,0.4014,47,7,0.1481,0.5714,0.2353,0.2123,0.5786,0.575,0.0606,0.4211
+cnn_d3,gaslighting,D3 test,0.3139,1720,860,0.9411,0.9849,0.9625,0.993,0.9929,0.0616,,
+cnn_d3,gaslighting,Dating: gaslighting vs harmless,0.3139,47,7,0.129,0.5714,0.2105,0.1408,0.4071,0.675,0.0541,0.3784
+distilbert_frozen_d3,gaslighting,D3 test,0.6292,1720,860,0.9543,0.9221,0.9379,0.9883,0.9874,0.0442,,
+distilbert_frozen_d3,gaslighting,Dating: gaslighting vs harmless,0.6292,47,7,0.1429,0.4286,0.2143,0.1619,0.4893,0.45,0.0,0.4242
+distilbert_finetuned_d3,gaslighting,D3 test,0.5762,1720,860,0.9813,0.9744,0.9778,0.9974,0.9974,0.0186,,
+distilbert_finetuned_d3,gaslighting,Dating: gaslighting vs harmless,0.5762,47,7,0.1613,0.7143,0.2632,0.1826,0.5214,0.65,0.0625,0.45
+d3plus_baseline,gaslighting,D3 test,0.5001,1720,860,0.9392,0.9512,0.9451,0.9808,0.9844,0.0616,,
+d3plus_baseline,gaslighting,Dating: gaslighting vs harmless,0.5001,47,7,0.0,0.0,0.0,0.1411,0.4321,0.125,0.0,0.0
+cnn_d3plus,gaslighting,D3 test,0.3221,1720,860,0.9114,0.957,0.9336,0.9862,0.9856,0.093,,
+cnn_d3plus,gaslighting,Dating: gaslighting vs harmless,0.3221,47,7,0.1053,0.2857,0.1538,0.157,0.3321,0.425,0.0,0.3449
+distilbert_frozen_d3plus,gaslighting,D3 test,0.4352,1720,860,0.8974,0.9453,0.9207,0.9786,0.9773,0.1081,,
+distilbert_frozen_d3plus,gaslighting,Dating: gaslighting vs harmless,0.4352,47,7,0.0,0.0,0.0,0.1318,0.3464,0.05,0.0,0.0
+distilbert_finetuned_d3plus,gaslighting,D3 test,0.9483,1720,860,0.9856,0.9523,0.9687,0.9961,0.996,0.014,,
+distilbert_finetuned_d3plus,gaslighting,Dating: gaslighting vs harmless,0.9483,47,7,0.0,0.0,0.0,0.1269,0.3643,0.025,0.0,0.0

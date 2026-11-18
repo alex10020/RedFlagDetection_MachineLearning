@@ -1,0 +1,69 @@
+model_a,model_b,test_set,metric,difference,ci_low,ci_high,a_reliably_better,b_reliably_better
+cnn_d1,d1_baseline_100k,D1 test,f1,0.0492,0.0383,0.0605,True,False
+cnn_d1,d1_baseline_100k,D1 test,roc_auc,0.0209,0.017,0.0251,True,False
+cnn_d1,d1_baseline_100k,D2 test,f1,0.0341,0.026,0.042,True,False
+cnn_d1,d1_baseline_100k,D2 test,roc_auc,0.0395,0.0362,0.043,True,False
+cnn_d1,d1_baseline_100k,Dating: toxic vs harmless,f1,0.0249,-0.1032,0.1251,False,False
+cnn_d1,d1_baseline_100k,Dating: toxic vs harmless,roc_auc,0.0212,-0.0648,0.1101,False,False
+cnn_d1,d1_baseline_100k,Dating: all harmful vs harmless,f1,-0.0051,-0.0782,0.0477,False,False
+cnn_d1,d1_baseline_100k,Dating: all harmful vs harmless,roc_auc,0.0175,-0.0588,0.094,False,False
+distilbert_frozen_d1,d1_baseline_100k,D1 test,f1,-0.1352,-0.1493,-0.1214,False,True
+distilbert_frozen_d1,d1_baseline_100k,D1 test,roc_auc,-0.0496,-0.0552,-0.0437,False,True
+distilbert_frozen_d1,d1_baseline_100k,D2 test,f1,-0.014,-0.0257,-0.0031,False,True
+distilbert_frozen_d1,d1_baseline_100k,D2 test,roc_auc,0.007,0.0023,0.0115,True,False
+distilbert_frozen_d1,d1_baseline_100k,Dating: toxic vs harmless,f1,0.1566,0.0357,0.3065,True,False
+distilbert_frozen_d1,d1_baseline_100k,Dating: toxic vs harmless,roc_auc,0.1975,0.0725,0.3307,True,False
+distilbert_frozen_d1,d1_baseline_100k,Dating: all harmful vs harmless,f1,0.0896,0.0179,0.1865,True,False
+distilbert_frozen_d1,d1_baseline_100k,Dating: all harmful vs harmless,roc_auc,0.1569,0.0395,0.2761,True,False
+distilbert_finetuned_d1,d1_baseline_100k,D1 test,f1,0.0884,0.0761,0.1013,True,False
+distilbert_finetuned_d1,d1_baseline_100k,D1 test,roc_auc,0.0401,0.0362,0.0442,True,False
+distilbert_finetuned_d1,d1_baseline_100k,D2 test,f1,0.1011,0.0922,0.1093,True,False
+distilbert_finetuned_d1,d1_baseline_100k,D2 test,roc_auc,0.06,0.0561,0.0636,True,False
+distilbert_finetuned_d1,d1_baseline_100k,Dating: toxic vs harmless,f1,0.0627,-0.0849,0.2152,False,False
+distilbert_finetuned_d1,d1_baseline_100k,Dating: toxic vs harmless,roc_auc,0.0938,-0.0351,0.2089,False,False
+distilbert_finetuned_d1,d1_baseline_100k,Dating: all harmful vs harmless,f1,0.0245,-0.0652,0.1154,False,False
+distilbert_finetuned_d1,d1_baseline_100k,Dating: all harmful vs harmless,roc_auc,0.0572,-0.0545,0.1631,False,False
+distilbert_finetuned_d1,cnn_d1,D1 test,f1,0.0393,0.0291,0.0504,True,False
+distilbert_finetuned_d1,cnn_d1,D1 test,roc_auc,0.0193,0.0163,0.0224,True,False
+distilbert_finetuned_d1,cnn_d1,D2 test,f1,0.0669,0.0598,0.0735,True,False
+distilbert_finetuned_d1,cnn_d1,D2 test,roc_auc,0.0205,0.0185,0.0225,True,False
+distilbert_finetuned_d1,cnn_d1,Dating: toxic vs harmless,f1,0.0378,-0.0574,0.1694,False,False
+distilbert_finetuned_d1,cnn_d1,Dating: toxic vs harmless,roc_auc,0.0725,-0.0437,0.189,False,False
+distilbert_finetuned_d1,cnn_d1,Dating: all harmful vs harmless,f1,0.0296,-0.0182,0.1099,False,False
+distilbert_finetuned_d1,cnn_d1,Dating: all harmful vs harmless,roc_auc,0.0397,-0.0704,0.1452,False,False
+cnn_d3,d3_baseline,D3 test,f1,0.0033,-0.0046,0.0121,False,False
+cnn_d3,d3_baseline,D3 test,roc_auc,0.0026,-0.0005,0.0058,False,False
+cnn_d3,d3_baseline,Dating: gaslighting vs harmless,f1,-0.0248,-0.1618,0.1157,False,False
+cnn_d3,d3_baseline,Dating: gaslighting vs harmless,roc_auc,-0.1714,-0.3667,0.0501,False,False
+distilbert_frozen_d3,d3_baseline,D3 test,f1,-0.0213,-0.0337,-0.0095,False,True
+distilbert_frozen_d3,d3_baseline,D3 test,roc_auc,-0.0029,-0.0073,0.0015,False,False
+distilbert_frozen_d3,d3_baseline,Dating: gaslighting vs harmless,f1,-0.021,-0.2222,0.172,False,False
+distilbert_frozen_d3,d3_baseline,Dating: gaslighting vs harmless,roc_auc,-0.0893,-0.468,0.2107,False,False
+distilbert_finetuned_d3,d3_baseline,D3 test,f1,0.0186,0.0102,0.0288,True,False
+distilbert_finetuned_d3,d3_baseline,D3 test,roc_auc,0.0071,0.004,0.0111,True,False
+distilbert_finetuned_d3,d3_baseline,Dating: gaslighting vs harmless,f1,0.0279,-0.1369,0.2043,False,False
+distilbert_finetuned_d3,d3_baseline,Dating: gaslighting vs harmless,roc_auc,-0.0571,-0.4271,0.2577,False,False
+distilbert_finetuned_d3,cnn_d3,D3 test,f1,0.0153,0.0069,0.0239,True,False
+distilbert_finetuned_d3,cnn_d3,D3 test,roc_auc,0.0045,0.0026,0.0068,True,False
+distilbert_finetuned_d3,cnn_d3,Dating: gaslighting vs harmless,f1,0.0526,-0.114,0.2106,False,False
+distilbert_finetuned_d3,cnn_d3,Dating: gaslighting vs harmless,roc_auc,0.1143,-0.2853,0.4445,False,False
+d3plus_baseline,d3_baseline,D3 test,f1,-0.0141,-0.0223,-0.0064,False,True
+d3plus_baseline,d3_baseline,D3 test,roc_auc,-0.0058,-0.0085,-0.0034,False,True
+d3plus_baseline,d3_baseline,Dating: gaslighting vs harmless,f1,-0.2353,-0.4242,-0.0625,False,True
+d3plus_baseline,d3_baseline,Dating: gaslighting vs harmless,roc_auc,-0.1464,-0.3333,0.0569,False,False
+cnn_d3plus,cnn_d3,D3 test,f1,-0.0289,-0.0389,-0.0193,False,True
+cnn_d3plus,cnn_d3,D3 test,roc_auc,-0.0073,-0.0099,-0.0049,False,True
+cnn_d3plus,cnn_d3,Dating: gaslighting vs harmless,f1,-0.0567,-0.2222,0.0762,False,False
+cnn_d3plus,cnn_d3,Dating: gaslighting vs harmless,roc_auc,-0.075,-0.2879,0.1358,False,False
+distilbert_frozen_d3plus,distilbert_frozen_d3,D3 test,f1,-0.0172,-0.0292,-0.0057,False,True
+distilbert_frozen_d3plus,distilbert_frozen_d3,D3 test,roc_auc,-0.01,-0.0134,-0.0071,False,True
+distilbert_frozen_d3plus,distilbert_frozen_d3,Dating: gaslighting vs harmless,f1,-0.2143,-0.4169,0.0,False,False
+distilbert_frozen_d3plus,distilbert_frozen_d3,Dating: gaslighting vs harmless,roc_auc,-0.1429,-0.3496,0.0786,False,False
+distilbert_finetuned_d3plus,distilbert_finetuned_d3,D3 test,f1,-0.0092,-0.0147,-0.0032,False,True
+distilbert_finetuned_d3plus,distilbert_finetuned_d3,D3 test,roc_auc,-0.0014,-0.0025,-0.0005,False,True
+distilbert_finetuned_d3plus,distilbert_finetuned_d3,Dating: gaslighting vs harmless,f1,-0.2632,-0.4444,-0.0625,False,True
+distilbert_finetuned_d3plus,distilbert_finetuned_d3,Dating: gaslighting vs harmless,roc_auc,-0.1571,-0.3865,0.0569,False,False
+distilbert_finetuned_d3plus,cnn_d3plus,D3 test,f1,0.035,0.023,0.047,True,False
+distilbert_finetuned_d3plus,cnn_d3plus,D3 test,roc_auc,0.0104,0.0074,0.0137,True,False
+distilbert_finetuned_d3plus,cnn_d3plus,Dating: gaslighting vs harmless,f1,-0.1538,-0.3478,0.0,False,False
+distilbert_finetuned_d3plus,cnn_d3plus,Dating: gaslighting vs harmless,roc_auc,0.0321,-0.2676,0.3184,False,False
