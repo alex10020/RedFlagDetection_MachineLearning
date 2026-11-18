@@ -149,6 +149,17 @@ Models and evaluation:
 - A single message can hide context. Some gaslighting only shows across a whole chat.
 - The fine-tuned DistilBERT weights are not in the repo; a teammate has to retrain them (about 17 minutes on D1).
 
+## Findings log for the report
+
+Findings from checks we ran outside the training scripts, with the numbers to quote. Add to it as you go.
+
+- **Why gaslighting does not transfer.** D3's gaslighting is a ChatGPT-written therapist undermining a patient, and its safe class is the same therapist reassuring them. Gaslighting between dating partners looks different: denying events ("you were drunk, you don't even remember"), rewriting memories, calling the other person dramatic. A model trained on D3 learns the therapy setting's style, so it cannot recognise a partner gaslighting a partner. This is our main conclusion for the gaslighting half of the research question.
+- **The everyday-messages fix, on new sentences.** On 16 sentences we wrote for this check (not in any dataset), the improved gaslighting CNN put 4 of 8 gaslighting lines and 4 of 8 harmless lines above its threshold; the D3-only CNN put 15 of 16 above it. So the fix stops the model flagging everything but does not teach it gaslighting. Demo examples: "you were drunk, you don't even remember what you said" scores 0.01, and "i don't think i'm ready for that yet, can we take it slow?" scores 0.98.
+- **The toxic models react to rude words, not hostility.** "you are pathetic" and "i hate you, you are disgusting" score 1.00; "i hate you" scores 0.57 and "i despise you" 0.14, below the 0.83 threshold. A typo ("absoloutely") and the Turkish dotless "ı" made little difference: "no ı hate you, ı absoloutely despise you" scored 0.46, the corrected sentence 0.27.
+- **Mistakes in the app's sample chat.** The toxic CNN misses the threat "you are going to be sorry you ignored me" (0.21) and flags the harmless "can't this week, work is a bit crazy" (0.90).
+- **Where D1 comes from.** D1 (SetFit/toxic_conversations) is the Civil Comments data from the 2019 Jigsaw Unintended Bias competition: its 1,754,874 train and 50,000 test messages add up to exactly the 1,804,874 rows of that competition's train.csv. That competition's data therefore cannot serve as an independent test; D2 comes from the separate 2018 Wikipedia competition.
+- **Reproducibility.** A fresh clone, set up only with the README steps (venv, `requirements.txt`, `pip install -e .`), passes all tests and starts the app with the CNN models on CPU PyTorch.
+
 ## Marking scheme
 
 | Criterion | Points | Where we stand |
