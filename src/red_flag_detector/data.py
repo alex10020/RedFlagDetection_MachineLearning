@@ -170,6 +170,39 @@ def load_d3_splits(root: str | Path = "data/raw/gaslighting") -> tuple[pd.DataFr
     return train, val, test
 
 
+def add_everyday_negatives(d3_part: pd.DataFrame, d1_part: pd.DataFrame, n: int, max_words: int = 25, seed: int = 42) -> pd.DataFrame:
+    """Add `n` short non-toxic D1 messages to a D3 split as extra "not gaslighting" examples.
+
+    D3's safe class is almost all therapist reassurance, so a model trained on it
+    alone learns that ordinary chat looks like gaslighting. Short everyday comments
+    show it ordinary messages labelled 0. A `source` column records where each row
+    comes from.
+    """
+    words = d1_part["text"].str.split().str.len()
+    pool = d1_part[(d1_part["label"] == 0) & (words <= max_words)]
+    if len(pool) < n:
+        raise ValueError(f"Only {len(pool)} short non-toxic messages available, {n} requested")
+    extra = pool.sample(n=n, random_state=seed)
+    extra = pd.DataFrame({"text": extra["text"].to_numpy(), "label": 0, "chat_id": -1, "source": "D1 everyday"})
+    combined = pd.concat([d3_part.assign(source="D3"), extra], ignore_index=True)
+    return combined.sample(frac=1, random_state=seed).reset_index(drop=True)
+
+
+def load_d3_plus(root: str | Path = "data/raw/gaslighting", seed: int = 42) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """D3 splits with everyday negatives added to train and validation; the test split stays as published.
+
+    Each split gets as many everyday messages as it has safe D3 turns, a size fixed
+    in advance rather than tuned. Train draws from our D1 training sample and
+    validation from our D1 validation set, so the two never share a message and no
+    D1 test text is used.
+    """
+    train, val, test = load_d3_splits(root)
+    d1_train, d1_val = load_d1_train_val(seed=seed)
+    train = add_everyday_negatives(train, d1_train, n=int((train["label"] == 0).sum()), seed=seed)
+    val = add_everyday_negatives(val, d1_val, n=int((val["label"] == 0).sum()), seed=seed)
+    return train, val, test
+
+
 def load_stress_test(path: str | Path, part: str = "dev") -> pd.DataFrame:
     """Load our own dating-style test set.
 

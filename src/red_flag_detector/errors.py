@@ -23,7 +23,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from .data import load_d1_train_val, load_d3_splits, load_stress_test
+from .data import load_d1_train_val, load_d3_plus, load_d3_splits, load_stress_test
 
 RESULTS = Path("results")
 MODELS_DIR = Path("models")
@@ -37,10 +37,13 @@ MODELS = {
     "cnn_d3": ("cnn", "gaslighting"),
     "distilbert_frozen_d3": ("frozen", "gaslighting"),
     "distilbert_finetuned_d3": ("finetuned", "gaslighting"),
+    "d3plus_baseline": ("baseline", "gaslighting"),
+    "cnn_d3plus": ("cnn", "gaslighting"),
 }
 MODEL_FILES = {
     "d1_baseline_100k": "baseline_d1_100k.joblib",
     "d3_baseline": "baseline_d3.joblib",
+    "d3plus_baseline": "baseline_d3plus.joblib",
 }
 
 IDENTITY = re.compile(
@@ -205,11 +208,13 @@ def main() -> None:
 
     _, d1_val = load_d1_train_val()
     _, d3_val, _ = load_d3_splits()
+    _, d3plus_val, _ = load_d3_plus()
     stress = load_stress_test("data/dating_stress_test.csv")
     args.out.mkdir(parents=True, exist_ok=True)
     tables = []
     for name in args.models:
-        val = d1_val if MODELS[name][1] == "toxic" else d3_val
+        # Each model is checked on the validation set it was tuned on.
+        val = d1_val if MODELS[name][1] == "toxic" else d3plus_val if "d3plus" in name else d3_val
         errors = collect(name, val, stress, args.per_side)
         errors.to_csv(args.out / f"{name}.csv", index=False)
         tables.append(errors)

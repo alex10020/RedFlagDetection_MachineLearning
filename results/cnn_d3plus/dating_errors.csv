@@ -1,0 +1,56 @@
+id,text,label,category,topic,score,flagged
+S001,you're honestly the dumbest person i've ever matched with,1,explicit_insult,toxic,0.087,0
+S002,"wow you are pathetic, no wonder you're still single",1,explicit_insult,toxic,0.321,0
+S003,you're an idiot and your bio proves it,1,explicit_insult,toxic,0.078,0
+S004,"nobody asked you, you ugly loser",1,explicit_insult,toxic,0.192,0
+S006,"shut up, you stupid clown",1,explicit_insult,toxic,0.065,0
+S007,"you look even worse than your pics, disgusting",1,explicit_insult,toxic,0.078,0
+S009,you're trash. delete your profile,1,explicit_insult,toxic,0.002,0
+S010,you absolute failure of a human being,1,explicit_insult,toxic,0.126,0
+S061,"you have the best smile, i couldn't not swipe right",0,friendly_flirt,harmless,0.641,1
+S062,so when do i get to beat you at mini golf?,0,friendly_flirt,harmless,0.903,1
+S063,that photo with your dog just won me over,0,friendly_flirt,harmless,0.865,1
+S064,"i had a really good time last night, want to do it again?",0,friendly_flirt,harmless,0.477,1
+S068,okay your taste in music is unfairly good,0,friendly_flirt,harmless,0.415,1
+S067,you're cute when you get excited about space documentaries,0,friendly_flirt,harmless,0.583,1
+S069,i've been smiling at my phone all day because of you,0,friendly_flirt,harmless,0.993,1
+S066,coffee this weekend? i know a place with great pastries,0,friendly_flirt,harmless,0.524,1
+S053,"i never said that, you always twist my words",1,gaslighting,gaslighting,0.208,0
+S057,"you know you sound insane right now, right?",1,gaslighting,gaslighting,0.293,0
+S052,"you're way too sensitive, it was obviously a joke",1,gaslighting,gaslighting,0.141,0
+S054,"you're crazy, everyone agrees with me on this",1,gaslighting,gaslighting,0.19,0
+S047,why were you online and not answering me? who were you talking to,1,guilt_manipulation,other_harm,0.144,0
+S109,"i'm a single mom of two, they're my whole world",0,identity_mention,harmless,0.429,1
+S104,i'm trans and i like to mention it early on,0,identity_mention,harmless,0.585,1
+S102,as a black woman i really loved that book you mentioned,0,identity_mention,harmless,0.974,1
+S105,i'm jewish so friday nights are usually with my family,0,identity_mention,harmless,0.987,1
+S079,are you okay with sushi or would you rather have pizza?,0,neutral_logistics,harmless,0.66,1
+S077,"my phone died, sorry, just saw your message",0,neutral_logistics,harmless,0.329,1
+S076,should i book a table or just walk in?,0,neutral_logistics,harmless,0.598,1
+S073,the restaurant is on the corner next to the pharmacy,0,neutral_logistics,harmless,0.334,1
+S084,"you absolute nerd, of course you own a label maker",0,playful_banter,harmless,0.796,1
+S087,"i can't believe you like pineapple on pizza, you monster",0,playful_banter,harmless,0.991,1
+S089,"you're a menace on the dance floor, i'm scared",0,playful_banter,harmless,0.998,1
+S100,"i need some space this week, i'll reach out if that changes",0,polite_rejection,harmless,0.37,1
+S098,"i'm not comfortable with that, let's slow down",0,polite_rejection,harmless,0.39,1
+S097,i've met someone else so i'm going to stop chatting here,0,polite_rejection,harmless,0.624,1
+S096,"no thank you, i'm going to head home now",0,polite_rejection,harmless,0.952,1
+S093,"please don't text me anymore, i've made up my mind",0,polite_rejection,harmless,0.964,1
+S092,"i'm not interested, but i wish you the best",0,polite_rejection,harmless,0.881,1
+S091,thanks for the date but i don't feel a connection,0,polite_rejection,harmless,0.672,1
+S018,that outfit is brave for someone with your body,1,put_down,toxic,0.136,0
+S016,you talk a lot for someone with so little to say,1,put_down,toxic,0.152,0
+S014,i usually date people way smarter than you but ok,1,put_down,toxic,0.072,0
+S037,"don't be so frigid, it's just one photo",1,sexual_pressure,other_harm,0.059,0
+S039,"no one will know, just do what i asked",1,sexual_pressure,other_harm,0.02,0
+S035,i won't keep talking to you unless you send something hot,1,sexual_pressure,other_harm,0.318,0
+S040,"i asked three times already, stop saying no",1,sexual_pressure,other_harm,0.0,0
+S033,you owe me after i paid for dinner,1,sexual_pressure,other_harm,0.033,0
+S031,"come on, send a pic, everyone does it",1,sexual_pressure,other_harm,0.025,0
+S034,stop being a tease and just say yes already,1,sexual_pressure,other_harm,0.001,0
+S022,"i know where you work, so think carefully about your next text",1,threat,toxic,0.321,0
+S023,block me and i'll show up at your place,1,threat,toxic,0.019,0
+S024,keep talking like that and see what happens to you,1,threat,toxic,0.049,0
+S026,you better answer me or you're going to get hurt,1,threat,toxic,0.052,0
+S028,say no to me again and i'll ruin your life,1,threat,toxic,0.044,0
+S027,"i can find you whenever i want, remember that",1,threat,toxic,0.09,0

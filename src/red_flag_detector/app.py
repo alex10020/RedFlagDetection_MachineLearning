@@ -2,7 +2,7 @@
 
 Run with: python -m red_flag_detector.app
 
-Both scores come from our CNN models (models/cnn_d1.pt and models/cnn_d3.pt).
+Both scores come from our CNN models (models/cnn_d1.pt and models/cnn_d3plus.pt).
 Without PyTorch installed, the app falls back to the TF-IDF baselines.
 """
 
@@ -18,11 +18,12 @@ from .chat import MIN_WORD_EFFECT, ScoredMessage, Scorer, score_chat
 
 MODELS_DIR = Path(__file__).resolve().parents[2] / "models"
 TOPICS = {"toxic": "Toxic", "gaslighting": "Gaslighting"}
-CNN_MODELS = {"toxic": MODELS_DIR / "cnn_d1.pt", "gaslighting": MODELS_DIR / "cnn_d3.pt"}
-BASELINE_MODELS = {"toxic": MODELS_DIR / "baseline_d1_100k.joblib", "gaslighting": MODELS_DIR / "baseline_d3.joblib"}
+# The gaslighting CNN was trained on D3 plus everyday D1 messages, which cuts its false alarms on dating chat.
+CNN_MODELS = {"toxic": MODELS_DIR / "cnn_d1.pt", "gaslighting": MODELS_DIR / "cnn_d3plus.pt"}
+BASELINE_MODELS = {"toxic": MODELS_DIR / "baseline_d1_100k.joblib", "gaslighting": MODELS_DIR / "baseline_d3plus.joblib"}
 LEVEL_ORDER = {"no flag": 0, "worth a look": 1, "red flag": 2}
 # Shown as a grey number only: it never raises a flag, colours a message or counts towards a sender.
-# Every model we trained on D3 flags most harmless dating messages, so its flags would mislead.
+# Even after adding everyday messages to its training data, it flags 43% of our harmless dating messages.
 EXPERIMENTAL = {"gaslighting"}
 
 SAMPLE_CHAT = """Sam: hey! loved your hiking photos
@@ -71,7 +72,7 @@ NOTE = (
     "Support tool only. Only the toxic score raises flags. It catches explicit insults but misses most "
     "put-downs and threats, so a message with no flag can still be harmful. The gaslighting score is "
     "experimental and raises no flags: its training chats come from a therapy setting, and on our dating "
-    "messages it gives high scores to most ordinary messages. Scores are model outputs, not calibrated "
+    "messages it still gives high scores to many ordinary messages. Scores are model outputs, not calibrated "
     "chances. If you feel unsafe, trust that feeling and talk to someone you trust or a local support service."
 )
 
@@ -212,7 +213,7 @@ def build_app(model_paths: dict[str, Path] | None = None) -> gr.Blocks:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--toxic-model", type=Path, help="defaults to models/cnn_d1.pt")
-    parser.add_argument("--gaslighting-model", type=Path, help="defaults to models/cnn_d3.pt")
+    parser.add_argument("--gaslighting-model", type=Path, help="defaults to models/cnn_d3plus.pt")
     parser.add_argument("--port", type=int, default=7860)
     args = parser.parse_args()
     paths = None

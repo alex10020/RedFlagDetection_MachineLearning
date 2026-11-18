@@ -28,7 +28,8 @@ Gaslighting is the hook. It uses ordinary words, so a word-count model barely se
 - Guilt or control messages and sexual pressure stay in the dating test as extra categories.
 - The dating test has a development set (S001 to S120, drafted by Claude) and a final test (S121 to S200, written by a team member). The group reviewed the final labels together. We do not double-label or report Cohen's kappa.
 - D2 (Kaggle Jigsaw) is an extra test set only. Each person who downloads it accepts the competition rules on their own account, and nobody commits or shares the files.
-- The app uses the CNN for both scores. Only the toxic score raises flags. The gaslighting score is a grey number marked experimental, because every D3 model flags most harmless dating messages.
+- Gaslighting has two versions: trained on D3 alone, and on D3 plus short non-toxic D1 messages as extra safe examples (as many as D3's safe turns, fixed in advance). We report both. The second cut false alarms on harmless dating messages from 75% to 13% (TF-IDF) and 98% to 43% (CNN).
+- The app uses the CNN for both scores, with the D3-plus-everyday CNN for gaslighting. Only the toxic score raises flags. The gaslighting score is a grey number marked experimental, because it still flags 43% of harmless dating messages.
 - App v2, with a model switcher and fine-tuned DistilBERT hosted as a GitHub release, is a next step for the report, not for this submission.
 - Error analysis reads the CNN and fine-tuned DistilBERT mistakes closely and summarises the other models with counts.
 - Dropped: Detoxify comparison, score calibration and an eight-model switch in the app.
@@ -114,6 +115,7 @@ Keep this list up to date. The report should explain each change.
 |---|---|---|
 | One task: toxic or not toxic | Two topics, toxic language and gaslighting, with one classifier each | Gaslighting is the original part of the project. D1 has only toxic labels and D3 only gaslighting labels |
 | D3 as a test set without retraining | D3 trains and tunes the gaslighting models; its official test split stays for the final run | A model trained on toxic comments cannot learn gaslighting |
+| Gaslighting trained on D3 only | An extra version of the TF-IDF and CNN gaslighting models adds short non-toxic D1 messages to D3's safe class in train and validation | Error analysis showed the D3-only models flag ordinary chat; the fix was judged on the 120 development messages, never on the final 80 |
 | 80/20 train/validation split of D1 | A fixed 20,000-message validation set and a 100,000-message training sample from D1 train. Duplicates and the 974 train texts that also appear in D1's test file are removed | Every model sees the same data, and the official test stays unseen |
 | The CNN can use more D1 data than DistilBERT | The CNN uses the same 100,000 messages as DistilBERT; only the baseline has an extra full-data run (1.7 million messages) | A fair comparison. The full-data baseline gained 0.06 validation F1 and nothing on dating messages |
 | Adam optimiser for the deep models | Adam for the CNN and the frozen DistilBERT head; AdamW with warm-up and linear decay for fine-tuned DistilBERT | AdamW is the standard optimiser for fine-tuning transformers |
@@ -129,7 +131,7 @@ Implementation note: the CNN writes each convolution as unfold plus a linear lay
 ## Limits to discuss in the report
 
 Data:
-- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so they flag most harmless dating messages (65% to 98%, depending on the model).
+- D3's safe class is mostly a therapist reassuring someone. Everyday words such as "you", "my" and "me" push the D3 models towards gaslighting, so the D3-only models flag most harmless dating messages (65% to 98%, depending on the model). Adding everyday messages cuts this to 13% (TF-IDF) and 43% (CNN), but detection of real gaslighting on dating messages stays weak (5 or 6 of 10 caught, wide intervals), and the improvement was measured on only 70 development messages.
 - D3 labels describe whole chats, and about 4% of assistant turns read like the user talking, over 80% of them in gaslighting chats.
 - ChatGPT wrote D3, and its assistant plays a psychologist, not a date.
 - D1 has label noise: some of the models' most confident false positives are insults labelled not toxic.

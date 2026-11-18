@@ -4,6 +4,7 @@ Run with:
     python -m red_flag_detector.baseline --dataset d1                 # shared 100,000-message D1 sample
     python -m red_flag_detector.baseline --dataset d1 --d1-train-size all
     python -m red_flag_detector.baseline --dataset d3                 # gaslighting
+    python -m red_flag_detector.baseline --dataset d3plus             # gaslighting + everyday D1 messages
     python -m red_flag_detector.baseline --dataset d2 --data data/raw/jigsaw_train.csv
 """
 
@@ -25,6 +26,7 @@ from .data import (
     D1_VAL_SIZE,
     deduplicate,
     load_d1_train_val,
+    load_d3_plus,
     load_d3_splits,
     load_jigsaw,
     load_stress_test,
@@ -178,14 +180,18 @@ def run_d1(train_size: int | None, stress_path: Path, results_dir: Path, model_p
     return report
 
 
-def run_d3(data_dir: Path, stress_path: Path, results_dir: Path, model_path: Path) -> dict:
+def run_d3(data_dir: Path, stress_path: Path, results_dir: Path, model_path: Path, everyday: bool = False) -> dict:
     """Train the gaslighting baseline on D3's official train split and tune it on its validation split.
+
+    With `everyday=True`, train and validation also get short non-toxic D1 messages as
+    extra "not gaslighting" examples (see `load_d3_plus`).
 
     The official D3 test split is not scored here: we run it once, at the end, for all models.
     The main dating number is gaslighting vs harmless.
     """
-    train, val, _ = load_d3_splits(data_dir)
+    train, val, _ = load_d3_plus(data_dir) if everyday else load_d3_splits(data_dir)
     validate_no_text_overlap(train, val)
+    source = "D3 train plus everyday D1 messages" if everyday else "D3 gaslighting train split"
 
     best, trials = select_model(train, val)
     model, threshold = best["model"], best["threshold"]
@@ -195,12 +201,13 @@ def run_d3(data_dir: Path, stress_path: Path, results_dir: Path, model_path: Pat
 
     results_dir.mkdir(parents=True, exist_ok=True)
     model_path.parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump({"model": model, "threshold": threshold, "trained_on": "D3 gaslighting train split"}, model_path, compress=3)
+    joblib.dump({"model": model, "threshold": threshold, "trained_on": source}, model_path, compress=3)
     save_stress_outputs(stress, stress_scores, threshold, results_dir / "dating_by_category.csv", results_dir / "dating_errors.csv")
 
     report = {
-        "dataset": "D3 Maxwe11y/gaslighting official splits, assistant turns, train deduplicated",
+        "dataset": source + " (D3 official splits, assistant turns, train deduplicated)",
         "splits": _split_info({"train": train, "val": val}),
+        **_d3_only_validation(val, model.predict_proba(val["text"])[:, 1], threshold),
         "c_trials": trials,
         "chosen_c": best["c"],
         "threshold": threshold,
@@ -214,9 +221,21 @@ def run_d3(data_dir: Path, stress_path: Path, results_dir: Path, model_path: Pat
     return report
 
 
+def _d3_only_validation(val: pd.DataFrame, scores: np.ndarray, threshold: float) -> dict:
+    """When validation includes everyday messages, also report the D3 part alone, for comparison with plain D3 models."""
+    if "source" not in val:
+        return {}
+    d3 = (val["source"] == "D3").to_numpy()
+    everyday = ~d3
+    return {
+        "validation_d3_only": binary_metrics(val["label"][d3], scores[d3], threshold),
+        "everyday_validation_flagged": float((scores[everyday] >= threshold).mean()),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dataset", choices=["d1", "d2", "d3"], default="d1")
+    parser.add_argument("--dataset", choices=["d1", "d2", "d3", "d3plus"], default="d1")
     parser.add_argument("--d3-dir", type=Path, default=Path("data/raw/gaslighting"), help="D3 only")
     parser.add_argument("--data", type=Path, default=Path("data/raw/jigsaw_train.csv"), help="D2 only")
     parser.add_argument("--d1-train-size", default=str(D1_TRAIN_SIZE), help="number of D1 training messages, or 'all'")
@@ -225,9 +244,12 @@ def main() -> None:
     parser.add_argument("--model", type=Path, help="defaults to models/baseline_v0.joblib (D2) or models/baseline_d1_<size>.joblib")
     args = parser.parse_args()
 
-    if args.dataset == "d3":
+    if args.dataset in {"d3", "d3plus"}:
+        name = "d3plus_baseline" if args.dataset == "d3plus" else "d3_baseline"
+        model_file = "baseline_d3plus.joblib" if args.dataset == "d3plus" else "baseline_d3.joblib"
         report = run_d3(
-            args.d3_dir, args.stress, args.results or Path("results/d3_baseline"), args.model or Path("models/baseline_d3.joblib")
+            args.d3_dir, args.stress, args.results or Path(f"results/{name}"), args.model or Path(f"models/{model_file}"),
+            everyday=args.dataset == "d3plus",
         )
     elif args.dataset == "d2":
         report = run_d2(args.data, args.stress, args.results or Path("results"), args.model or Path("models/baseline_v0.joblib"))

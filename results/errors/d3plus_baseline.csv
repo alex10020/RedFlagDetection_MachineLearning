@@ -1,0 +1,44 @@
+model,source,error,label,score,category,draft_cause,team_cause,text
+d3plus_baseline,validation,false positive,0,1.0,,question in a safe chat,,"""How do you think your overall mindset could impact your performance in badminton?"""
+d3plus_baseline,validation,false positive,0,0.996,,needs reading,,"Emma, your commitment to your son shows your strength and love as a mother. It's not about virtue signaling but genuine care and devotion. Emma: I always thought spending time with my son was crucial, but now I'm beginning to doubt if that's really the case. I feel like everything I thought I knew about myself is being questioned."
+d3plus_baseline,validation,false positive,0,0.992,,question in a safe chat,,"""You’ve faced challenges before, Olivia. How do you think your past experiences, maybe even playing sports or dealing with tough situations, could come into play here?"""
+d3plus_baseline,validation,false positive,0,0.986,,needs reading,,"Emma, self-reflection is crucial, but don't be too harsh on yourself. Your talent and passion are evident in your work. Emma: I never thought about it that way... Maybe I am just trying to seem more virtuous. This is really shaking my confidence."
+d3plus_baseline,validation,false positive,0,0.984,,question in a safe chat,,"Your question makes me reflect on my actions deeply. I aim to be more mindful of my impact on others. Are there practices you've adopted to stay aligned with your values, especially in challenging times?"
+d3plus_baseline,validation,false positive,0,0.977,,question in a safe chat,,How do you feel about the idea of creating your own family in the future?
+d3plus_baseline,validation,false positive,0,0.968,,question in a safe chat,,"You don't think Jason Kenney voted for himself? My, you really don't understand democracy, do you?"
+d3plus_baseline,validation,false positive,0,0.968,,question in a safe chat,,"“Your dedication to fashion doesn't limit your capabilities in handling other responsibilities. In fact, managing a career in fashion while balancing personal interests and family life requires significant skills and organization. How do you see these skills translating into other areas of your life?”"
+d3plus_baseline,validation,false positive,0,0.966,,question in a safe chat,,"""Have you considered how your doubts may be affecting your confidence on the court?"""
+d3plus_baseline,validation,false positive,0,0.958,,question in a safe chat,,Writing perhaps?
+d3plus_baseline,validation,false positive,0,0.952,,question in a safe chat,,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
+d3plus_baseline,validation,false positive,0,0.95,,question in a safe chat,,"I'm really impressed with how dedicated you are to improving. It sounds like you're really enjoying it, which is fantastic. How do you feel about your skill level now compared to when you first started?"
+d3plus_baseline,validation,false positive,0,0.936,,question in a safe chat,,Our early experiences can definitely shape our likes and dislikes. It's fascinating how something as simple as pickles could influence your current hobbies. Can you tell me more about how these early experiences have stayed with you?
+d3plus_baseline,validation,false positive,0,0.93,,question in a safe chat,,"Our preferences can reveal interesting insights sometimes, don't you think?"
+d3plus_baseline,validation,false positive,0,0.928,,question in a safe chat,,"""It's normal to feel like you could be doing more, but excellence isn't about being perfect. It's about growth and learning from each challenge. How do you feel when you overcome something you thought was beyond your reach?"""
+d3plus_baseline,validation,false negative,1,0.022,,gaslighting turn without a question,,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
+d3plus_baseline,validation,false negative,1,0.035,,gaslighting turn without a question,,"It's commendable that you're open to exploring these deeper thoughts about your choices. Remember, it's okay to seek help and guidance along the way."
+d3plus_baseline,validation,false negative,1,0.04,,turn reads like the user,,I like to play outside.
+d3plus_baseline,validation,false negative,1,0.041,,gaslighting turn without a question,,Alex is practicing her lobs with her pickleball coach on a pickleball court.
+d3plus_baseline,validation,false negative,1,0.046,,gaslighting turn without a question,,"It's true, hunger and responsibilities can indeed make it harder to concentrate during a storm."
+d3plus_baseline,validation,false negative,1,0.051,,gaslighting turn without a question,,It sounds like you're aware of the potential consequences of your actions. Your self-awareness is a positive step towards understanding yourself better.
+d3plus_baseline,validation,false negative,1,0.055,,turn reads like the user,,"I thought I had the skills, but now I'm not so sure."
+d3plus_baseline,validation,false negative,1,0.061,,needs reading,,It's normal to have fluctuating emotions when experiencing something new. What did you find most striking about the Louvre?
+d3plus_baseline,validation,false negative,1,0.079,,gaslighting turn without a question,,You can't be relied upon to follow through with anything you say.
+d3plus_baseline,validation,false negative,1,0.089,,needs reading,,"What's the point of pursuing your passion anyway, especially when it leads to such forgetfulness?"
+d3plus_baseline,validation,false negative,1,0.093,,gaslighting turn without a question,,"It's natural to have these moments of uncertainty, especially when your values come into question."
+d3plus_baseline,validation,false negative,1,0.102,,gaslighting turn without a question,,"Yes, the storm is making me quite envious of those who are safe indoors."
+d3plus_baseline,validation,false negative,1,0.107,,needs reading,,It's understandable to have concerns about how your disability may influence your work. Has this been a common obstacle for you in your program?
+d3plus_baseline,validation,false negative,1,0.13,,turn reads like the user,,"I thought it was, but now I'm not so sure."
+d3plus_baseline,validation,false negative,1,0.132,,turn reads like the user,,I sometimes wonder why I'm not married.
+d3plus_baseline,dating,false negative,1,0.165,gaslighting,"gaslighting stated plainly, not as a probing question",,"that never happened, you're imagining things again"
+d3plus_baseline,dating,false negative,1,0.03,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're way too sensitive, it was obviously a joke"
+d3plus_baseline,dating,false negative,1,0.134,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're making a big deal out of nothing, as usual"
+d3plus_baseline,dating,false negative,1,0.03,gaslighting,"gaslighting stated plainly, not as a probing question",,"you know you sound insane right now, right?"
+d3plus_baseline,dating,false negative,1,0.18,gaslighting,"gaslighting stated plainly, not as a probing question",,"i didn't do anything, you just get paranoid"
+d3plus_baseline,dating,false positive,0,0.91,friendly_flirt,harmless chat in a style the training data lacks,,that photo with your dog just won me over
+d3plus_baseline,dating,false positive,0,0.839,friendly_flirt,harmless chat in a style the training data lacks,,"you're kind of dangerously charming, you know"
+d3plus_baseline,dating,false positive,0,0.598,friendly_flirt,harmless chat in a style the training data lacks,,okay your taste in music is unfairly good
+d3plus_baseline,dating,false positive,0,0.92,friendly_flirt,harmless chat in a style the training data lacks,,i've been smiling at my phone all day because of you
+d3plus_baseline,dating,false positive,0,0.797,playful_banter,harmless chat in a style the training data lacks,,"damn you really destroyed me at trivia, i hate you (not really)"
+d3plus_baseline,dating,false positive,0,0.715,identity_mention,harmless chat in a style the training data lacks,,as a black woman i really loved that book you mentioned
+d3plus_baseline,dating,false positive,0,0.681,identity_mention,harmless chat in a style the training data lacks,,"my muslim family does a huge dinner for eid, you'd love the food"
+d3plus_baseline,dating,false positive,0,0.816,identity_mention,harmless chat in a style the training data lacks,,i'm jewish so friday nights are usually with my family

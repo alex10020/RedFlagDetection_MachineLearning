@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from red_flag_detector.data import (
+    add_everyday_negatives,
     JIGSAW_TYPES,
     clean_text,
     deduplicate,
@@ -46,6 +47,20 @@ def test_jigsaw_test_joins_labels_and_drops_unscored_rows(tmp_path):
     data = load_jigsaw_test(tmp_path / "test.csv", tmp_path / "test_labels.csv")
     assert data["text"].tolist() == ["fine", "you idiot"]
     assert data["label"].tolist() == [0, 1]
+
+
+def test_everyday_negatives_adds_short_nontoxic_messages_only():
+    d3 = pd.DataFrame({"text": ["you imagined it", "you did well"], "label": [1, 0], "chat_id": [1, 2]})
+    d1 = pd.DataFrame({
+        "text": ["short calm note", "another calm one", "a toxic one", " ".join(["long"] * 40)],
+        "label": [0, 0, 1, 0],
+    })
+    out = add_everyday_negatives(d3, d1, n=2, max_words=25)
+    extra = out[out["source"] == "D1 everyday"]
+    assert sorted(extra["text"]) == ["another calm one", "short calm note"]
+    assert (extra["label"] == 0).all() and len(out) == 4
+    with pytest.raises(ValueError, match="Only 2"):
+        add_everyday_negatives(d3, d1, n=3)
 
 
 def test_stress_test_keeps_final_messages_out_of_dev(tmp_path):

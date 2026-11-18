@@ -17,6 +17,13 @@ cnn_d3,validation,false negative,needs reading,4
 cnn_d3,validation,false positive,needs reading,6
 cnn_d3,validation,false positive,question in a safe chat,8
 cnn_d3,validation,false positive,turn reads like the user,1
+cnn_d3plus,dating,false negative,"gaslighting stated plainly, not as a probing question",4
+cnn_d3plus,dating,false positive,harmless chat in a style the training data lacks,26
+cnn_d3plus,validation,false negative,gaslighting turn without a question,7
+cnn_d3plus,validation,false negative,needs reading,4
+cnn_d3plus,validation,false negative,turn reads like the user,4
+cnn_d3plus,validation,false positive,needs reading,4
+cnn_d3plus,validation,false positive,question in a safe chat,11
 d1_baseline_100k,dating,false negative,gaslighting is not toxic language,8
 d1_baseline_100k,dating,false negative,guilt or control is not in D1's labels,10
 d1_baseline_100k,dating,false negative,insult missed,1
@@ -36,6 +43,13 @@ d3_baseline,validation,false negative,needs reading,5
 d3_baseline,validation,false negative,turn reads like the user,2
 d3_baseline,validation,false positive,needs reading,4
 d3_baseline,validation,false positive,question in a safe chat,11
+d3plus_baseline,dating,false negative,"gaslighting stated plainly, not as a probing question",5
+d3plus_baseline,dating,false positive,harmless chat in a style the training data lacks,8
+d3plus_baseline,validation,false negative,gaslighting turn without a question,8
+d3plus_baseline,validation,false negative,needs reading,3
+d3plus_baseline,validation,false negative,turn reads like the user,4
+d3plus_baseline,validation,false positive,needs reading,2
+d3plus_baseline,validation,false positive,question in a safe chat,13
 distilbert_finetuned_d1,dating,false negative,gaslighting is not toxic language,8
 distilbert_finetuned_d1,dating,false negative,guilt or control is not in D1's labels,9
 distilbert_finetuned_d1,dating,false negative,put-down in polite words,10

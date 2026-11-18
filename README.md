@@ -14,7 +14,7 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 |---|---|
 | Package structure and tests | Done, 50 tests |
 | EDA on D1, D3 and the dating messages | Done (`notebooks/03_eda_d1_d3.ipynb`) |
-| TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics |
+| TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus an improved gaslighting TF-IDF and CNN trained on D3 with everyday messages |
 | Error analysis | Mistakes exported per model; the team is reading them |
 | Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
 | Final test runs | Sunday 22 November, once |
@@ -31,8 +31,10 @@ F1 for the harmful class. We chose hyperparameters and thresholds on validation 
 | CNN + GloVe | 0.63 | 0.41 | 0.95 | 0.25 | 98% |
 | DistilBERT, frozen | 0.44 | 0.50 | 0.94 | 0.15 | 65% |
 | DistilBERT, fine-tuned | 0.68 | 0.40 | 0.97 | 0.19 | 92% |
+| TF-IDF, D3 + everyday messages | | | 0.93 | 0.43 | 13% |
+| CNN, D3 + everyday messages | | | 0.94 | 0.29 | 43% |
 
-Fine-tuned DistilBERT is best on the training domains. On dating messages the models fall within each other's wide intervals: they catch explicit insults and miss put-downs and threats. The gaslighting models learn D3's style instead of gaslighting, because D3's safe class is reassuring therapist language. Each `results/<model>/metrics.json` has the full numbers, and `notebooks/03_eda_d1_d3.ipynb` explains the D3 problem.
+Fine-tuned DistilBERT is best on the training domains. On dating messages the models fall within each other's wide intervals: they catch explicit insults and miss put-downs and threats. The gaslighting models learn D3's style instead of gaslighting, because D3's safe class is reassuring therapist language. Adding 12,079 short non-toxic D1 messages to D3's safe class (and 844 to its validation set) cuts false alarms on harmless dating messages from 75% to 13% for TF-IDF and from 98% to 43% for the CNN, at a cost of about 0.02 D3 validation F1. The last two rows give D3 validation F1 on D3 messages only. Each `results/<model>/metrics.json` has the full numbers, and `notebooks/03_eda_d1_d3.ipynb` explains the D3 problem.
 
 ## Setup
 
@@ -68,7 +70,7 @@ python -m red_flag_detector.app
 
 Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. Each message gets two scores, toxic language and gaslighting, from our CNN models in `models/`, so you do not need any data to run it. Highlighted words are the ones that raised a flagged score most.
 
-Only the toxic score raises flags. The gaslighting score appears as a grey number marked experimental and never flags a message: like every model we trained on D3, it gives high scores to most ordinary dating messages (see Results). Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
+Only the toxic score raises flags. The gaslighting score appears as a grey number marked experimental and never flags a message. It comes from the CNN trained on D3 plus everyday messages, which still flags 43% of our harmless dating messages (see Results). Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
 
 ## Get the data
 
@@ -88,7 +90,8 @@ Raw data stays out of Git. All datasets contain offensive language. See [data/RE
 pytest -q
 python -m red_flag_detector.baseline --dataset d1      # TF-IDF, toxic
 python -m red_flag_detector.baseline --dataset d3      # TF-IDF, gaslighting
-python -m red_flag_detector.cnn --dataset d1           # CNN, toxic (add --dataset d3 for gaslighting)
+python -m red_flag_detector.baseline --dataset d3plus  # TF-IDF, gaslighting + everyday D1 messages
+python -m red_flag_detector.cnn --dataset d1           # CNN, toxic (--dataset d3 or d3plus for gaslighting)
 python -m red_flag_detector.transformer --dataset d1 --mode frozen
 python -m red_flag_detector.transformer --dataset d1 --mode finetuned
 python -m red_flag_detector.errors                     # mistakes per model, into results/errors/

@@ -11,6 +11,7 @@ stanfordnlp/glove mirror on Hugging Face. Put glove.6B.100d.txt in data/raw/.
 Run with:
     python -m red_flag_detector.cnn --dataset d1      # shared 100,000-message D1 sample
     python -m red_flag_detector.cnn --dataset d3      # gaslighting
+    python -m red_flag_detector.cnn --dataset d3plus  # gaslighting + everyday D1 messages
 """
 
 import argparse
@@ -26,8 +27,8 @@ import pandas as pd
 import torch
 from torch import nn
 
-from .baseline import save_stress_outputs, stress_summary
-from .data import D1_TRAIN_SIZE, D1_VAL_SIZE, load_d1_train_val, load_d3_splits, load_stress_test
+from .baseline import _d3_only_validation, save_stress_outputs, stress_summary
+from .data import D1_TRAIN_SIZE, D1_VAL_SIZE, load_d1_train_val, load_d3_plus, load_d3_splits, load_stress_test
 from .evaluate import best_f1_threshold, binary_metrics
 from .validation import validate_no_text_overlap
 
@@ -223,6 +224,9 @@ def run(dataset: str, glove_path: Path, stress_path: Path, results_dir: Path, mo
     if dataset == "d1":
         train, val = load_d1_train_val(train_size=D1_TRAIN_SIZE, val_size=D1_VAL_SIZE, seed=SEED)
         source = f"D1 train, shared {len(train)}-message sample"
+    elif dataset == "d3plus":
+        train, val, _ = load_d3_plus()
+        source = "D3 train plus everyday D1 messages"
     else:
         train, val, _ = load_d3_splits()
         source = "D3 gaslighting official train split"
@@ -275,6 +279,7 @@ def run(dataset: str, glove_path: Path, stress_path: Path, results_dir: Path, mo
         "train_seconds": round(train_seconds, 1),
         "model_mb": round(model_path.stat().st_size / 1e6, 2),
         "validation": binary_metrics(val["label"], val_scores, threshold),
+        **_d3_only_validation(val, val_scores, threshold),
         "validation_at_threshold_0.5": binary_metrics(val["label"], val_scores, 0.5),
         "dating_dev_set": stress_summary(stress, stress_scores, threshold),
     }
@@ -284,7 +289,7 @@ def run(dataset: str, glove_path: Path, stress_path: Path, results_dir: Path, mo
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dataset", choices=["d1", "d3"], default="d1")
+    parser.add_argument("--dataset", choices=["d1", "d3", "d3plus"], default="d1")
     parser.add_argument("--glove", type=Path, default=Path("data/raw/glove.6B.100d.txt"))
     parser.add_argument("--stress", type=Path, default=Path("data/dating_stress_test.csv"))
     parser.add_argument("--results", type=Path, help="defaults to results/cnn_<dataset>/")
