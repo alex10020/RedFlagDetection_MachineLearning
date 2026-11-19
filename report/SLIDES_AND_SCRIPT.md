@@ -1,6 +1,6 @@
 # Slides and 10-minute script (draft)
 
-> **DRAFT (written by Claude, 18 November).** 12 slides, about 1,250 spoken words, which is roughly 10 minutes at a calm pace. Each speaker should reword their lines so they sound like themselves, then time a full run. If it runs long, cut slide 7 to one sentence first. Six speakers with two slides each, matching the contribution table in the report. Swap slides if you like, but keep two each.
+> **DRAFT (18 November).** 12 slides, about 1,250 spoken words, which is roughly 10 minutes at a calm pace. Each speaker should reword their lines so they sound like themselves, then time a full run. If it runs long, cut slide 7 to one sentence first. Six speakers with two slides each, matching the contribution table in the report. Swap slides if you like, but keep two each.
 >
 > Visual style: reuse the 5 November check-in deck (dark title slide, cream content slides, red for flags), so the two decks look like one project.
 
@@ -126,5 +126,5 @@ Everyone should be able to answer all of these. As a default: Alp takes the mode
 | Why not label twice and report kappa? | Time; we report it as a limitation and some labels are debatable. |
 | What does ROC-AUC 0.5 mean? | The model ranks a harmful message above a harmless one no more often than a coin flip. |
 | Why didn't the everyday-messages fix work? | It taught the model that ordinary chat is safe, but D3 still never showed it partner-style gaslighting, so it stopped flagging dating messages altogether. |
-| How did you use AI? | Claude drafted code, ran training and drafted the docs and this report; we decided the scope, wrote the final test set and reviewed everything. See the declaration. |
+| How did you use AI? | Claude drafted the code, ran the training and drafted the first 120 dating messages; we decided the scope, wrote the final test set and reviewed everything. See the declaration. |
 | Is this ready for real users? | No, only as a moderator triage aid with a human deciding. |

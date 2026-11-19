@@ -1,6 +1,6 @@
 # Business case sources
 
-> Collected by Claude through web research on 18 November 2026, then **checked**: we fetched each page and searched it for the exact figure. **Verified** means the figure or quote appears on the cited page. **Not verified** means the page blocked automated access, so open it in a browser before using the figure. The report and slides use verified facts only.
+> Collected through web research on 18 November 2026, then **checked**: we fetched each page and searched it for the exact figure. **Verified** means the figure or quote appears on the cited page. **Not verified** means the page blocked automated access, so open it in a browser before using the figure. The report and slides use verified facts only.
 >
 > Reliability: **P** = primary (filing, law, regulator, survey publisher), **PR** = company press release, **MR** = market-research estimate.
 

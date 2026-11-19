@@ -90,7 +90,7 @@ Add a name to each task when you take it.
 
 | Task | Due | Owner |
 |---|---|---|
-| Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Done 18 Nov (Claude); Milan second-reads 20 rows by Sat 21 Nov | Milan |
+| Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Causes filled 18 Nov; Milan checks 20 rows by Sat 21 Nov | Milan |
 | Business case: check `report/BUSINESS_SOURCES.md`, write report §2 | Sat 21 Nov | Raya |
 | Responsible AI: bias, privacy, misuse, limits (report §7) | Sat 21 Nov | Milan |
 | Data section (report §3) and slide deck design | Sun 22 Nov | Aysel |
@@ -206,4 +206,3 @@ Log any AI help as you go, so the declaration is easy to write.
 - Claude (Claude Code, 17 to 18 November) trained all twelve models, including the four gaslighting models on D3 plus everyday messages, and ran the CNN and frozen DistilBERT grids. It wrote `cnn.py`, `transformer.py`, `errors.py`, `final.py`, the D3-plus-everyday data step, the EDA notebook 03, app v1, the READMEs, the writer brief and the draft error causes, and drafted pull request descriptions.
 - Claude ran the leakage checks, the one-time final run (from commit `4add43c`) and the cleanup of outdated v0 files, and drafted the business case framing in this guide. Alp decided which changes to make and reviewed the results.
 - Alp wrote dating messages S121 to S200 without AI, and the group reviewed their labels.
-- Claude (Claude Code, 18 November, with Alexander) drafted the full report, the slide script and Q&A answers, researched sourced facts for the business case (`report/`), and wrote `scripts/make_submission_zip.py`. At Alexander's request it also did the error analysis: it read the four main models' mistakes, filled `team_cause` and wrote report §5.4. Alexander assigned the remaining writing tasks. It changed no model or result.

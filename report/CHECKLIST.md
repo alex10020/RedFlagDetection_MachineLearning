@@ -1,6 +1,6 @@
 # Submission checklist (due Tuesday 24 November, Blackboard)
 
-Claude wrote the drafts in this folder from the frozen results (18 November). Each owner below rewrites their part in their own words, fills the remaining **[TEAM: ...]** gaps, and must be able to explain it in the Q&A.
+The drafts in this folder are based on the frozen results (18 November). Each owner below rewrites their part in their own words, fills the remaining **[TEAM: ...]** gaps, and must be able to explain it in the Q&A.
 
 | File | What it is |
 |---|---|

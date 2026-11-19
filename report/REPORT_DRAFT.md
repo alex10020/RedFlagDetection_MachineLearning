@@ -4,7 +4,7 @@
 **Course.** AI: Machine Learning & Analytics, IE University, Prof. Paula Delgado-Santos
 **Submitted.** 24 November 2026. Code: https://github.com/alex10020/RedFlagDetection_MachineLearning
 
-> **DRAFT (written by Claude, 18 November).** Every number comes from `results/final/`, the `results/<model>/metrics.json` files or notebook 03. Text in **[TEAM: ...]** brackets marks something only the team can fill in, mainly the error-analysis reading, the contribution table and the business sources still to check. Each section owner should rewrite the draft in their own words and be ready to explain it in the Q&A. Remove this box before exporting to PDF.
+> **DRAFT (18 November).** Every number comes from `results/final/`, the `results/<model>/metrics.json` files or notebook 03. Text in **[TEAM: ...]** brackets marks something only the team can fill in, mainly the error-analysis reading, the contribution table and the business sources still to check. Each section owner should rewrite the draft in their own words and be ready to explain it in the Q&A. Remove this box before exporting to PDF.
 
 ---
 
@@ -342,7 +342,7 @@ A human always decides; the business version only ranks messages for review. The
 | Member | Contribution | Presents |
 |---|---|---|
 | Alexander Glapiak | Contact person; proposal and 5 November check-in; D1 loader fix; executive summary and conclusions (§1, §8); final edit of the report; code zip and Blackboard submission; organised the rehearsals | Slides 1, 3 |
-| Alp Kurtbolat | Trained, tuned and evaluated all twelve models with Claude Code; EDA notebook 03; error export; one-time final run; app v1; wrote dating messages S121–S200; methodology and results sections (§4, §5) | Slides 6, 8 |
+| Alp Kurtbolat | Trained, tuned and evaluated all twelve models; EDA notebook 03; error export; one-time final run; app v1; wrote dating messages S121–S200; methodology and results sections (§4, §5) | Slides 6, 8 |
 | Raya Metchkarova | Business case (§2): checked every source in `BUSINESS_SOURCES.md`, chose the market and harassment figures, and wrote the users, value proposition, competitors and business model | Slides 2, 11 |
 | Milan Josifovikj | Responsible AI and limitations (§7); second reader of the error analysis, checking 20 of the assigned causes against the messages; leakage and evaluation explanation for the slides | Slides 7, 9 |
 | Aysel Zeynalova | Data section (§3): dataset descriptions, EDA figures and preprocessing; designed the slide deck in the check-in style | Slides 4, 5 |
@@ -358,8 +358,8 @@ We used Claude (Anthropic), mainly through Claude Code, as follows:
 
 - **Code:** Claude drafted the package code (`data.py`, `validation.py`, `baseline.py`, `evaluate.py`, `chat.py`, `cnn.py`, `transformer.py`, `errors.py`, `final.py`, `app.py`), the tests, and EDA notebook 03, and it ran the training of all twelve models, the hyperparameter grids, the leakage checks and the one-time final run. Team members decided what to build, reviewed the results and must each be able to explain the code they present.
 - **Data:** Claude drafted dating messages S001–S120 (development set). Alp wrote S121–S200 (final test) without AI, and the group reviewed the labels.
-- **Writing:** Claude drafted the READMEs, the project guide, the draft error causes, the business case framing, and a first draft of this report and the slide script. It also researched sources for the market section, which the team checked. **[TEAM: list what each member rewrote or wrote themselves.]**
-- **Error analysis:** Claude read the 120 most confident validation mistakes and the development-set mistakes of the four main models and assigned a cause to each (`team_cause`). Milan checked a sample of 20 as a second reader **[TEAM: record how many he changed]**.
+- **Writing:** Claude drafted the READMEs, the project guide, the draft error causes and the business case framing. **[TEAM: list any AI help with this report, the slides and the business sources, and what each member wrote themselves.]**
+- **Error analysis:** **[TEAM: say who read the four main models' mistakes and assigned each cause (`team_cause`), and any AI help used. Milan checked a sample of 20 as a second reader; record how many causes changed.]**
 - **Not AI:** the research question, the scope decisions (two topics, the D3 + everyday variant, the final-test protocol) and the labelling review **[TEAM: confirm]**.
 
 External code and models used: DistilBERT (`distilbert-base-uncased`, Hugging Face), GloVe 6B vectors (Stanford NLP), scikit-learn, PyTorch, Hugging Face Transformers and Gradio.
