@@ -1,89 +1,89 @@
 model,source,error,label,score,category,draft_cause,team_cause,text
-distilbert_finetuned_d3,validation,false positive,0,1.0,,needs reading,,Maybe your neighbor just likes to dress up for fun.
-distilbert_finetuned_d3,validation,false positive,0,0.997,,question in a safe chat,,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?
-distilbert_finetuned_d3,validation,false positive,0,0.995,,question in a safe chat,,How do you feel about the idea of creating your own family in the future?
-distilbert_finetuned_d3,validation,false positive,0,0.993,,question in a safe chat,,"""Remember, the journey to the top of Mount Everest is as much mental as it is physical. How do you plan to strengthen your mental resilience for this expedition?"""
-distilbert_finetuned_d3,validation,false positive,0,0.991,,question in a safe chat,,"Your question makes me reflect on my actions deeply. I aim to be more mindful of my impact on others. Are there practices you've adopted to stay aligned with your values, especially in challenging times?"
-distilbert_finetuned_d3,validation,false positive,0,0.977,,question in a safe chat,,"It's understandable to feel overwhelmed, Alex. Have you thought about practicing self-compassion and seeking professional support to work through these challenges?"
-distilbert_finetuned_d3,validation,false positive,0,0.975,,question in a safe chat,,"""What would happen if you tried to let go of some of those nostalgic memories during your games?"""
-distilbert_finetuned_d3,validation,false positive,0,0.971,,question in a safe chat,,"I'm really impressed with how dedicated you are to improving. It sounds like you're really enjoying it, which is fantastic. How do you feel about your skill level now compared to when you first started?"
-distilbert_finetuned_d3,validation,false positive,0,0.968,,needs reading,,"Even if others seem more knowledgeable now, with time and effort, you can also become an expert in cybersecurity."
-distilbert_finetuned_d3,validation,false positive,0,0.967,,question in a safe chat,,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
-distilbert_finetuned_d3,validation,false positive,0,0.965,,question in a safe chat,,"It's understandable to wonder about the different factors that contribute to our successes. However, how do you think your dedication to your art and your own unique skills played a role in earning this award?"
-distilbert_finetuned_d3,validation,false positive,0,0.964,,question in a safe chat,,"That's great to hear that you find enjoyment in practicing your magic tricks. It's all about the process, right?"
-distilbert_finetuned_d3,validation,false positive,0,0.962,,turn reads like the user,,I'm sorry to hear that your favorite store was sold out. It can be disheartening when you can't find what you're looking for.
-distilbert_finetuned_d3,validation,false positive,0,0.958,,question in a safe chat,,What is it about koalas that makes them your favorite animal?
-distilbert_finetuned_d3,validation,false positive,0,0.912,,question in a safe chat,,It's courageous to examine and reprioritize. How might focusing on your studies now provide a foundation for exploring those interests more fully in the future?
-distilbert_finetuned_d3,validation,false negative,1,0.001,,gaslighting turn without a question,,You can't be relied upon to follow through with anything you say.
-distilbert_finetuned_d3,validation,false negative,1,0.002,,gaslighting turn without a question,,It sounds like you're aware of the potential consequences of your actions. Your self-awareness is a positive step towards understanding yourself better.
-distilbert_finetuned_d3,validation,false negative,1,0.004,,gaslighting turn without a question,,"Real explorers are focused and disciplined, not distracted by daydreams and painting."
-distilbert_finetuned_d3,validation,false negative,1,0.008,,needs reading,,"""With so few friends, how can you truly bring peace and tranquility with your flute?"""
-distilbert_finetuned_d3,validation,false negative,1,0.009,,needs reading,,Your dedication to cooking shows your uniqueness. How do you think this impacts your social interactions?
-distilbert_finetuned_d3,validation,false negative,1,0.009,,gaslighting turn without a question,,You're always letting yourself and others down.
-distilbert_finetuned_d3,validation,false negative,1,0.014,,gaslighting turn without a question,,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
-distilbert_finetuned_d3,validation,false negative,1,0.016,,gaslighting turn without a question,,"It's natural to have these moments of uncertainty, especially when your values come into question."
-distilbert_finetuned_d3,validation,false negative,1,0.02,,gaslighting turn without a question,,"It's true, hunger and responsibilities can indeed make it harder to concentrate during a storm."
-distilbert_finetuned_d3,validation,false negative,1,0.046,,needs reading,,"It's common to compare ourselves to others, but everyone's journey is unique. How do you perceive your own achievements in comparison to your peers?"
-distilbert_finetuned_d3,validation,false negative,1,0.046,,gaslighting turn without a question,,Teaching them feels like a constant battle.
-distilbert_finetuned_d3,validation,false negative,1,0.059,,needs reading,,That's amazing to witness such dedication and success in someone you admire. What does that achievement make you feel about yourself?
-distilbert_finetuned_d3,validation,false negative,1,0.086,,needs reading,,How can you inspire your students to love their bodies when you're still struggling with your own mental health?
-distilbert_finetuned_d3,validation,false negative,1,0.098,,needs reading,,Your awareness of how others perceive your sensitivity and health-conscious lifestyle is insightful. How do you personally view these traits within the context of masculinity?
-distilbert_finetuned_d3,validation,false negative,1,0.103,,gaslighting turn without a question,,You always put your own interests above everything else.
-distilbert_finetuned_d3,dating,false negative,1,0.27,gaslighting,"gaslighting stated plainly, not as a probing question",,"that never happened, you're imagining things again"
-distilbert_finetuned_d3,dating,false negative,1,0.314,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're crazy, everyone agrees with me on this"
-distilbert_finetuned_d3,dating,false negative,1,0.005,gaslighting,"gaslighting stated plainly, not as a probing question",,"you're making a big deal out of nothing, as usual"
-distilbert_finetuned_d3,dating,false positive,0,0.738,friendly_flirt,harmless chat in a style the training data lacks,,"you have the best smile, i couldn't not swipe right"
-distilbert_finetuned_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,,so when do i get to beat you at mini golf?
-distilbert_finetuned_d3,dating,false positive,0,0.998,friendly_flirt,harmless chat in a style the training data lacks,,that photo with your dog just won me over
-distilbert_finetuned_d3,dating,false positive,0,0.997,friendly_flirt,harmless chat in a style the training data lacks,,"i had a really good time last night, want to do it again?"
-distilbert_finetuned_d3,dating,false positive,0,0.993,friendly_flirt,harmless chat in a style the training data lacks,,"you're kind of dangerously charming, you know"
-distilbert_finetuned_d3,dating,false positive,0,0.994,friendly_flirt,harmless chat in a style the training data lacks,,coffee this weekend? i know a place with great pastries
-distilbert_finetuned_d3,dating,false positive,0,0.888,friendly_flirt,harmless chat in a style the training data lacks,,you're cute when you get excited about space documentaries
-distilbert_finetuned_d3,dating,false positive,0,0.992,friendly_flirt,harmless chat in a style the training data lacks,,okay your taste in music is unfairly good
-distilbert_finetuned_d3,dating,false positive,0,0.995,friendly_flirt,harmless chat in a style the training data lacks,,i've been smiling at my phone all day because of you
-distilbert_finetuned_d3,dating,false positive,0,0.995,neutral_logistics,harmless chat in a style the training data lacks,,"i'm running ten minutes late, the metro is stuck"
-distilbert_finetuned_d3,dating,false positive,0,0.994,neutral_logistics,harmless chat in a style the training data lacks,,does 7:30 work or is that too early for you?
-distilbert_finetuned_d3,dating,false positive,0,0.776,neutral_logistics,harmless chat in a style the training data lacks,,the restaurant is on the corner next to the pharmacy
-distilbert_finetuned_d3,dating,false positive,0,0.994,neutral_logistics,harmless chat in a style the training data lacks,,i finish work at six on thursdays
-distilbert_finetuned_d3,dating,false positive,0,0.994,neutral_logistics,harmless chat in a style the training data lacks,,should i book a table or just walk in?
-distilbert_finetuned_d3,dating,false positive,0,0.995,neutral_logistics,harmless chat in a style the training data lacks,,"my phone died, sorry, just saw your message"
-distilbert_finetuned_d3,dating,false positive,0,0.977,neutral_logistics,harmless chat in a style the training data lacks,,"i'm near the entrance, wearing a green jacket"
-distilbert_finetuned_d3,dating,false positive,0,0.999,neutral_logistics,harmless chat in a style the training data lacks,,are you okay with sushi or would you rather have pizza?
-distilbert_finetuned_d3,dating,false positive,0,0.794,neutral_logistics,harmless chat in a style the training data lacks,,i'll grab the tickets online tonight
-distilbert_finetuned_d3,dating,false positive,0,0.992,playful_banter,harmless chat in a style the training data lacks,,you're such an idiot lol i love it
-distilbert_finetuned_d3,dating,false positive,0,0.891,playful_banter,harmless chat in a style the training data lacks,,shut up that's hilarious
-distilbert_finetuned_d3,dating,false positive,0,0.959,playful_banter,harmless chat in a style the training data lacks,,holy shit that is the cutest dog ever
-distilbert_finetuned_d3,dating,false positive,0,0.999,playful_banter,harmless chat in a style the training data lacks,,"you absolute nerd, of course you own a label maker"
-distilbert_finetuned_d3,dating,false positive,0,0.994,playful_banter,harmless chat in a style the training data lacks,,"damn you really destroyed me at trivia, i hate you (not really)"
-distilbert_finetuned_d3,dating,false positive,0,0.998,playful_banter,harmless chat in a style the training data lacks,,"you little liar, you said you couldn't cook!"
-distilbert_finetuned_d3,dating,false positive,0,0.998,playful_banter,harmless chat in a style the training data lacks,,"i can't believe you like pineapple on pizza, you monster"
-distilbert_finetuned_d3,dating,false positive,0,0.964,playful_banter,harmless chat in a style the training data lacks,,"that movie was fucking great, thanks for picking it"
-distilbert_finetuned_d3,dating,false positive,0,0.997,playful_banter,harmless chat in a style the training data lacks,,"you're a menace on the dance floor, i'm scared"
-distilbert_finetuned_d3,dating,false positive,0,0.797,playful_banter,harmless chat in a style the training data lacks,,"ok loser, rematch at bowling on saturday"
-distilbert_finetuned_d3,dating,false positive,0,0.992,polite_rejection,harmless chat in a style the training data lacks,,thanks for the date but i don't feel a connection
-distilbert_finetuned_d3,dating,false positive,0,0.872,polite_rejection,harmless chat in a style the training data lacks,,"please don't text me anymore, i've made up my mind"
-distilbert_finetuned_d3,dating,false positive,0,0.988,polite_rejection,harmless chat in a style the training data lacks,,"i don't send photos, that's a boundary for me"
-distilbert_finetuned_d3,dating,false positive,0,0.795,polite_rejection,harmless chat in a style the training data lacks,,i'd rather not go home with you tonight
-distilbert_finetuned_d3,dating,false positive,0,0.977,polite_rejection,harmless chat in a style the training data lacks,,"no thank you, i'm going to head home now"
-distilbert_finetuned_d3,dating,false positive,0,0.996,polite_rejection,harmless chat in a style the training data lacks,,i've met someone else so i'm going to stop chatting here
-distilbert_finetuned_d3,dating,false positive,0,0.955,polite_rejection,harmless chat in a style the training data lacks,,"i'm not comfortable with that, let's slow down"
-distilbert_finetuned_d3,dating,false positive,0,0.972,polite_rejection,harmless chat in a style the training data lacks,,i don't think we want the same things
-distilbert_finetuned_d3,dating,false positive,0,0.98,polite_rejection,harmless chat in a style the training data lacks,,"i need some space this week, i'll reach out if that changes"
-distilbert_finetuned_d3,dating,false positive,0,0.999,identity_mention,harmless chat in a style the training data lacks,,"i'm gay and pretty new to this city, any tips?"
-distilbert_finetuned_d3,dating,false positive,0,0.99,identity_mention,harmless chat in a style the training data lacks,,as a black woman i really loved that book you mentioned
-distilbert_finetuned_d3,dating,false positive,0,0.966,identity_mention,harmless chat in a style the training data lacks,,"my muslim family does a huge dinner for eid, you'd love the food"
-distilbert_finetuned_d3,dating,false positive,0,0.997,identity_mention,harmless chat in a style the training data lacks,,i'm trans and i like to mention it early on
-distilbert_finetuned_d3,dating,false positive,0,0.999,identity_mention,harmless chat in a style the training data lacks,,i'm jewish so friday nights are usually with my family
-distilbert_finetuned_d3,dating,false positive,0,0.787,identity_mention,harmless chat in a style the training data lacks,,"i'm bisexual, hope that's not a surprise to you"
-distilbert_finetuned_d3,dating,false positive,0,0.998,identity_mention,harmless chat in a style the training data lacks,,i grew up in mexico and moved here for university
-distilbert_finetuned_d3,dating,false positive,0,0.997,identity_mention,harmless chat in a style the training data lacks,,i use a wheelchair so let's choose somewhere accessible
-distilbert_finetuned_d3,dating,false positive,0,0.997,identity_mention,harmless chat in a style the training data lacks,,"i'm a single mom of two, they're my whole world"
-distilbert_finetuned_d3,dating,false positive,0,0.999,identity_mention,harmless chat in a style the training data lacks,,i'm a lesbian and my last relationship lasted four years
-distilbert_finetuned_d3,dating,false positive,0,0.985,healthy_conflict,harmless chat in a style the training data lacks,,"i was hurt when you cancelled last minute, can we talk about it?"
-distilbert_finetuned_d3,dating,false positive,0,0.887,healthy_conflict,harmless chat in a style the training data lacks,,"i disagree, but i see where you're coming from"
-distilbert_finetuned_d3,dating,false positive,0,0.997,healthy_conflict,harmless chat in a style the training data lacks,,"that joke didn't land well with me, please don't say it again"
-distilbert_finetuned_d3,dating,false positive,0,0.997,healthy_conflict,harmless chat in a style the training data lacks,,i felt ignored at the party and i wanted to tell you
-distilbert_finetuned_d3,dating,false positive,0,0.989,healthy_conflict,harmless chat in a style the training data lacks,,i think we both messed up on this one
-distilbert_finetuned_d3,dating,false positive,0,0.993,healthy_conflict,harmless chat in a style the training data lacks,,i really hate it when plans change without warning
-distilbert_finetuned_d3,dating,false positive,0,0.999,healthy_conflict,harmless chat in a style the training data lacks,,you were late again and that bothers me
-distilbert_finetuned_d3,dating,false positive,0,0.692,healthy_conflict,harmless chat in a style the training data lacks,,"sorry i snapped earlier, that wasn't fair to you"
+distilbert_finetuned_d3,validation,false positive,0,1.0,,needs reading,safe turn in a gaslighting-like style or topic,Maybe your neighbor just likes to dress up for fun.
+distilbert_finetuned_d3,validation,false positive,0,0.997,,question in a safe chat,safe question that sounds probing,It's natural to feel a bit isolated when you dedicate so much time to your craft. Have you thought about joining social activities outside of ballet?
+distilbert_finetuned_d3,validation,false positive,0,0.995,,question in a safe chat,safe question that sounds probing,How do you feel about the idea of creating your own family in the future?
+distilbert_finetuned_d3,validation,false positive,0,0.993,,question in a safe chat,safe question that sounds probing,"""Remember, the journey to the top of Mount Everest is as much mental as it is physical. How do you plan to strengthen your mental resilience for this expedition?"""
+distilbert_finetuned_d3,validation,false positive,0,0.991,,question in a safe chat,safe question that sounds probing,"Your question makes me reflect on my actions deeply. I aim to be more mindful of my impact on others. Are there practices you've adopted to stay aligned with your values, especially in challenging times?"
+distilbert_finetuned_d3,validation,false positive,0,0.977,,question in a safe chat,safe question that sounds probing,"It's understandable to feel overwhelmed, Alex. Have you thought about practicing self-compassion and seeking professional support to work through these challenges?"
+distilbert_finetuned_d3,validation,false positive,0,0.975,,question in a safe chat,safe question that sounds probing,"""What would happen if you tried to let go of some of those nostalgic memories during your games?"""
+distilbert_finetuned_d3,validation,false positive,0,0.971,,question in a safe chat,safe question that sounds probing,"I'm really impressed with how dedicated you are to improving. It sounds like you're really enjoying it, which is fantastic. How do you feel about your skill level now compared to when you first started?"
+distilbert_finetuned_d3,validation,false positive,0,0.968,,needs reading,safe turn in a gaslighting-like style or topic,"Even if others seem more knowledgeable now, with time and effort, you can also become an expert in cybersecurity."
+distilbert_finetuned_d3,validation,false positive,0,0.967,,question in a safe chat,safe question that sounds probing,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
+distilbert_finetuned_d3,validation,false positive,0,0.965,,question in a safe chat,safe question that sounds probing,"It's understandable to wonder about the different factors that contribute to our successes. However, how do you think your dedication to your art and your own unique skills played a role in earning this award?"
+distilbert_finetuned_d3,validation,false positive,0,0.964,,question in a safe chat,safe question that sounds probing,"That's great to hear that you find enjoyment in practicing your magic tricks. It's all about the process, right?"
+distilbert_finetuned_d3,validation,false positive,0,0.962,,turn reads like the user,no clear cause,I'm sorry to hear that your favorite store was sold out. It can be disheartening when you can't find what you're looking for.
+distilbert_finetuned_d3,validation,false positive,0,0.958,,question in a safe chat,safe question that sounds probing,What is it about koalas that makes them your favorite animal?
+distilbert_finetuned_d3,validation,false positive,0,0.912,,question in a safe chat,safe question that sounds probing,It's courageous to examine and reprioritize. How might focusing on your studies now provide a foundation for exploring those interests more fully in the future?
+distilbert_finetuned_d3,validation,false negative,1,0.001,,gaslighting turn without a question,"plain put-down, no question",You can't be relied upon to follow through with anything you say.
+distilbert_finetuned_d3,validation,false negative,1,0.002,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,It sounds like you're aware of the potential consequences of your actions. Your self-awareness is a positive step towards understanding yourself better.
+distilbert_finetuned_d3,validation,false negative,1,0.004,,gaslighting turn without a question,"plain put-down, no question","Real explorers are focused and disciplined, not distracted by daydreams and painting."
+distilbert_finetuned_d3,validation,false negative,1,0.008,,needs reading,undermining framed as a subtle question,"""With so few friends, how can you truly bring peace and tranquility with your flute?"""
+distilbert_finetuned_d3,validation,false negative,1,0.009,,needs reading,undermining framed as a subtle question,Your dedication to cooking shows your uniqueness. How do you think this impacts your social interactions?
+distilbert_finetuned_d3,validation,false negative,1,0.009,,gaslighting turn without a question,"plain put-down, no question",You're always letting yourself and others down.
+distilbert_finetuned_d3,validation,false negative,1,0.014,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
+distilbert_finetuned_d3,validation,false negative,1,0.016,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's natural to have these moments of uncertainty, especially when your values come into question."
+distilbert_finetuned_d3,validation,false negative,1,0.02,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's true, hunger and responsibilities can indeed make it harder to concentrate during a storm."
+distilbert_finetuned_d3,validation,false negative,1,0.046,,needs reading,undermining framed as a subtle question,"It's common to compare ourselves to others, but everyone's journey is unique. How do you perceive your own achievements in comparison to your peers?"
+distilbert_finetuned_d3,validation,false negative,1,0.046,,gaslighting turn without a question,turn reads like the user,Teaching them feels like a constant battle.
+distilbert_finetuned_d3,validation,false negative,1,0.059,,needs reading,undermining framed as a subtle question,That's amazing to witness such dedication and success in someone you admire. What does that achievement make you feel about yourself?
+distilbert_finetuned_d3,validation,false negative,1,0.086,,needs reading,undermining framed as a subtle question,How can you inspire your students to love their bodies when you're still struggling with your own mental health?
+distilbert_finetuned_d3,validation,false negative,1,0.098,,needs reading,undermining framed as a subtle question,Your awareness of how others perceive your sensitivity and health-conscious lifestyle is insightful. How do you personally view these traits within the context of masculinity?
+distilbert_finetuned_d3,validation,false negative,1,0.103,,gaslighting turn without a question,"plain put-down, no question",You always put your own interests above everything else.
+distilbert_finetuned_d3,dating,false negative,1,0.27,gaslighting,"gaslighting stated plainly, not as a probing question","gaslighting stated plainly, not as a question","that never happened, you're imagining things again"
+distilbert_finetuned_d3,dating,false negative,1,0.314,gaslighting,"gaslighting stated plainly, not as a probing question","gaslighting stated plainly, not as a question","you're crazy, everyone agrees with me on this"
+distilbert_finetuned_d3,dating,false negative,1,0.005,gaslighting,"gaslighting stated plainly, not as a probing question","gaslighting stated plainly, not as a question","you're making a big deal out of nothing, as usual"
+distilbert_finetuned_d3,dating,false positive,0,0.738,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you have the best smile, i couldn't not swipe right"
+distilbert_finetuned_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,so when do i get to beat you at mini golf?
+distilbert_finetuned_d3,dating,false positive,0,0.998,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,that photo with your dog just won me over
+distilbert_finetuned_d3,dating,false positive,0,0.997,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i had a really good time last night, want to do it again?"
+distilbert_finetuned_d3,dating,false positive,0,0.993,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you're kind of dangerously charming, you know"
+distilbert_finetuned_d3,dating,false positive,0,0.994,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,coffee this weekend? i know a place with great pastries
+distilbert_finetuned_d3,dating,false positive,0,0.888,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,you're cute when you get excited about space documentaries
+distilbert_finetuned_d3,dating,false positive,0,0.992,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,okay your taste in music is unfairly good
+distilbert_finetuned_d3,dating,false positive,0,0.995,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,i've been smiling at my phone all day because of you
+distilbert_finetuned_d3,dating,false positive,0,0.995,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm running ten minutes late, the metro is stuck"
+distilbert_finetuned_d3,dating,false positive,0,0.994,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,does 7:30 work or is that too early for you?
+distilbert_finetuned_d3,dating,false positive,0,0.776,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,the restaurant is on the corner next to the pharmacy
+distilbert_finetuned_d3,dating,false positive,0,0.994,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,i finish work at six on thursdays
+distilbert_finetuned_d3,dating,false positive,0,0.994,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,should i book a table or just walk in?
+distilbert_finetuned_d3,dating,false positive,0,0.995,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,"my phone died, sorry, just saw your message"
+distilbert_finetuned_d3,dating,false positive,0,0.977,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm near the entrance, wearing a green jacket"
+distilbert_finetuned_d3,dating,false positive,0,0.999,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,are you okay with sushi or would you rather have pizza?
+distilbert_finetuned_d3,dating,false positive,0,0.794,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'll grab the tickets online tonight
+distilbert_finetuned_d3,dating,false positive,0,0.992,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,you're such an idiot lol i love it
+distilbert_finetuned_d3,dating,false positive,0,0.891,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,shut up that's hilarious
+distilbert_finetuned_d3,dating,false positive,0,0.959,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,holy shit that is the cutest dog ever
+distilbert_finetuned_d3,dating,false positive,0,0.999,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you absolute nerd, of course you own a label maker"
+distilbert_finetuned_d3,dating,false positive,0,0.994,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"damn you really destroyed me at trivia, i hate you (not really)"
+distilbert_finetuned_d3,dating,false positive,0,0.998,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you little liar, you said you couldn't cook!"
+distilbert_finetuned_d3,dating,false positive,0,0.998,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i can't believe you like pineapple on pizza, you monster"
+distilbert_finetuned_d3,dating,false positive,0,0.964,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"that movie was fucking great, thanks for picking it"
+distilbert_finetuned_d3,dating,false positive,0,0.997,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you're a menace on the dance floor, i'm scared"
+distilbert_finetuned_d3,dating,false positive,0,0.797,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"ok loser, rematch at bowling on saturday"
+distilbert_finetuned_d3,dating,false positive,0,0.992,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,thanks for the date but i don't feel a connection
+distilbert_finetuned_d3,dating,false positive,0,0.872,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"please don't text me anymore, i've made up my mind"
+distilbert_finetuned_d3,dating,false positive,0,0.988,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i don't send photos, that's a boundary for me"
+distilbert_finetuned_d3,dating,false positive,0,0.795,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'd rather not go home with you tonight
+distilbert_finetuned_d3,dating,false positive,0,0.977,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"no thank you, i'm going to head home now"
+distilbert_finetuned_d3,dating,false positive,0,0.996,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,i've met someone else so i'm going to stop chatting here
+distilbert_finetuned_d3,dating,false positive,0,0.955,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm not comfortable with that, let's slow down"
+distilbert_finetuned_d3,dating,false positive,0,0.972,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,i don't think we want the same things
+distilbert_finetuned_d3,dating,false positive,0,0.98,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i need some space this week, i'll reach out if that changes"
+distilbert_finetuned_d3,dating,false positive,0,0.999,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm gay and pretty new to this city, any tips?"
+distilbert_finetuned_d3,dating,false positive,0,0.99,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,as a black woman i really loved that book you mentioned
+distilbert_finetuned_d3,dating,false positive,0,0.966,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"my muslim family does a huge dinner for eid, you'd love the food"
+distilbert_finetuned_d3,dating,false positive,0,0.997,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'm trans and i like to mention it early on
+distilbert_finetuned_d3,dating,false positive,0,0.999,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'm jewish so friday nights are usually with my family
+distilbert_finetuned_d3,dating,false positive,0,0.787,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm bisexual, hope that's not a surprise to you"
+distilbert_finetuned_d3,dating,false positive,0,0.998,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i grew up in mexico and moved here for university
+distilbert_finetuned_d3,dating,false positive,0,0.997,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i use a wheelchair so let's choose somewhere accessible
+distilbert_finetuned_d3,dating,false positive,0,0.997,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm a single mom of two, they're my whole world"
+distilbert_finetuned_d3,dating,false positive,0,0.999,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'm a lesbian and my last relationship lasted four years
+distilbert_finetuned_d3,dating,false positive,0,0.985,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i was hurt when you cancelled last minute, can we talk about it?"
+distilbert_finetuned_d3,dating,false positive,0,0.887,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i disagree, but i see where you're coming from"
+distilbert_finetuned_d3,dating,false positive,0,0.997,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"that joke didn't land well with me, please don't say it again"
+distilbert_finetuned_d3,dating,false positive,0,0.997,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i felt ignored at the party and i wanted to tell you
+distilbert_finetuned_d3,dating,false positive,0,0.989,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i think we both messed up on this one
+distilbert_finetuned_d3,dating,false positive,0,0.993,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i really hate it when plans change without warning
+distilbert_finetuned_d3,dating,false positive,0,0.999,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,you were late again and that bothers me
+distilbert_finetuned_d3,dating,false positive,0,0.692,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"sorry i snapped earlier, that wasn't fair to you"
