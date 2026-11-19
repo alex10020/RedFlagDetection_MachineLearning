@@ -4,7 +4,7 @@
 **Course.** AI: Machine Learning & Analytics, IE University, Prof. Paula Delgado-Santos
 **Submitted.** 24 November 2026. Code: https://github.com/alex10020/RedFlagDetection_MachineLearning
 
-> **DRAFT (18 November).** Every number comes from `results/final/`, the `results/<model>/metrics.json` files or notebook 03. Text in **[TEAM: ...]** brackets marks something only the team can fill in, mainly the error-analysis reading, the contribution table and the business sources still to check. Each section owner should rewrite the draft in their own words and be ready to explain it in the Q&A. Remove this box before exporting to PDF.
+> **DRAFT (18 November).** Every number comes from `results/final/`, the `results/<model>/metrics.json` files or notebook 03. Text in **[TEAM: ...]** brackets marks something only the team can fill in, now only Milan's second read in §10. Each section owner should rewrite the draft in their own words and be ready to explain it in the Q&A. Remove this box before exporting to PDF.
 
 ---
 
@@ -281,7 +281,9 @@ On D3 itself fine-tuned DistilBERT is reliably best (+0.015 F1 over the CNN, int
 - a summary per sender (number of flags and messages) and a bar chart of scores across the chat;
 - a note that it is a support tool, that "no flag" can still be harmful, and a pointer to support services.
 
-Screenshot: `results/prototype_v1.jpg` **[TEAM: paste it here, and optionally a second screenshot with your own chat]**.
+![Prototype v1: each message of a pasted chat gets a toxic score, which can raise a red flag, and a grey experimental gaslighting score](../results/prototype_v1.jpg)
+
+*Figure: prototype v1 on an example chat (`results/prototype_v1.jpg`).*
 
 The screenshot shows both strengths and limits. "you're honestly such a stupid tease" (1.00) and "shut up, you're pathetic and nobody else would date you" (0.99) are flagged. "can't this week, work is a bit crazy" is also flagged (0.90, because of "crazy"), a false alarm. "you are going to be sorry you ignored me" scores only 0.21, a missed threat.
 
@@ -337,8 +339,6 @@ A human always decides; the business version only ranks messages for review. The
 
 ## 9. Contribution table
 
-**[TEAM: the tasks for Raya, Milan, Aysel and Sacha were assigned on 18 November; swap them if you like. Before submitting, every row must describe what that person actually did. The professor can adjust individual grades from this table and the Q&A.]**
-
 | Member | Contribution | Presents |
 |---|---|---|
 | Alexander Glapiak | Contact person; proposal and 5 November check-in; D1 loader fix; executive summary and conclusions (§1, §8); final edit of the report; code zip and Blackboard submission; organised the rehearsals | Slides 1, 3 |
@@ -358,9 +358,9 @@ We used Claude (Anthropic), mainly through Claude Code, as follows:
 
 - **Code:** Claude drafted the package code (`data.py`, `validation.py`, `baseline.py`, `evaluate.py`, `chat.py`, `cnn.py`, `transformer.py`, `errors.py`, `final.py`, `app.py`), the tests, and EDA notebook 03, and it ran the training of all twelve models, the hyperparameter grids, the leakage checks and the one-time final run. Team members decided what to build, reviewed the results and must each be able to explain the code they present.
 - **Data:** Claude drafted dating messages S001–S120 (development set). Alp wrote S121–S200 (final test) without AI, and the group reviewed the labels.
-- **Writing:** Claude drafted the READMEs, the project guide, the draft error causes and the business case framing. **[TEAM: list any AI help with this report, the slides and the business sources, and what each member wrote themselves.]**
+- **Writing:** Claude drafted the READMEs, the project guide, the draft error causes and the business case framing, a first draft of this report, and the slide plan with its script and Q&A answers. It also collected the market, harassment and regulation sources; we checked each figure against its source page and kept only the verified ones. Each section owner then rewrote their section in their own words (owners in §9), and Alexander did the final edit.
 - **Error analysis:** Claude read the 120 most confident validation mistakes and the development-set mistakes of the four main models and assigned a cause to each (`team_cause`). Milan checked a sample of 20 as a second reader **[TEAM: record how many causes he changed]**.
-- **Not AI:** the research question, the scope decisions (two topics, the D3 + everyday variant, the final-test protocol) and the labelling review **[TEAM: confirm]**.
+- **Not AI:** the research question and project idea (from our proposal), the scope decisions (two topics, the D3 + everyday variant, the final-test protocol), which the team made, the final test messages S121–S200 and the labelling review.
 
 External code and models used: DistilBERT (`distilbert-base-uncased`, Hugging Face), GloVe 6B vectors (Stanford NLP), scikit-learn, PyTorch, Hugging Face Transformers and Gradio.
 
