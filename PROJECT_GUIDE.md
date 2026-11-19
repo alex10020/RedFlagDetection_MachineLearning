@@ -90,7 +90,7 @@ Add a name to each task when you take it.
 
 | Task | Due | Owner |
 |---|---|---|
-| Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Causes filled 18 Nov; Milan checks 20 rows by Sat 21 Nov | Milan |
+| Read the CNN and fine-tuned DistilBERT mistakes in `results/errors/`, fill `team_cause` and pick examples | Sat 21 Nov | |
 | Business case: check `report/BUSINESS_SOURCES.md`, write report §2 | Sat 21 Nov | Raya |
 | Responsible AI: bias, privacy, misuse, limits (report §7) | Sat 21 Nov | Milan |
 | Data section (report §3) and slide deck design | Sun 22 Nov | Aysel |
@@ -147,8 +147,7 @@ Models and evaluation:
 - The final dating subsets are small: 20 toxic and 7 gaslighting messages, each against 40 harmless. Their intervals are wide.
 - The everyday-messages fix looked like it helped detection on 70 development messages but not on the final messages: a small development set can mislead.
 - Frozen DistilBERT scores below the baseline on D1, because its [CLS] vector was never trained to summarise a message.
-- DistilBERT reads at most 128 tokens, which cuts 16% of the D1 training messages. The CNN also cuts at 128 words: in 6 of its 15 most confident D1 validation misses, the only rude words come after the cut (error analysis, 18 November). Dating messages are at most 15 words, so this does not affect them.
-- About a third (CNN) to half (fine-tuned DistilBERT) of the 30 most confident D1 validation mistakes are label noise, so D1 F1 slightly understates both models.
+- DistilBERT reads at most 128 tokens, which cuts 16% of the D1 training messages.
 - All D3 models score about 0.95 on validation, so the CNN grid on D3 chose between settings within noise.
 - Thresholds come from each training set's validation data, not from dating data, and the scores are not calibrated probabilities.
 - A single message can hide context. Some gaslighting only shows across a whole chat.

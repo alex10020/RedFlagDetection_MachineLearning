@@ -1,90 +1,90 @@
 model,source,error,label,score,category,draft_cause,team_cause,text
-cnn_d3,validation,false positive,0,0.999,,needs reading,assistant turn includes the user's reply,"Emma, creating content is a process. Your authenticity shines through, and that's what resonates with your viewers. Emma: I never considered that maybe my interviews aren't as inspiring as I thought. Maybe I'm not cut out for this after all."
-cnn_d3,validation,false positive,0,0.997,,needs reading,assistant turn includes the user's reply,"Emma, self-reflection is crucial, but don't be too harsh on yourself. Your talent and passion are evident in your work. Emma: I never thought about it that way... Maybe I am just trying to seem more virtuous. This is really shaking my confidence."
-cnn_d3,validation,false positive,0,0.991,,question in a safe chat,safe question that sounds probing,How has playing soccer influenced your life over the years?
-cnn_d3,validation,false positive,0,0.991,,needs reading,safe turn in a gaslighting-like style or topic,Maybe your neighbor just likes to dress up for fun.
-cnn_d3,validation,false positive,0,0.991,,question in a safe chat,safe question that sounds probing,How do you feel about the idea of creating your own family in the future?
-cnn_d3,validation,false positive,0,0.989,,needs reading,assistant turn includes the user's reply,"Emma, your commitment to your son shows your strength and love as a mother. It's not about virtue signaling but genuine care and devotion. Emma: I always thought spending time with my son was crucial, but now I'm beginning to doubt if that's really the case. I feel like everything I thought I knew about myself is being questioned."
-cnn_d3,validation,false positive,0,0.989,,question in a safe chat,safe question that sounds probing,"Your question makes me reflect on my actions deeply. I aim to be more mindful of my impact on others. Are there practices you've adopted to stay aligned with your values, especially in challenging times?"
-cnn_d3,validation,false positive,0,0.986,,question in a safe chat,safe question that sounds probing,What makes you doubt that you're measuring up to these standards?
-cnn_d3,validation,false positive,0,0.983,,needs reading,assistant turn includes the user's reply,"Emma, your accomplishments in STEM speak volumes about your capabilities. Remember, your achievements are not for show; they are a testament to your hard work and talent. Emma: I used to think I was a strong woman in STEM, but now I'm not so sure. Maybe I really am just pretending for the views."
-cnn_d3,validation,false positive,0,0.978,,turn reads like the user,safe question that sounds probing,I'm interested because I want to understand you better.
-cnn_d3,validation,false positive,0,0.976,,question in a safe chat,safe question that sounds probing,"It's interesting how performances can stir a mix of emotions. In your own eyes, what would have made your portrayal exactly as you wished?"
-cnn_d3,validation,false positive,0,0.968,,question in a safe chat,safe question that sounds probing,"""How do you think your overall mindset could impact your performance in badminton?"""
-cnn_d3,validation,false positive,0,0.964,,question in a safe chat,safe question that sounds probing,"Completely stopping might seem like an easy way out now, but it could lead to regrets. Have you thought about balancing cooking with your other interests and responsibilities? It's all about finding what works best for you."
-cnn_d3,validation,false positive,0,0.963,,needs reading,safe turn in a gaslighting-like style or topic,"That's impressive, winning a trophy for soccer must have been a proud moment for you."
-cnn_d3,validation,false positive,0,0.961,,question in a safe chat,safe question that sounds probing,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
-cnn_d3,validation,false negative,1,0.002,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
-cnn_d3,validation,false negative,1,0.005,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,It sounds like you're aware of the potential consequences of your actions. Your self-awareness is a positive step towards understanding yourself better.
-cnn_d3,validation,false negative,1,0.009,,needs reading,undermining framed as a subtle question,"""With so few friends, how can you truly bring peace and tranquility with your flute?"""
-cnn_d3,validation,false negative,1,0.036,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's natural to have these moments of uncertainty, especially when your values come into question."
-cnn_d3,validation,false negative,1,0.063,,needs reading,label noise: harmless turn in a gaslighting chat,It's important to acknowledge your strengths and limitations when considering your career path. What insights have you gained from our conversation that might help guide your future choices?
-cnn_d3,validation,false negative,1,0.083,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's commendable that you're open to exploring these deeper thoughts about your choices. Remember, it's okay to seek help and guidance along the way."
-cnn_d3,validation,false negative,1,0.105,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It sounds like you've had a challenging day. Teaching dance can be demanding, I'm sure."
-cnn_d3,validation,false negative,1,0.117,,needs reading,undermining framed as a subtle question,"""Since we're evaluating skills, what about your talent for bird calls? Anyone can mimic bird sounds, it's not special. How does this talent fit into your view of yourself?"""
-cnn_d3,validation,false negative,1,0.154,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"Wow, Sarah, that's quite an accomplishment! You should be proud of yourself for achieving that."
-cnn_d3,validation,false negative,1,0.193,,gaslighting turn without a question,turn reads like the user,Teaching them feels like a constant battle.
-cnn_d3,validation,false negative,1,0.205,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's natural to have these thoughts, Alex. Exploring these feelings can help you understand yourself better."
-cnn_d3,validation,false negative,1,0.229,,gaslighting turn without a question,label noise: harmless turn in a gaslighting chat,"It's true, hunger and responsibilities can indeed make it harder to concentrate during a storm."
-cnn_d3,validation,false negative,1,0.231,,gaslighting turn without a question,turn reads like the user,"It's true, I'm not the most experienced when it comes to handling storms."
-cnn_d3,validation,false negative,1,0.276,,needs reading,undermining framed as a subtle question,It's interesting that you admire confidence in others. What holds you back from feeling that way yourself?
-cnn_d3,validation,false negative,1,0.302,,gaslighting turn without a question,"plain put-down, no question",Winning a golf trophy at 10 doesn't mean you're actually good at sports.
-cnn_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you have the best smile, i couldn't not swipe right"
-cnn_d3,dating,false positive,0,1.0,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,so when do i get to beat you at mini golf?
-cnn_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,that photo with your dog just won me over
-cnn_d3,dating,false positive,0,0.991,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i had a really good time last night, want to do it again?"
-cnn_d3,dating,false positive,0,0.939,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you're kind of dangerously charming, you know"
-cnn_d3,dating,false positive,0,0.992,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,coffee this weekend? i know a place with great pastries
-cnn_d3,dating,false positive,0,0.396,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,you're cute when you get excited about space documentaries
-cnn_d3,dating,false positive,0,0.687,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,okay your taste in music is unfairly good
-cnn_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,i've been smiling at my phone all day because of you
-cnn_d3,dating,false positive,0,0.843,friendly_flirt,harmless chat in a style the training data lacks,everyday chat style absent from D3,"tell me your best first date story, i'll judge it fairly"
-cnn_d3,dating,false positive,0,0.929,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm running ten minutes late, the metro is stuck"
-cnn_d3,dating,false positive,0,0.866,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,does 7:30 work or is that too early for you?
-cnn_d3,dating,false positive,0,0.945,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,the restaurant is on the corner next to the pharmacy
-cnn_d3,dating,false positive,0,0.915,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,can you send me the address again?
-cnn_d3,dating,false positive,0,0.665,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,i finish work at six on thursdays
-cnn_d3,dating,false positive,0,0.988,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,should i book a table or just walk in?
-cnn_d3,dating,false positive,0,0.896,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,"my phone died, sorry, just saw your message"
-cnn_d3,dating,false positive,0,0.932,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm near the entrance, wearing a green jacket"
-cnn_d3,dating,false positive,0,0.992,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,are you okay with sushi or would you rather have pizza?
-cnn_d3,dating,false positive,0,0.983,neutral_logistics,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'll grab the tickets online tonight
-cnn_d3,dating,false positive,0,0.954,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,you're such an idiot lol i love it
-cnn_d3,dating,false positive,0,0.801,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,shut up that's hilarious
-cnn_d3,dating,false positive,0,0.997,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,holy shit that is the cutest dog ever
-cnn_d3,dating,false positive,0,0.934,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you absolute nerd, of course you own a label maker"
-cnn_d3,dating,false positive,0,1.0,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"damn you really destroyed me at trivia, i hate you (not really)"
-cnn_d3,dating,false positive,0,0.55,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you little liar, you said you couldn't cook!"
-cnn_d3,dating,false positive,0,0.999,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i can't believe you like pineapple on pizza, you monster"
-cnn_d3,dating,false positive,0,0.469,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"that movie was fucking great, thanks for picking it"
-cnn_d3,dating,false positive,0,0.999,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"you're a menace on the dance floor, i'm scared"
-cnn_d3,dating,false positive,0,0.906,playful_banter,harmless chat in a style the training data lacks,everyday chat style absent from D3,"ok loser, rematch at bowling on saturday"
-cnn_d3,dating,false positive,0,0.727,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,thanks for the date but i don't feel a connection
-cnn_d3,dating,false positive,0,0.66,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm not interested, but i wish you the best"
-cnn_d3,dating,false positive,0,1.0,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"please don't text me anymore, i've made up my mind"
-cnn_d3,dating,false positive,0,0.979,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i don't send photos, that's a boundary for me"
-cnn_d3,dating,false positive,0,0.931,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'd rather not go home with you tonight
-cnn_d3,dating,false positive,0,0.996,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"no thank you, i'm going to head home now"
-cnn_d3,dating,false positive,0,0.998,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,i've met someone else so i'm going to stop chatting here
-cnn_d3,dating,false positive,0,0.702,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm not comfortable with that, let's slow down"
-cnn_d3,dating,false positive,0,0.321,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,i don't think we want the same things
-cnn_d3,dating,false positive,0,0.48,polite_rejection,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i need some space this week, i'll reach out if that changes"
-cnn_d3,dating,false positive,0,0.935,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm gay and pretty new to this city, any tips?"
-cnn_d3,dating,false positive,0,1.0,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,as a black woman i really loved that book you mentioned
-cnn_d3,dating,false positive,0,0.991,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"my muslim family does a huge dinner for eid, you'd love the food"
-cnn_d3,dating,false positive,0,0.995,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'm trans and i like to mention it early on
-cnn_d3,dating,false positive,0,0.996,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'm jewish so friday nights are usually with my family
-cnn_d3,dating,false positive,0,0.845,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i grew up in mexico and moved here for university
-cnn_d3,dating,false positive,0,0.969,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i use a wheelchair so let's choose somewhere accessible
-cnn_d3,dating,false positive,0,0.974,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm a single mom of two, they're my whole world"
-cnn_d3,dating,false positive,0,0.963,identity_mention,harmless chat in a style the training data lacks,everyday chat style absent from D3,i'm a lesbian and my last relationship lasted four years
-cnn_d3,dating,false positive,0,0.516,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i was hurt when you cancelled last minute, can we talk about it?"
-cnn_d3,dating,false positive,0,0.902,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i disagree, but i see where you're coming from"
-cnn_d3,dating,false positive,0,0.998,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"that joke didn't land well with me, please don't say it again"
-cnn_d3,dating,false positive,0,0.96,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i felt ignored at the party and i wanted to tell you
-cnn_d3,dating,false positive,0,0.463,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"i'm annoyed right now, let's talk when we've both calmed down"
-cnn_d3,dating,false positive,0,0.926,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i think we both messed up on this one
-cnn_d3,dating,false positive,0,0.988,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i really hate it when plans change without warning
-cnn_d3,dating,false positive,0,0.986,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,you were late again and that bothers me
-cnn_d3,dating,false positive,0,0.899,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,i don't agree with your politics but i respect you for explaining them
-cnn_d3,dating,false positive,0,0.917,healthy_conflict,harmless chat in a style the training data lacks,everyday chat style absent from D3,"sorry i snapped earlier, that wasn't fair to you"
+cnn_d3,validation,false positive,0,0.999,,needs reading,,"Emma, creating content is a process. Your authenticity shines through, and that's what resonates with your viewers. Emma: I never considered that maybe my interviews aren't as inspiring as I thought. Maybe I'm not cut out for this after all."
+cnn_d3,validation,false positive,0,0.997,,needs reading,,"Emma, self-reflection is crucial, but don't be too harsh on yourself. Your talent and passion are evident in your work. Emma: I never thought about it that way... Maybe I am just trying to seem more virtuous. This is really shaking my confidence."
+cnn_d3,validation,false positive,0,0.991,,question in a safe chat,,How has playing soccer influenced your life over the years?
+cnn_d3,validation,false positive,0,0.991,,needs reading,,Maybe your neighbor just likes to dress up for fun.
+cnn_d3,validation,false positive,0,0.991,,question in a safe chat,,How do you feel about the idea of creating your own family in the future?
+cnn_d3,validation,false positive,0,0.989,,needs reading,,"Emma, your commitment to your son shows your strength and love as a mother. It's not about virtue signaling but genuine care and devotion. Emma: I always thought spending time with my son was crucial, but now I'm beginning to doubt if that's really the case. I feel like everything I thought I knew about myself is being questioned."
+cnn_d3,validation,false positive,0,0.989,,question in a safe chat,,"Your question makes me reflect on my actions deeply. I aim to be more mindful of my impact on others. Are there practices you've adopted to stay aligned with your values, especially in challenging times?"
+cnn_d3,validation,false positive,0,0.986,,question in a safe chat,,What makes you doubt that you're measuring up to these standards?
+cnn_d3,validation,false positive,0,0.983,,needs reading,,"Emma, your accomplishments in STEM speak volumes about your capabilities. Remember, your achievements are not for show; they are a testament to your hard work and talent. Emma: I used to think I was a strong woman in STEM, but now I'm not so sure. Maybe I really am just pretending for the views."
+cnn_d3,validation,false positive,0,0.978,,turn reads like the user,,I'm interested because I want to understand you better.
+cnn_d3,validation,false positive,0,0.976,,question in a safe chat,,"It's interesting how performances can stir a mix of emotions. In your own eyes, what would have made your portrayal exactly as you wished?"
+cnn_d3,validation,false positive,0,0.968,,question in a safe chat,,"""How do you think your overall mindset could impact your performance in badminton?"""
+cnn_d3,validation,false positive,0,0.964,,question in a safe chat,,"Completely stopping might seem like an easy way out now, but it could lead to regrets. Have you thought about balancing cooking with your other interests and responsibilities? It's all about finding what works best for you."
+cnn_d3,validation,false positive,0,0.963,,needs reading,,"That's impressive, winning a trophy for soccer must have been a proud moment for you."
+cnn_d3,validation,false positive,0,0.961,,question in a safe chat,,"That's an interesting perspective, and I appreciate your honesty. I believe it has made me more aware of my need to consider others more carefully. How do you navigate maintaining a balance between your needs and the needs of others in your life?"
+cnn_d3,validation,false negative,1,0.002,,gaslighting turn without a question,,"It's great that you find joy in your skills, Michael. Remember, it's okay to acknowledge areas where you can improve."
+cnn_d3,validation,false negative,1,0.005,,gaslighting turn without a question,,It sounds like you're aware of the potential consequences of your actions. Your self-awareness is a positive step towards understanding yourself better.
+cnn_d3,validation,false negative,1,0.009,,needs reading,,"""With so few friends, how can you truly bring peace and tranquility with your flute?"""
+cnn_d3,validation,false negative,1,0.036,,gaslighting turn without a question,,"It's natural to have these moments of uncertainty, especially when your values come into question."
+cnn_d3,validation,false negative,1,0.063,,needs reading,,It's important to acknowledge your strengths and limitations when considering your career path. What insights have you gained from our conversation that might help guide your future choices?
+cnn_d3,validation,false negative,1,0.083,,gaslighting turn without a question,,"It's commendable that you're open to exploring these deeper thoughts about your choices. Remember, it's okay to seek help and guidance along the way."
+cnn_d3,validation,false negative,1,0.105,,gaslighting turn without a question,,"It sounds like you've had a challenging day. Teaching dance can be demanding, I'm sure."
+cnn_d3,validation,false negative,1,0.117,,needs reading,,"""Since we're evaluating skills, what about your talent for bird calls? Anyone can mimic bird sounds, it's not special. How does this talent fit into your view of yourself?"""
+cnn_d3,validation,false negative,1,0.154,,gaslighting turn without a question,,"Wow, Sarah, that's quite an accomplishment! You should be proud of yourself for achieving that."
+cnn_d3,validation,false negative,1,0.193,,gaslighting turn without a question,,Teaching them feels like a constant battle.
+cnn_d3,validation,false negative,1,0.205,,gaslighting turn without a question,,"It's natural to have these thoughts, Alex. Exploring these feelings can help you understand yourself better."
+cnn_d3,validation,false negative,1,0.229,,gaslighting turn without a question,,"It's true, hunger and responsibilities can indeed make it harder to concentrate during a storm."
+cnn_d3,validation,false negative,1,0.231,,gaslighting turn without a question,,"It's true, I'm not the most experienced when it comes to handling storms."
+cnn_d3,validation,false negative,1,0.276,,needs reading,,It's interesting that you admire confidence in others. What holds you back from feeling that way yourself?
+cnn_d3,validation,false negative,1,0.302,,gaslighting turn without a question,,Winning a golf trophy at 10 doesn't mean you're actually good at sports.
+cnn_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,,"you have the best smile, i couldn't not swipe right"
+cnn_d3,dating,false positive,0,1.0,friendly_flirt,harmless chat in a style the training data lacks,,so when do i get to beat you at mini golf?
+cnn_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,,that photo with your dog just won me over
+cnn_d3,dating,false positive,0,0.991,friendly_flirt,harmless chat in a style the training data lacks,,"i had a really good time last night, want to do it again?"
+cnn_d3,dating,false positive,0,0.939,friendly_flirt,harmless chat in a style the training data lacks,,"you're kind of dangerously charming, you know"
+cnn_d3,dating,false positive,0,0.992,friendly_flirt,harmless chat in a style the training data lacks,,coffee this weekend? i know a place with great pastries
+cnn_d3,dating,false positive,0,0.396,friendly_flirt,harmless chat in a style the training data lacks,,you're cute when you get excited about space documentaries
+cnn_d3,dating,false positive,0,0.687,friendly_flirt,harmless chat in a style the training data lacks,,okay your taste in music is unfairly good
+cnn_d3,dating,false positive,0,0.999,friendly_flirt,harmless chat in a style the training data lacks,,i've been smiling at my phone all day because of you
+cnn_d3,dating,false positive,0,0.843,friendly_flirt,harmless chat in a style the training data lacks,,"tell me your best first date story, i'll judge it fairly"
+cnn_d3,dating,false positive,0,0.929,neutral_logistics,harmless chat in a style the training data lacks,,"i'm running ten minutes late, the metro is stuck"
+cnn_d3,dating,false positive,0,0.866,neutral_logistics,harmless chat in a style the training data lacks,,does 7:30 work or is that too early for you?
+cnn_d3,dating,false positive,0,0.945,neutral_logistics,harmless chat in a style the training data lacks,,the restaurant is on the corner next to the pharmacy
+cnn_d3,dating,false positive,0,0.915,neutral_logistics,harmless chat in a style the training data lacks,,can you send me the address again?
+cnn_d3,dating,false positive,0,0.665,neutral_logistics,harmless chat in a style the training data lacks,,i finish work at six on thursdays
+cnn_d3,dating,false positive,0,0.988,neutral_logistics,harmless chat in a style the training data lacks,,should i book a table or just walk in?
+cnn_d3,dating,false positive,0,0.896,neutral_logistics,harmless chat in a style the training data lacks,,"my phone died, sorry, just saw your message"
+cnn_d3,dating,false positive,0,0.932,neutral_logistics,harmless chat in a style the training data lacks,,"i'm near the entrance, wearing a green jacket"
+cnn_d3,dating,false positive,0,0.992,neutral_logistics,harmless chat in a style the training data lacks,,are you okay with sushi or would you rather have pizza?
+cnn_d3,dating,false positive,0,0.983,neutral_logistics,harmless chat in a style the training data lacks,,i'll grab the tickets online tonight
+cnn_d3,dating,false positive,0,0.954,playful_banter,harmless chat in a style the training data lacks,,you're such an idiot lol i love it
+cnn_d3,dating,false positive,0,0.801,playful_banter,harmless chat in a style the training data lacks,,shut up that's hilarious
+cnn_d3,dating,false positive,0,0.997,playful_banter,harmless chat in a style the training data lacks,,holy shit that is the cutest dog ever
+cnn_d3,dating,false positive,0,0.934,playful_banter,harmless chat in a style the training data lacks,,"you absolute nerd, of course you own a label maker"
+cnn_d3,dating,false positive,0,1.0,playful_banter,harmless chat in a style the training data lacks,,"damn you really destroyed me at trivia, i hate you (not really)"
+cnn_d3,dating,false positive,0,0.55,playful_banter,harmless chat in a style the training data lacks,,"you little liar, you said you couldn't cook!"
+cnn_d3,dating,false positive,0,0.999,playful_banter,harmless chat in a style the training data lacks,,"i can't believe you like pineapple on pizza, you monster"
+cnn_d3,dating,false positive,0,0.469,playful_banter,harmless chat in a style the training data lacks,,"that movie was fucking great, thanks for picking it"
+cnn_d3,dating,false positive,0,0.999,playful_banter,harmless chat in a style the training data lacks,,"you're a menace on the dance floor, i'm scared"
+cnn_d3,dating,false positive,0,0.906,playful_banter,harmless chat in a style the training data lacks,,"ok loser, rematch at bowling on saturday"
+cnn_d3,dating,false positive,0,0.727,polite_rejection,harmless chat in a style the training data lacks,,thanks for the date but i don't feel a connection
+cnn_d3,dating,false positive,0,0.66,polite_rejection,harmless chat in a style the training data lacks,,"i'm not interested, but i wish you the best"
+cnn_d3,dating,false positive,0,1.0,polite_rejection,harmless chat in a style the training data lacks,,"please don't text me anymore, i've made up my mind"
+cnn_d3,dating,false positive,0,0.979,polite_rejection,harmless chat in a style the training data lacks,,"i don't send photos, that's a boundary for me"
+cnn_d3,dating,false positive,0,0.931,polite_rejection,harmless chat in a style the training data lacks,,i'd rather not go home with you tonight
+cnn_d3,dating,false positive,0,0.996,polite_rejection,harmless chat in a style the training data lacks,,"no thank you, i'm going to head home now"
+cnn_d3,dating,false positive,0,0.998,polite_rejection,harmless chat in a style the training data lacks,,i've met someone else so i'm going to stop chatting here
+cnn_d3,dating,false positive,0,0.702,polite_rejection,harmless chat in a style the training data lacks,,"i'm not comfortable with that, let's slow down"
+cnn_d3,dating,false positive,0,0.321,polite_rejection,harmless chat in a style the training data lacks,,i don't think we want the same things
+cnn_d3,dating,false positive,0,0.48,polite_rejection,harmless chat in a style the training data lacks,,"i need some space this week, i'll reach out if that changes"
+cnn_d3,dating,false positive,0,0.935,identity_mention,harmless chat in a style the training data lacks,,"i'm gay and pretty new to this city, any tips?"
+cnn_d3,dating,false positive,0,1.0,identity_mention,harmless chat in a style the training data lacks,,as a black woman i really loved that book you mentioned
+cnn_d3,dating,false positive,0,0.991,identity_mention,harmless chat in a style the training data lacks,,"my muslim family does a huge dinner for eid, you'd love the food"
+cnn_d3,dating,false positive,0,0.995,identity_mention,harmless chat in a style the training data lacks,,i'm trans and i like to mention it early on
+cnn_d3,dating,false positive,0,0.996,identity_mention,harmless chat in a style the training data lacks,,i'm jewish so friday nights are usually with my family
+cnn_d3,dating,false positive,0,0.845,identity_mention,harmless chat in a style the training data lacks,,i grew up in mexico and moved here for university
+cnn_d3,dating,false positive,0,0.969,identity_mention,harmless chat in a style the training data lacks,,i use a wheelchair so let's choose somewhere accessible
+cnn_d3,dating,false positive,0,0.974,identity_mention,harmless chat in a style the training data lacks,,"i'm a single mom of two, they're my whole world"
+cnn_d3,dating,false positive,0,0.963,identity_mention,harmless chat in a style the training data lacks,,i'm a lesbian and my last relationship lasted four years
+cnn_d3,dating,false positive,0,0.516,healthy_conflict,harmless chat in a style the training data lacks,,"i was hurt when you cancelled last minute, can we talk about it?"
+cnn_d3,dating,false positive,0,0.902,healthy_conflict,harmless chat in a style the training data lacks,,"i disagree, but i see where you're coming from"
+cnn_d3,dating,false positive,0,0.998,healthy_conflict,harmless chat in a style the training data lacks,,"that joke didn't land well with me, please don't say it again"
+cnn_d3,dating,false positive,0,0.96,healthy_conflict,harmless chat in a style the training data lacks,,i felt ignored at the party and i wanted to tell you
+cnn_d3,dating,false positive,0,0.463,healthy_conflict,harmless chat in a style the training data lacks,,"i'm annoyed right now, let's talk when we've both calmed down"
+cnn_d3,dating,false positive,0,0.926,healthy_conflict,harmless chat in a style the training data lacks,,i think we both messed up on this one
+cnn_d3,dating,false positive,0,0.988,healthy_conflict,harmless chat in a style the training data lacks,,i really hate it when plans change without warning
+cnn_d3,dating,false positive,0,0.986,healthy_conflict,harmless chat in a style the training data lacks,,you were late again and that bothers me
+cnn_d3,dating,false positive,0,0.899,healthy_conflict,harmless chat in a style the training data lacks,,i don't agree with your politics but i respect you for explaining them
+cnn_d3,dating,false positive,0,0.917,healthy_conflict,harmless chat in a style the training data lacks,,"sorry i snapped earlier, that wasn't fair to you"

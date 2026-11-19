@@ -199,68 +199,7 @@ On D3 itself fine-tuned DistilBERT is reliably best (+0.015 F1 over the CNN, int
 
 ### 5.4 Error analysis
 
-**Method.** We read the mistakes of the CNN and fine-tuned DistilBERT on each topic. For each model we took its 15 most confident false positives and 15 most confident false negatives on validation data (120 messages in total), plus every mistake on the 120 development dating messages (56–59 per model). We read the full text and gave each mistake one cause. Causes and counts are in `results/errors/<model>.csv` (column `team_cause`) and `results/errors/team_cause_counts.csv`. The other eight models' mistakes are summarised by their draft causes in `results/errors/summary.csv`.
-
-**Toxic language: the 30 most confident validation mistakes per model.**
-
-| Cause | CNN | DistilBERT ft |
-|---|---:|---:|
-| *False positives (15 each)* | | |
-| Label noise: an insult or hate labelled not toxic | 8 | 10 |
-| Rude word, not an attack | 6 | 5 |
-| Identity word | 1 | 0 |
-| *False negatives (15 each)* | | |
-| Hostility without rude words | 6 | 8 |
-| Toxic part after the 128-token cut | 6 | 1 |
-| Label noise: a harmless comment labelled toxic | 2 | 6 |
-| Sexual reference without rude words | 1 | 0 |
-
-1. **Many "mistakes" are label noise.** Most of the most confident false alarms are real insults or hate speech that D1 labels not toxic: "Overpaid, childish, Morons" (CNN 1.00, DistilBERT 0.998), a long comment that ends "You are an idiot.", and an openly hateful comment about Muslims. In the other direction, comments that read as ordinary opinion are labelled toxic ("Let's hit it, Jake"). That is 10 of the CNN's 30 most confident mistakes and 16 of fine-tuned DistilBERT's. On these the model is right and the label is wrong, so the D1 F1 scores slightly understate both models.
-2. **Rude words without an attack.** "Just another bad ass Alaska Chick, you make us proud!" (≥ 0.996 for both), "This must be an April Fools joke, Right?" (CNN 0.998) and "gold certificates are fools gold" are flagged because of single words.
-3. **Hostility without rude words.** This is fine-tuned DistilBERT's main miss: "I pray one day you'll have something intelligent to say" (0.001), "You and your ilk are very, very sad..." (0.003), "Wrong again comrade RTH! ... Stop spreading untruths". Sarcasm and contempt carry no rude word.
-4. **Truncation, a cause the automatic draft missed.** In 6 of the CNN's 15 most confident misses, the only rude words come after the 128-word cut; for example, in one 181-word comment "bull shit" first appears at word 134. The model never saw the toxic part. This does not affect dating messages (at most 15 words), but on long comments scoring overlapping windows and keeping the maximum would fix it.
-5. **Dating messages repeat the pattern.** Both models miss all 10 polite put-downs and all 10 threats on the development set, and 27–30 messages whose harm type is absent from D1's labels (guilt, sexual pressure, gaslighting). Their false alarms are friendly banter with insult words (CNN 5, DistilBERT 9) and one identity mention ("as a black woman i really loved that book you mentioned", DistilBERT). Fine-tuned DistilBERT is more confident when wrong: most put-downs and threats score about 0.001, against 0.05–0.42 for the CNN.
-
-**Gaslighting: the 30 most confident validation mistakes per model.**
-
-| Cause | CNN | DistilBERT ft |
-|---|---:|---:|
-| *False positives (15 each)* | | |
-| Safe question that sounds probing | 9 | 12 |
-| Assistant turn includes the user's reply | 4 | 0 |
-| Safe turn in a gaslighting-like style or topic | 2 | 2 |
-| No clear cause | 0 | 1 |
-| *False negatives (15 each)* | | |
-| Label noise: a harmless turn in a gaslighting chat | 9 | 4 |
-| Undermining framed as a subtle question | 3 | 6 |
-| Plain put-down, no question | 1 | 4 |
-| Turn reads like the user | 2 | 1 |
-
-6. **Probing questions drive the false alarms.** "How has playing soccer influenced your life over the years?" (CNN 0.991) and "What is it about koalas that makes them your favorite animal?" (DistilBERT 0.958) are safe, but D3's gaslighting assistant asks about the user's inner life, so the models learned "probing question = gaslighting".
-7. **Two data artefacts.** Four of the CNN's most confident false alarms are assistant turns with the user's reply pasted in ("Emma, creating content is a process... *Emma: I never considered that maybe my interviews aren't as inspiring as I thought. Maybe I'm not cut out for this after all.*", 0.999). The user's self-doubt, not the assistant's words, raises the score. And because D3 labels whole chats, supportive turns inside a gaslighting chat count as gaslighting: "Wow, Sarah, that's quite an accomplishment! You should be proud of yourself" (CNN 0.154). These are 9 of the CNN's 15 most confident misses. A per-message model should not flag them.
-8. **The most telling miss.** Fine-tuned DistilBERT misses blunt undermining: "You can't be relied upon to follow through with anything you say." (0.001) and "You're always letting yourself and others down." (0.009). D3's gaslighting is mostly soft, probing questions, so a plain statement does not look like gaslighting to the model. Plain statements are exactly how a partner gaslights in our dating messages, which helps explain the failure to transfer.
-9. **Dating messages.** The D3-only models flag 59 (CNN) and 55 (DistilBERT) of the 60 harmless development messages, e.g. "so when do i get to beat you at mini golf?" (1.00 and 0.999). DistilBERT also misses "you're making a big deal out of nothing, as usual" (0.005).
-
-**Summary.** The toxic models read vocabulary, not intent: their real weaknesses are hostility without rude words and rude words without hostility, and a third to a half of their most confident mistakes are label noise in D1. The gaslighting models learned the therapy setting (probing questions) and two dataset artefacts (pasted user replies, chat-level labels), not the act of undermining someone.
-
-**Three examples per model for the slides:**
-
-| Model | Message | Truth | Score | Cause |
-|---|---|---|---:|---|
-| CNN, toxic | "Overpaid, childish, Morons" | not toxic (D1 label) | 1.00 | label noise |
-| CNN, toxic | 181-word comment, "bull shit" at word 134 | toxic | 0.03 | after the 128-word cut |
-| CNN, toxic | "honestly you're lucky i lowered my standards this month" | put-down | 0.05 | put-down in polite words |
-| DistilBERT ft, toxic | "Just another bad ass Alaska Chick, you make us proud!" | not toxic | 1.00 | rude word, not an attack |
-| DistilBERT ft, toxic | "I pray one day you'll have something intelligent to say" | toxic | 0.001 | hostility without rude words |
-| DistilBERT ft, toxic | "you'll regret ignoring me" | threat | 0.001 | threat without insult words |
-| CNN, gaslighting | "How has playing soccer influenced your life over the years?" | safe | 0.99 | probing question |
-| CNN, gaslighting | "Emma, creating content is a process... Emma: ... Maybe I'm not cut out for this" | safe | 1.00 | user's reply pasted in |
-| CNN, gaslighting | "Wow, Sarah, that's quite an accomplishment! You should be proud..." | gaslighting (chat label) | 0.15 | chat-level label noise |
-| DistilBERT ft, gaslighting | "You can't be relied upon to follow through with anything you say." | gaslighting | 0.001 | plain put-down |
-| DistilBERT ft, gaslighting | "What is it about koalas that makes them your favorite animal?" | safe | 0.96 | probing question |
-| DistilBERT ft, gaslighting | "so when do i get to beat you at mini golf?" | harmless dating | 1.00 | everyday chat style absent from D3 |
-
-*Limitation of this analysis:* one reader assigned each cause, and some cases are judgement calls, e.g. whether "daft twerp" about a politician is toxic. A second reader checking a sample would make the counts more robust.
+**[TEAM: to write. Read the CNN and fine-tuned DistilBERT mistakes on each topic in `results/errors/` (`cnn_d1.csv`, `distilbert_finetuned_d1.csv`, `cnn_d3.csv`, `distilbert_finetuned_d3.csv`), fill the `team_cause` column, count the causes per model, and give the findings with three examples per model.]**
 
 ### 5.5 Discussion
 
@@ -344,7 +283,7 @@ A human always decides; the business version only ranks messages for review. The
 | Alexander Glapiak | Contact person; proposal and 5 November check-in; D1 loader fix; executive summary and conclusions (§1, §8); final edit of the report; code zip and Blackboard submission; organised the rehearsals | Slides 1, 3 |
 | Alp Kurtbolat | Trained, tuned and evaluated all twelve models; EDA notebook 03; error export; one-time final run; app v1; wrote dating messages S121–S200; methodology and results sections (§4, §5) | Slides 6, 8 |
 | Raya Metchkarova | Business case (§2): checked every source in `BUSINESS_SOURCES.md`, chose the market and harassment figures, and wrote the users, value proposition, competitors and business model | Slides 2, 11 |
-| Milan Josifovikj | Responsible AI and limitations (§7); second reader of the error analysis, checking 20 of the assigned causes against the messages; leakage and evaluation explanation for the slides | Slides 7, 9 |
+| Milan Josifovikj | Responsible AI and limitations (§7); leakage and evaluation explanation for the slides | Slides 7, 9 |
 | Aysel Zeynalova | Data section (§3): dataset descriptions, EDA figures and preprocessing; designed the slide deck in the check-in style | Slides 4, 5 |
 | Sacha Benayoun | Prototype section (§6) with own screenshots and the live demo; assembled the report PDF (figures, tables, references, page limit); Q&A preparation sheet | Slides 10, 12 |
 
@@ -359,7 +298,7 @@ We used Claude (Anthropic), mainly through Claude Code, as follows:
 - **Code:** Claude drafted the package code (`data.py`, `validation.py`, `baseline.py`, `evaluate.py`, `chat.py`, `cnn.py`, `transformer.py`, `errors.py`, `final.py`, `app.py`), the tests, and EDA notebook 03, and it ran the training of all twelve models, the hyperparameter grids, the leakage checks and the one-time final run. Team members decided what to build, reviewed the results and must each be able to explain the code they present.
 - **Data:** Claude drafted dating messages S001–S120 (development set). Alp wrote S121–S200 (final test) without AI, and the group reviewed the labels.
 - **Writing:** Claude drafted the READMEs, the project guide, the draft error causes and the business case framing. **[TEAM: list any AI help with this report, the slides and the business sources, and what each member wrote themselves.]**
-- **Error analysis:** **[TEAM: say who read the four main models' mistakes and assigned each cause (`team_cause`), and any AI help used. Milan checked a sample of 20 as a second reader; record how many causes changed.]**
+- **Error analysis:** **[TEAM: say who read the mistakes and assigned the causes (`team_cause`), and any AI help used.]**
 - **Not AI:** the research question, the scope decisions (two topics, the D3 + everyday variant, the final-test protocol) and the labelling review **[TEAM: confirm]**.
 
 External code and models used: DistilBERT (`distilbert-base-uncased`, Hugging Face), GloVe 6B vectors (Stanford NLP), scikit-learn, PyTorch, Hugging Face Transformers and Gradio.
