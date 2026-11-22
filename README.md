@@ -15,11 +15,11 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 | Package structure and tests | Done, 52 tests |
 | EDA on D1, D3 and the dating messages | Done (`notebooks/03_eda_d1_d3.ipynb`) |
 | TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus all four gaslighting models trained again on D3 with everyday messages |
-| Error analysis | Mistakes exported per model; the team is reading them |
+| Error analysis | Done: mistakes exported per model (`results/<model>/dating_errors.csv`) and grouped by cause in the report |
 | Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
 | Final test runs | Done once, 18 November, from commit `4add43c` |
 | Prototype | v1 gives a toxic and a gaslighting score from the CNN models. v2 (next step): a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
-| Report and slides (due 24 November) | In progress |
+| Report and slides | Submitted separately on Blackboard, 24 November |
 
 ## Final results
 
