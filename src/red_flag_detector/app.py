@@ -78,13 +78,49 @@ STYLE = """
 </style>
 """
 
-NOTE = (
-    "Support tool only. Only the toxic score raises flags. It catches explicit insults but misses most "
-    "put-downs and threats, so a message with no flag can still be harmful. The gaslighting score is "
-    "experimental and raises no flags: its training chats come from a therapy setting, and on our final "
-    "dating test it did no better than chance. Scores are model outputs, not calibrated "
-    "chances. If you feel unsafe, trust that feeling and talk to someone you trust or a local support service."
-)
+GUIDE_STYLE = """
+<style>
+.rf .guide h3{margin:16px 0 6px}.rf .guide h3:first-child{margin-top:0}
+.rf .guide p,.rf .guide li{font:14px/1.5 system-ui,sans-serif;color:var(--ink)!important;margin:0 0 6px}
+.rf .guide ul{margin:0 0 4px;padding-left:18px}
+.rf .key{display:flex;align-items:flex-start;gap:10px;margin:0 0 8px;font:14px/1.45 system-ui,sans-serif;color:var(--ink)!important}
+.rf .swatch{flex:none;width:14px;height:14px;border-radius:4px;margin-top:3px;background:var(--bubble)}
+.rf .swatch.flag{background:var(--red-bg);box-shadow:inset 3px 0 0 var(--red)}
+.rf .swatch.watch{background:var(--amber-bg);box-shadow:inset 3px 0 0 #d99a1c}
+.rf .guide .safety{border-top:1px solid var(--line);padding-top:10px;margin-top:12px;color:var(--muted)!important}
+</style>
+"""
+
+
+def guide_html(threshold: float) -> str:
+    """The breakdown shown under the buttons: what the colours mean and where the model goes wrong."""
+    return (
+        f'{STYLE}{GUIDE_STYLE}<div class="rf guide">'
+        "<h3>How to read the result</h3>"
+        f'<div class="key"><span class="swatch flag"></span><span><b>Red flag</b>: toxic score of {threshold:.2f} '
+        "or more. Only the toxic model raises flags.</span></div>"
+        f'<div class="key"><span class="swatch watch"></span><span><b>Worth a look</b>: toxic score between 0.50 and '
+        f"{threshold:.2f}.</span></div>"
+        '<div class="key"><span class="swatch"></span><span><b>No flag</b>: toxic score under 0.50. '
+        "This does not mean the message is safe.</span></div>"
+        "<p>On flagged messages, the highlighted words are the ones that pushed the score up.</p>"
+        "<h3>What it catches</h3>"
+        "<ul><li>Explicit insults and swearing aimed at the other person.</li></ul>"
+        "<h3>What it misses</h3>"
+        "<ul><li>Polite threats, such as \"i know where you work\".</li>"
+        "<li>Put-downs without swear words, such as \"nobody else is going to want you\".</li>"
+        "<li>Guilt-tripping and controlling messages.</li></ul>"
+        "<h3>False alarms</h3>"
+        "<ul><li>Friendly banter with rude words, such as \"loser buys drinks\".</li>"
+        "<li>People naming their own identity, such as \"as a gay guy\".</li></ul>"
+        "<h3>Gaslighting score</h3>"
+        "<p>Experimental, shown in grey and never flags. Its training chats come from a therapy setting, "
+        "and on our final dating test it did no better than chance.</p>"
+        "<h3>Scores</h3>"
+        "<p>Scores are model outputs, not calibrated chances.</p>"
+        '<p class="safety">Support tool only. If you feel unsafe, trust that feeling and talk to someone you trust '
+        "or a local support service.</p></div>"
+    )
 
 CSS_CLASS = {"red flag": "flag", "worth a look": "watch"}
 
@@ -229,7 +265,7 @@ def render_report(
         f'{STYLE}<div class="rf">{scoreboard}<h3>Who said what</h3><div class="senders">{_senders_html(reports)}</div>'
         f"<h3>Scores across the chat</h3>{timelines}"
         f'<div class="axis">First message to last. Taller means a higher score.</div>'
-        f'<h3>Messages</h3>{messages}<div class="note">{html.escape(NOTE)}</div></div>'
+        f"<h3>Messages</h3>{messages}</div>"
     )
 
 
@@ -281,6 +317,7 @@ def build_app(model_paths: dict[str, Path] | None = None) -> gr.Blocks:
                 generate = gr.Button("Generate a random chat")
                 button = gr.Button("Check this chat", variant="primary")
                 truth = gr.Button("Reveal the truth")
+                gr.HTML(guide_html(scorers["toxic"][1]) if "toxic" in scorers else "")
             with gr.Column(scale=3):
                 output = gr.HTML(analyse(SAMPLE_CHAT))
         generate.click(new_chat, outputs=[chat, game, output])
