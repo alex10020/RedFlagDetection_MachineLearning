@@ -103,6 +103,8 @@ Raw data stays out of Git. All datasets contain offensive language. See [data/RE
 
 ## Reproduce the results
 
+The EDA is in `notebooks/eda.ipynb`: open it with `jupyter notebook notebooks/eda.ipynb` after downloading the data (see Get the data), then run all cells. A short summary of the final results is in `results/summary.md`.
+
 ```bash
 pytest -q
 python -m red_flag_detector.baseline --dataset d1      # TF-IDF, toxic
