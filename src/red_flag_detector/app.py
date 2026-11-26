@@ -80,14 +80,15 @@ STYLE = """
 
 GUIDE_STYLE = """
 <style>
-.rf .guide h3{margin:16px 0 6px}.rf .guide h3:first-child{margin-top:0}
-.rf .guide p,.rf .guide li{font:14px/1.5 system-ui,sans-serif;color:var(--ink)!important;margin:0 0 6px}
-.rf .guide ul{margin:0 0 4px;padding-left:18px}
+.rf.guide h3{margin:16px 0 6px}.rf.guide h3:first-child{margin-top:0}
+.rf.guide p,.rf.guide li{font:14px/1.5 system-ui,sans-serif;color:var(--ink)!important;margin:0 0 6px}
+.rf.guide ul{margin:0 0 4px;padding-left:18px}
 .rf .key{display:flex;align-items:flex-start;gap:10px;margin:0 0 8px;font:14px/1.45 system-ui,sans-serif;color:var(--ink)!important}
+.rf.guide b,.rf.guide span,.rf.guide h3{color:var(--ink)!important}
 .rf .swatch{flex:none;width:14px;height:14px;border-radius:4px;margin-top:3px;background:var(--bubble)}
 .rf .swatch.flag{background:var(--red-bg);box-shadow:inset 3px 0 0 var(--red)}
 .rf .swatch.watch{background:var(--amber-bg);box-shadow:inset 3px 0 0 #d99a1c}
-.rf .guide .safety{border-top:1px solid var(--line);padding-top:10px;margin-top:12px;color:var(--muted)!important}
+.rf.guide .safety{border-top:1px solid var(--line);padding-top:10px;margin-top:12px;color:var(--muted)!important}
 </style>
 """
 

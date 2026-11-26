@@ -6,19 +6,19 @@ Red Flag Detector looks for two things in dating-app chats: toxic language and g
 
 IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp Kurtbolat, Raya Metchkarova, Milan Josifovikj, Aysel Zeynalova, Sacha Benayoun.
 
-![Prototype v1: each message gets a toxic and a gaslighting score](results/prototype_v1.jpg)
+![The app's Red flag or not? game after Reveal the truth](results/prototype_game.jpg)
 
 ## Status
 
 | Part | State |
 |---|---|
-| Package structure and tests | Done, 52 tests |
+| Package structure and tests | Done, 57 tests |
 | EDA on D1, D2, D3 and the dating messages | Done (`notebooks/eda.ipynb`) |
 | TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus all four gaslighting models trained again on D3 with everyday messages |
 | Error analysis | Done: mistakes exported per model (`results/<model>/dating_errors.csv`) and grouped by cause in the report |
 | Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
 | Final test runs | Done once, 18 November, from commit `4add43c` |
-| Prototype | v1 gives a toxic and a gaslighting score from the CNN models. v2 (next step): a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
+| Prototype | Gives a toxic and a gaslighting score from the CNN models, plus a "Red flag or not?" game with generated chats. Next step: a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
 | Report and slides | Submitted separately on Blackboard |
 
 ## Final results
@@ -87,6 +87,8 @@ python -m red_flag_detector.app
 
 Open http://127.0.0.1:7860 and paste a chat with one `Name: message` per line. Each message gets two scores, toxic language and gaslighting, from our CNN models in `models/`, so you do not need any data to run it. Highlighted words are the ones that raised a flagged score most.
 
+For a class demo, press **Generate a random chat**, let people vote on which messages are red flags, press **Check this chat**, then **Reveal the truth**. Each message is then marked caught, missed, false alarm or correctly left alone. The chats come from eight scenarios in `generator.py`, written for the demo and separate from the dating test set.
+
 Only the toxic score raises flags. The gaslighting score appears as a grey number marked experimental and never flags a message. It comes from the CNN trained on D3 plus everyday messages, which ranks our final dating messages at chance level (see Final results). Without PyTorch the app falls back to the TF-IDF baselines. To try other saved models, pass `--toxic-model` or `--gaslighting-model` with a `.pt` or `.joblib` file.
 
 ## Get the data
@@ -150,6 +152,7 @@ Claude drafted messages S001 to S120, which we use as a development set. A team 
 │   ├── final.py            the one-time final run on all test sets
 │   ├── chat.py             chat parsing and word effects
 │   ├── plots.py            chart style
+│   ├── generator.py        random chats for the app's game
 │   └── app.py              Gradio prototype
 └── tests/
 ```
