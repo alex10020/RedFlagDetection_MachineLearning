@@ -14,7 +14,8 @@ import gradio as gr
 import joblib
 import numpy as np
 
-from .chat import MIN_WORD_EFFECT, ScoredMessage, Scorer, score_chat
+from .chat import MIN_WORD_EFFECT, ScoredMessage, Scorer, parse_chat, score_chat
+from .generator import HARMLESS, generate_chat
 
 MODELS_DIR = Path(__file__).resolve().parents[2] / "models"
 TOPICS = {"toxic": "Toxic", "gaslighting": "Gaslighting"}
@@ -65,6 +66,15 @@ STYLE = """
 .rf .tag .flag{color:var(--red)!important}.rf .tag .watch{color:var(--amber)!important}
 .rf .note{font:13px/1.5 system-ui,sans-serif;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
 .rf .empty{font:15px system-ui,sans-serif;color:var(--muted)}
+.rf .truth{font:12px system-ui,sans-serif;margin-top:4px;color:var(--muted)}
+.rf .pill{display:inline-block;border-radius:999px;padding:1px 9px;font-weight:600;margin-right:6px}
+.rf .pill.caught{background:#dcf1e2;color:#1e6b38!important}.rf .pill.missed{background:var(--red-bg);color:var(--red)!important}
+.rf .pill.false{background:var(--amber-bg);color:var(--amber)!important}.rf .pill.ok{background:#ece6de;color:var(--muted)!important}
+.rf .score{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+.rf .score div{flex:1;min-width:120px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:13px/1.3 system-ui,sans-serif;color:var(--muted)!important}
+.rf .score b{display:block;font-size:26px;color:var(--ink)!important}
+.rf .scenario{font:14px system-ui,sans-serif;color:var(--muted)!important;margin:0 0 10px}
+.rf .scenario b{color:var(--ink)!important}
 </style>
 """
 
@@ -116,7 +126,22 @@ def _tag(topic: str, message: ScoredMessage) -> str:
     return f"{TOPICS[topic]}: {text} · {message.score:.2f}"
 
 
-def _message_html(by_topic: dict[str, ScoredMessage]) -> str:
+def _outcome(truth: str, flagged: bool) -> tuple[str, str]:
+    """Compare a message's true label with the toxic red flag."""
+    if truth == HARMLESS:
+        return ("false", "False alarm") if flagged else ("ok", "Correctly left alone")
+    if flagged:
+        return "caught", "Caught"
+    if truth == "gaslighting":
+        return "missed", "Missed (the gaslighting score never flags)"
+    return "missed", "Missed"
+
+
+def _flagged(by_topic: dict[str, ScoredMessage]) -> bool:
+    return any(m.level == "red flag" for topic, m in by_topic.items() if topic not in EXPERIMENTAL)
+
+
+def _message_html(by_topic: dict[str, ScoredMessage], truth: str | None = None) -> str:
     first = next(iter(by_topic.values()))
     flagging = {topic: m for topic, m in by_topic.items() if topic not in EXPERIMENTAL}
     worst = max((m.level for m in flagging.values()), key=LEVEL_ORDER.get, default="no flag")
@@ -127,9 +152,27 @@ def _message_html(by_topic: dict[str, ScoredMessage]) -> str:
             marked |= {i for i, (_, effect) in enumerate(message.word_effects) if effect >= MIN_WORD_EFFECT}
     words = [f"<mark>{html.escape(w)}</mark>" if i in marked else html.escape(w) for i, w in enumerate(first.text.split())]
     tags = " &nbsp;|&nbsp; ".join(_tag(topic, message) for topic, message in by_topic.items())
+    truth_html = ""
+    if truth is not None:
+        css, outcome = _outcome(truth, _flagged(by_topic))
+        truth_html = f'<div class="truth"><span class="pill {css}">{outcome}</span>Really: {html.escape(truth)}</div>'
     return (
         f'<div class="msg {CSS_CLASS.get(worst, "")}"><div class="who">{html.escape(first.sender)}</div>'
-        f'<div class="bubble">{" ".join(words)}</div><div class="tag">{tags}</div></div>'
+        f'<div class="bubble">{" ".join(words)}</div><div class="tag">{tags}</div>{truth_html}</div>'
+    )
+
+
+def _scoreboard_html(rows: list[dict[str, ScoredMessage]], truths: list[str], title: str | None) -> str:
+    flagged = [_flagged(row) for row in rows]
+    harmful = [truth != HARMLESS for truth in truths]
+    caught = sum(f and h for f, h in zip(flagged, harmful))
+    false_alarms = sum(f and not h for f, h in zip(flagged, harmful))
+    scenario = f'<p class="scenario">Scenario: <b>{html.escape(title)}</b></p>' if title else ""
+    return (
+        f'<h3>The truth</h3>{scenario}<div class="score">'
+        f"<div><b>{caught} / {sum(harmful)}</b>harmful messages caught</div>"
+        f"<div><b>{sum(harmful) - caught}</b>harmful messages missed</div>"
+        f"<div><b>{false_alarms}</b>false alarms on {len(truths) - sum(harmful)} harmless messages</div></div>"
     )
 
 
@@ -144,7 +187,7 @@ def _senders_html(reports: dict[str, list[ScoredMessage]]) -> str:
     ordered = sorted(rows.items(), key=lambda item: (-sum(item[1][t] for t in counted), item[0]))
     return "".join(
         f'<div class="sender"><b>{html.escape(sender)}</b>'
-        + "".join(f"{row[t]} {TOPICS[t].lower()} flags · " for t in counted)
+        + "".join(f"{row[t]} {TOPICS[t].lower()} flag{'' if row[t] == 1 else 's'} · " for t in counted)
         + f'{row["messages"]} messages</div>'
         for sender, row in ordered
     )
@@ -161,19 +204,29 @@ def _timeline_html(topic: str, report: list[ScoredMessage]) -> str:
     return f'<div class="row-label">{label}</div><div class="timeline">{ticks}</div>'
 
 
-def render_report(reports: dict[str, list[ScoredMessage]] | list[ScoredMessage]) -> str:
-    """Build the report as HTML. All chat text passes through html.escape."""
+def render_report(
+    reports: dict[str, list[ScoredMessage]] | list[ScoredMessage],
+    truths: list[str] | None = None,
+    title: str | None = None,
+) -> str:
+    """Build the report as HTML. All chat text passes through html.escape.
+
+    With truths (one true label per message, from a generated chat), each message also shows whether the
+    toxic flag caught it, missed it or raised a false alarm, under a scoreboard.
+    """
     if isinstance(reports, list):
         reports = {"toxic": reports}
     first = next(iter(reports.values()), [])
     if not first:
         return f'{STYLE}<div class="rf"><p class="empty">Paste a chat to see the report.</p></div>'
-    messages = "".join(
-        _message_html({topic: report[i] for topic, report in reports.items()}) for i in range(len(first))
-    )
+    rows = [{topic: report[i] for topic, report in reports.items()} for i in range(len(first))]
+    if truths is not None and len(truths) != len(rows):
+        truths = None
+    messages = "".join(_message_html(row, truths[i] if truths else None) for i, row in enumerate(rows))
     timelines = "".join(_timeline_html(topic, report) for topic, report in reports.items())
+    scoreboard = _scoreboard_html(rows, truths, title) if truths else ""
     return (
-        f'{STYLE}<div class="rf"><h3>Who said what</h3><div class="senders">{_senders_html(reports)}</div>'
+        f'{STYLE}<div class="rf">{scoreboard}<h3>Who said what</h3><div class="senders">{_senders_html(reports)}</div>'
         f"<h3>Scores across the chat</h3>{timelines}"
         f'<div class="axis">First message to last. Taller means a higher score.</div>'
         f'<h3>Messages</h3>{messages}<div class="note">{html.escape(NOTE)}</div></div>'
@@ -187,26 +240,52 @@ def build_app(model_paths: dict[str, Path] | None = None) -> gr.Blocks:
         model_name = "custom models"
     scorers = {topic: load_scorer(path) for topic, path in model_paths.items()}
 
-    def analyse(chat: str) -> str:
+    def score_all(chat: str) -> dict[str, list[ScoredMessage]]:
         reports = {}
         for topic, (scorer, threshold) in scorers.items():
             # An infinite threshold means an experimental score never reaches "red flag"; render_report ignores its level.
             reports[topic] = score_chat(chat, scorer, float("inf") if topic in EXPERIMENTAL else threshold)
-        return render_report(reports)
+        return reports
+
+    def analyse(chat: str) -> str:
+        return render_report(score_all(chat))
+
+    def new_chat() -> tuple[str, dict, str]:
+        generated = generate_chat()
+        waiting = (
+            f'{STYLE}<div class="rf"><p class="empty">New chat with <b>{len(generated.truths)} messages</b>. '
+            "Which ones are red flags? Vote, then press <b>Check this chat</b>.</p></div>"
+        )
+        return generated.text, {"text": generated.text, "truths": generated.truths, "title": generated.title}, waiting
+
+    def reveal(chat: str, game: dict | None) -> str:
+        if not game or chat.strip() != game["text"].strip() or len(parse_chat(chat)) != len(game["truths"]):
+            return (
+                f'{STYLE}<div class="rf"><p class="empty">The truth is only known for generated chats. '
+                "Press <b>Generate a random chat</b> first and leave the chat unedited.</p></div>"
+            )
+        return render_report(score_all(chat), game["truths"], game["title"])
 
     with gr.Blocks(title="Red Flag Detector", analytics_enabled=False) as app:
         gr.Markdown(
             "# Red Flag Detector\nPaste a dating chat, one message per line as `Name: message`. "
             "WhatsApp exports work too. We do not save your chat. "
-            f"Each message gets a toxic-language score and a gaslighting score from our {model_name}."
+            f"Each message gets a toxic-language score and a gaslighting score from our {model_name}.\n\n"
+            "**Red flag or not?** Generate a random chat, let everyone vote on which messages are red flags, "
+            "check it, then reveal the truth."
         )
+        game = gr.State(None)
         with gr.Row():
             with gr.Column(scale=2):
                 chat = gr.Textbox(label="Chat", value=SAMPLE_CHAT, lines=16)
+                generate = gr.Button("Generate a random chat")
                 button = gr.Button("Check this chat", variant="primary")
+                truth = gr.Button("Reveal the truth")
             with gr.Column(scale=3):
                 output = gr.HTML(analyse(SAMPLE_CHAT))
+        generate.click(new_chat, outputs=[chat, game, output])
         button.click(analyse, inputs=chat, outputs=output)
+        truth.click(reveal, inputs=[chat, game], outputs=output)
     return app
 
 

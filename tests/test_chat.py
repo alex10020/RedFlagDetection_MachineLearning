@@ -61,7 +61,7 @@ def test_report_shows_both_scores_and_counts_flags_per_topic():
     }
     page = render_report(reports)
     assert "Toxic:" in page and "Gaslighting (experimental, not reliable on dating chats): 0.10" in page
-    assert "1 toxic flags · 1 messages" in page and "gaslighting flags" not in page
+    assert "1 toxic flag · 1 messages" in page and "gaslighting flags" not in page
     assert "<mark>awful</mark>" in page
 
 
