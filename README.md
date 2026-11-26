@@ -13,13 +13,13 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 | Part | State |
 |---|---|
 | Package structure and tests | Done, 52 tests |
-| EDA on D1, D3 and the dating messages | Done (`notebooks/03_eda_d1_d3.ipynb`) |
+| EDA on D1, D2, D3 and the dating messages | Done (`notebooks/eda.ipynb`) |
 | TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus all four gaslighting models trained again on D3 with everyday messages |
 | Error analysis | Done: mistakes exported per model (`results/<model>/dating_errors.csv`) and grouped by cause in the report |
 | Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
 | Final test runs | Done once, 18 November, from commit `4add43c` |
 | Prototype | v1 gives a toxic and a gaslighting score from the CNN models. v2 (next step): a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
-| Report and slides | Submitted separately on Blackboard, 24 November |
+| Report and slides | Submitted separately on Blackboard |
 
 ## Final results
 
@@ -135,7 +135,7 @@ Claude drafted messages S001 to S120, which we use as a development set. A team 
 ```
 ├── data/                   dating messages, writer brief, download instructions
 ├── models/                 saved models (fine-tuned DistilBERT excluded)
-├── notebooks/              01 EDA on D2, 03 EDA on D1 and D3
+├── notebooks/              eda.ipynb: EDA on D1, D2, D3 and the dating messages
 ├── results/                metrics, figures and mistakes per model
 ├── src/red_flag_detector/
 │   ├── data.py             loaders and splits for D1, D2, D3 and the dating messages
@@ -158,7 +158,7 @@ The app supports a person's own judgement and makes no decisions for them. A low
 
 ## AI use
 
-We used Claude (Anthropic) to write the package code, tests, prototype, notebooks and this README, to run the training, and to draft version 0.1 of the dating test. Every team member needs to review and be able to explain this work. The report gives the full declaration.
+We used Claude (Anthropic) to write the package code, tests, prototype, the EDA notebook and this README, to run the training, and to draft version 0.1 of the dating test. Every team member needs to review and be able to explain this work. The report gives the full declaration.
 
 ## References
 
