@@ -133,11 +133,11 @@ Fine-tuned DistilBERT weights are 265 MB each, so Git ignores them. Run the fine
 
 ## The dating messages
 
-Claude drafted messages S001 to S120, which we use as a development set. A team member wrote S121 to S200 following [data/labelling/WRITER_BRIEF.md](data/labelling/WRITER_BRIEF.md), and the group reviewed them together and agreed with every label. We did not have two people label independently, so we report no inter-annotator agreement.
+Messages S001 to S120 are a development set. A team member wrote S121 to S200, and the group reviewed them together and agreed with every label. We did not have two people label independently, so we report no inter-annotator agreement.
 ## Project layout
 
 ```
-├── data/                   dating messages, writer brief, download instructions
+├── data/                   dating messages, download instructions
 ├── models/                 saved models (fine-tuned DistilBERT excluded)
 ├── notebooks/              eda.ipynb: EDA on D1, D2, D3 and the dating messages
 ├── results/                metrics, figures and mistakes per model
@@ -163,7 +163,7 @@ The app supports a person's own judgement and makes no decisions for them. A low
 
 ## AI use
 
-We used Claude (Anthropic) to write the package code, tests, prototype, the EDA notebook and this README, to run the training, and to draft version 0.1 of the dating test. Every team member needs to review and be able to explain this work. The report gives the full declaration.
+Section 10 of the report gives the full declaration.
 
 ## References
 
