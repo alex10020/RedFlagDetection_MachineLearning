@@ -8,19 +8,6 @@ IE University, AI: Machine Learning & Analytics, Group 7: Alexander Glapiak, Alp
 
 ![The app's Red flag or not? game after Reveal the truth](results/prototype_game.jpg)
 
-## Status
-
-| Part | State |
-|---|---|
-| Package structure and tests | Done, 57 tests |
-| EDA on D1, D2, D3 and the dating messages | Done (`notebooks/eda.ipynb`) |
-| TF-IDF baseline, CNN with GloVe, DistilBERT frozen and fine-tuned | Trained on both topics, plus all four gaslighting models trained again on D3 with everyday messages |
-| Error analysis | Done: mistakes exported per model (`results/<model>/dating_errors.csv`) and grouped by cause in the report |
-| Dating test | 120 messages (development set) and 80 team-written messages (final test), labels reviewed by the group |
-| Final test runs | Done once, 18 November, from commit `4add43c` |
-| Prototype | Gives a toxic and a gaslighting score from the CNN models, plus a "Red flag or not?" game with generated chats. Next step: a model switcher, with fine-tuned DistilBERT hosted as a GitHub release |
-| Report and slides | Submitted separately on Blackboard |
-
 ## Final results
 
 We scored all 12 models in the comparison once, on held-out test sets, from commit `4add43c` (see `results/final/run_info.json`). Each model kept the threshold it chose on validation data. Full numbers are in `results/final/metrics.csv`, and the paired comparisons in `results/final/paired_differences.csv`. Development-set and validation results stay in each `results/<model>/metrics.json`. The full-data TF-IDF baseline (`results/d1_baseline_all/`) was a validation experiment only and is not in the final run.
